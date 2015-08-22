@@ -42,9 +42,13 @@ public class EmployeePanel extends JPanel{
 	 */
 	private void init() {
 		new LovoTitleLabel("员 工 管 理",this);
+		//初始化表格
 		this.initTable();
+		//初始化按钮
 		this.initButton();
+		//查询按钮页
 		this.initFindPanel();
+		//初始化数据
 		this.initData();
 	}
 	/**
@@ -191,6 +195,7 @@ public class EmployeePanel extends JPanel{
 				new String[]{"name","sex","birthday","edu","phone","dept","position"},
 				//主键属性名 employeeId
 				"ID");
+		//调用一次数据库数据
 		updateEmployeeTable(1);
 		employeeTable.setSizeAndLocation(20, 90, 700, 300);
 		
@@ -245,13 +250,13 @@ public class EmployeePanel extends JPanel{
 	 *  value 条件值
 	 */
 	private void findEmployee(int pageNO){
-		//得到选项
+		//得到选项(条件)
 		String item = itemCombox.getItem();
-		//得到选项值
+		//得到选项值(模糊查询条件)
 		String value = valueTxt.getText();
-		
+		ArrayList<Object> checkEmps = new EmployeeServiceImp().getStaffByCon(item,value);
 		//更新表格,显示查询结果
-		employeeTable.updateLovoTable(null);
+		employeeTable.updateLovoTable(checkEmps);
 		//设置总页数
 		this.setTotalPage(pageNO);
 	}

@@ -37,7 +37,16 @@ public class EmployeeBean {
     private String dept;
     //工作职位
     private String position;
+    //头像
+    private String headFile;
 
+    public String getHeadFile() {
+        return headFile;
+    }
+
+    public void setHeadFile(String headFile) {
+        this.headFile = headFile;
+    }
 
     public int getID() {
         return ID;
@@ -171,7 +180,8 @@ public class EmployeeBean {
                         String address,
                         String polity,
                         String dept,
-                        String position) {
+                        String position,
+                        String headFile) {
         this.name = name;
         this.sex = sex;
         this.birthday = birthday;
@@ -182,5 +192,6 @@ public class EmployeeBean {
         this.polity = polity;
         this.dept = dept;
         this.position = position;
+        this.headFile = headFile;
     }
 }

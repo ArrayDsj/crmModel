@@ -133,6 +133,7 @@ public class EmployeeUpdateDialog extends JDialog{
 		phoneTxt.setText(theEmp.getPhone());
 		adressLabel.setText(theEmp.getAddress());
 		enterJobLabel.setText(theEmp.getHireDay().toString());
+		faceLabel.setImage(theEmp.getHeadFile());
 	}
 	
 	/**

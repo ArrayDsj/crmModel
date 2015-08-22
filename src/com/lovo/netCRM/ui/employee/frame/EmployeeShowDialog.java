@@ -94,6 +94,6 @@ public class EmployeeShowDialog extends JDialog{
 		polityFaceLabel.setText(theEmp.getPolity());
 		deptLabel.setText(theEmp.getDept());
 		workLabel.setText(theEmp.getPosition());
-
+		faceLabel.setImage(theEmp.getHeadFile());
 	}
 }

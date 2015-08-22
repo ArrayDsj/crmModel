@@ -44,6 +44,8 @@ public class EmployeeAddDialog extends JDialog{
 	/**工作职位*/
 	private LovoComboBox jobTxt;
 	/**头像*/
+	//LovoFileChooser(java.awt.Container con, java.lang.String dirPath)
+	//String path = fc.getFilePath() 得到图片相对路劲
 	private LovoFileChooser faceTxt = new LovoFileChooser(this,"face");
 	/**员工主面板*/
 	private EmployeePanel emPanel;
@@ -65,9 +67,9 @@ public class EmployeeAddDialog extends JDialog{
 	 */
 	private void init(){
 		this.initComboBox();
-		
+
 		faceTxt.setBounds(580, 70, 100, 150);
-		
+
 		LovoButton lbadd = new LovoButton("添加",150,310,this);
 		lbadd.addActionListener(new ActionListener(){
 
@@ -135,6 +137,12 @@ public class EmployeeAddDialog extends JDialog{
 			newEmp.setPolity(polityFaceTxt.getItem().toString());
 			newEmp.setDept(deptTxt.getItem().toString());
 			newEmp.setPosition(jobTxt.getItem().toString());
+
+			//设置图片
+			if(faceTxt.getFilePath() == null){
+				newEmp.setHeadFile("face/4.jpg");
+			}else
+				newEmp.setHeadFile(faceTxt.getFilePath());
 
 			//状态status  1位true 在职
 			newEmp.setStatus(true);

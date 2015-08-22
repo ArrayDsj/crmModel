@@ -73,8 +73,9 @@ public class EmployeeDaoImp implements CrmDao {
                 emp.setPolity(rs.getString(11));
                 emp.setHireDay(rs.getDate(12));
                 emp.setStatus(rs.getBoolean(13));
-                emp.setDept(rs.getString(17));
-                emp.setPosition(rs.getString(21));
+                emp.setHeadFile(rs.getString(16));
+                emp.setDept(rs.getString(18));
+                emp.setPosition(rs.getString(22));
                 //添加到集合中
                 //如果员工属于离职状态则不显示
                 if(emp.isStatus()){
@@ -157,8 +158,9 @@ public class EmployeeDaoImp implements CrmDao {
                 emp.setPolity(rs.getString(11));
                 emp.setHireDay(rs.getDate(12));
                 emp.setStatus(rs.getBoolean(13));
-                emp.setDept(rs.getString(17));
-                emp.setPosition(rs.getString(21));
+                emp.setHeadFile(rs.getString(16));
+                emp.setDept(rs.getString(18));
+                emp.setPosition(rs.getString(22));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -243,6 +245,7 @@ public class EmployeeDaoImp implements CrmDao {
         String staff_polity = newEmp.getPolity();
         String staff_address = newEmp.getAddress();
         boolean staff_status = newEmp.isStatus();
+        String staff_headFile = newEmp.getHeadFile();
         int deptID = String2Int.string2Int(newEmp, newEmp.getDept());
         int posID = String2Int.string2Int(newEmp,newEmp.getPosition());
 
@@ -259,27 +262,26 @@ public class EmployeeDaoImp implements CrmDao {
                     "staff_hireday,\n" + //入职时间
                     "staff_status,\n" + //状态
                     "staff_department_id,\n" + //部门
-                    "staff_position_id) values(\n" + //职位
+                    "staff_position_id,staff_headFile) values(\n" + //职位
                     "?,?,\n" +
                     "?,?,?,\n" +
                     "?,?,?,\n" +
-                    "?,?,?,?);";
+                    "?,?,?,?,?);";
         try {
             PreparedStatement ps = con.prepareStatement(addSQL);
             ps.setString(1, staff_name);
             ps.setString(2, staff_sex);
-           // ps.setDate(3, (java.sql.Date) staff_birthday);
             ps.setDate(3, new java.sql.Date(staff_birthday.getTime()));
             ps.setString(4, staff_edu);
             ps.setString(5, staff_speciality);
             ps.setString(6,staff_phone);
             ps.setString(7,staff_address);
             ps.setString(8, staff_polity);
-            //ps.setDate(9, staff_hireday);
             ps.setDate(9, new java.sql.Date(staff_hireday.getTime()));
             ps.setBoolean(10, staff_status);//状态
             ps.setInt(11, deptID);
-            ps.setInt(12,posID);
+            ps.setInt(12, posID);
+            ps.setString(13, staff_headFile);
 
             result = ps.executeUpdate();
         } catch (SQLException e) {
@@ -298,5 +300,99 @@ public class EmployeeDaoImp implements CrmDao {
             return true;
         }else
             return false;
+    }
+
+    @Override
+    public ArrayList<Object> getObjectByCon(String item, String value) {
+        ArrayList<Object> empListByCon = new ArrayList<Object>();
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String conSQL = null;
+        //根据item来确认SQL语句
+        switch(item){
+            case "所有员工" :
+                conSQL ="select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join position p\n" +
+                        "on s.staff_position_id = p.position_id;";
+                break;
+            case "员工姓名" :
+                conSQL ="select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        "where s.staff_name like '%" + value + "%';";
+                break;
+            case "所属部门" :
+                conSQL =  "select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        "where d.depart_name like '%" + value + "%';";
+                break;
+            case "文化程度" :
+                conSQL =  "select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        "where s.staff_edu like '%" + value + "%';";
+                break;
+            case "工作职位" :
+                conSQL =  "select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        "where p.position_name like '%" + value + "%';";
+                break;
+        }
+
+
+        try {
+            Statement st  = con.createStatement();
+            ResultSet rs = st.executeQuery(conSQL);
+            while(rs.next()){
+                //组合员工信息
+                EmployeeBean emp = new EmployeeBean();
+                emp.setID(rs.getInt(1));
+                emp.setName(rs.getString(4));
+                emp.setSex(rs.getString(5));
+                emp.setBirthday(rs.getDate(6));
+                emp.setEdu(rs.getString(7));
+                emp.setSpeciality(rs.getString(8));
+                emp.setPhone(rs.getString(9));
+                emp.setAddress(rs.getString(10));
+                emp.setPolity(rs.getString(11));
+                emp.setHireDay(rs.getDate(12));
+                emp.setStatus(rs.getBoolean(13));
+                emp.setDept(rs.getString(18));
+                emp.setPosition(rs.getString(22));
+                //添加到集合中
+                //如果员工属于离职状态则不显示
+                if(emp.isStatus()){
+                    empListByCon.add(emp);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(empListByCon.size() != 0){
+            return empListByCon;
+        }else {
+            JOptionPane.showMessageDialog(null,"无查询结果");
+            return null;
+        }
     }
 }

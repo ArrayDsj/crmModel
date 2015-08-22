@@ -47,4 +47,10 @@ public class EmployeeServiceImp implements EmployeeService{
         CrmDao emp = new EmployeeDaoImp();
         return emp.addObject(newEmp);
     }
+
+    @Override
+    public ArrayList<Object> getStaffByCon(String item, String value) {
+        CrmDao emp = new EmployeeDaoImp();
+        return emp.getObjectByCon(item,value);
+    }
 }

@@ -25,4 +25,7 @@ public interface CrmDao {
 
     //添加
     public boolean addObject(Object object);
+
+    //按条件查找
+    public ArrayList<Object> getObjectByCon(String item,String value);
 }

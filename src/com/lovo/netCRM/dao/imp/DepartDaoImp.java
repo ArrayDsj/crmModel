@@ -69,4 +69,9 @@ public class DepartDaoImp implements CrmDao{
     public boolean addObject(Object object) {
         return false;
     }
+
+    @Override
+    public ArrayList<Object> getObjectByCon(String item, String value) {
+        return null;
+    }
 }

@@ -25,4 +25,7 @@ public interface EmployeeService {
 
     //添加新员工
     public boolean addStaff(EmployeeBean newEmp);
+
+    //按条件查找
+    public ArrayList<Object> getStaffByCon(String item,String value);
 }
