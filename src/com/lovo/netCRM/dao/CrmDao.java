@@ -21,5 +21,8 @@ public interface CrmDao {
     public Object getObjectByID(int ObjectID);
 
     //根据ID修改数据
-    public boolean alterObject(EmployeeBean alterEmp);
+    public boolean alterObject(Object alterObj);
+
+    //添加
+    public boolean addObject(Object object);
 }

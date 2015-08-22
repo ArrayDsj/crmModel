@@ -62,7 +62,12 @@ public class PositionDaoImp implements CrmDao {
     }
 
     @Override
-    public boolean alterObject(EmployeeBean alterEmp) {
+    public boolean alterObject(Object alterObj) {
+        return false;
+    }
+
+    @Override
+    public boolean addObject(Object object) {
         return false;
     }
 }

@@ -22,4 +22,7 @@ public interface EmployeeService {
 
     //修改员工数据
     public boolean alterStaff(EmployeeBean alterEmp);
+
+    //添加新员工
+    public boolean addStaff(EmployeeBean newEmp);
 }

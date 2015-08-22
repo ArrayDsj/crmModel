@@ -1,13 +1,16 @@
 package com.lovo.netCRM.ui.employee.frame;
 
+import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.service.imp.DepartServiceImp;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 import com.lovo.netCRM.service.imp.PositionServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * 
@@ -102,22 +105,44 @@ public class EmployeeAddDialog extends JDialog{
 	 *
 	 */
 	private boolean addEmployee(){
+		EmployeeBean newEmp = new EmployeeBean();
 		String str = "";
 		//验证数据
-//		if(!this.nameTxt.getText().matches("[a-zA-Z\\u4e00-\\u9fa5]{2,20}")){
-//			str += "用户名必须为二位以上字母或汉字\n";
-//		}
-		
-		//……
-		
+		if(!this.nameTxt.getText().matches("[a-zA-Z\\u4e00-\\u9fa5]{2,20}")){
+			str += "用户名必须为二位以上字母或汉字\n";
+		}
+		if(!this.phoneTxt.getText().matches("^[1][0-9]{10}$")){
+			str += "电话号码格式不正确\n";
+		}
+		if(!specialityTxt.getText().matches("[\\u4e00-\\u9fa5]{2,20}")){
+			str += "专业格式正确\n";
+		}
+		if(!addressTxt.getText().matches("[a-zA-Z0-9\\u4e00-\\u9fa5]{2,20}")){
+			str += "地址格式不正确\n";
+		}
+
 		if(str.length() != 0){
 			JOptionPane.showMessageDialog(null, str);
 			return false;
+		}else{
+			newEmp.setName(nameTxt.getText());
+			newEmp.setSex(sexTxt.getItem().toString());
+			newEmp.setBirthday(birthdayTxt.getDate());
+			newEmp.setPhone(phoneTxt.getText());
+			newEmp.setSpeciality(specialityTxt.getText());
+			newEmp.setEdu(eduTxt.getItem().toString());
+			newEmp.setAddress(addressTxt.getText());
+			newEmp.setPolity(polityFaceTxt.getItem().toString());
+			newEmp.setDept(deptTxt.getItem().toString());
+			newEmp.setPosition(jobTxt.getItem().toString());
+
+			//状态status  1位true 在职
+			newEmp.setStatus(true);
+			//以当前时间作为入职时间
+			newEmp.setHireDay(new Date());
 		}
-		
-		//封装实体
-		
 		//完成添加操作
+		new EmployeeServiceImp().addStaff(newEmp);
 		
 //		更新数据,显示添加结果
 		this.emPanel.initData();

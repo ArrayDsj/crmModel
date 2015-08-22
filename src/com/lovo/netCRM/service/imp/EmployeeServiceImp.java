@@ -41,4 +41,10 @@ public class EmployeeServiceImp implements EmployeeService{
         CrmDao emp = new EmployeeDaoImp();
         return emp.alterObject(alterEmp);
     }
+
+    @Override
+    public boolean addStaff(EmployeeBean newEmp) {
+        CrmDao emp = new EmployeeDaoImp();
+        return emp.addObject(newEmp);
+    }
 }
