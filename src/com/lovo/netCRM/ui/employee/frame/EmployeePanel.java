@@ -122,11 +122,10 @@ public class EmployeePanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = employeeTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
-				
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				new EmployeeUpdateDialog(jf,key,EmployeePanel.this);
 			}});
 		
@@ -236,8 +235,10 @@ public class EmployeePanel extends JPanel{
 		
 		//更新表格,显示删除结果
 		//调用数据库操作,删除选中的用户(只是更改status状态,原来为0,改为1)
-		boolean dele = new EmployeeServiceImp().deleteStaff(employeeId);
-		this.updateEmployeeTable(1);
+		if((JOptionPane.showConfirmDialog(null,"是否删除选中员工信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
+			boolean dele = new EmployeeServiceImp().deleteStaff(employeeId);
+			this.updateEmployeeTable(1);
+		}
 	}
 	/**
 	 * 查找员工

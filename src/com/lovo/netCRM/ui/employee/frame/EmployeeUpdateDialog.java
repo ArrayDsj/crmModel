@@ -1,18 +1,11 @@
 package com.lovo.netCRM.ui.employee.frame;
 
+import com.lovo.netCRM.component.*;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoImageLabel;
-import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTxt;
 /**
  * 
  * 四川网脉CRM系统
@@ -103,8 +96,12 @@ public class EmployeeUpdateDialog extends JDialog{
 	 */
 	private void initComboBox(){
 		//添加部门List集合
+		//从数据库中找出所有部门名称
+
 		this.deptTxt = new LovoComboBox("所在部门",new ArrayList(),40,250,this);
 		//添加职位List集合
+		//从数据库中找出所有职位名称
+
 		this.workTxt = new LovoComboBox("工作职位",new ArrayList(),320,250,this);
 	
 	}
