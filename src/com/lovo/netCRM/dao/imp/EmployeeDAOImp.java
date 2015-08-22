@@ -1,7 +1,7 @@
 package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.EmployeeBean;
-import com.lovo.netCRM.dao.EmployeeDAO;
+import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by CodeA on 2015/8/21.
  */
-public class EmployeeDAOImp implements EmployeeDAO{
+public class EmployeeDaoImp implements CrmDao {
     @Override
     public EmployeeBean login(String loginName, String passWord) {
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -45,8 +45,8 @@ public class EmployeeDAOImp implements EmployeeDAO{
     }
 
     @Override
-    public ArrayList<EmployeeBean> getAllStaffs() {
-        ArrayList<EmployeeBean> empList = new ArrayList<EmployeeBean>();
+    public ArrayList<Object> getAllObjects() {
+        ArrayList<Object> empList = new ArrayList<Object>();
         Connection con = ConnectionSQL.createConnectionSQL();
         //查找当前用户信息
         String allEmp = "select * from staff s\n" +
@@ -99,12 +99,12 @@ public class EmployeeDAOImp implements EmployeeDAO{
     }
 
     @Override
-    public boolean deleteStaff(int EmployeeID) {
+    public boolean deleteObject(int ObjectID) {
         //根据员工ID删除员工
         //不是物理删除,只是把stauts设置为1
         Connection con = ConnectionSQL.createConnectionSQL();
         //修改用户状态信息
-        String deletEmpSQL = "update staff set staff_status = 1  where staff_id = " + EmployeeID;
+        String deletEmpSQL = "update staff set staff_status = 1  where staff_id = " + ObjectID;
         int result = 0;
         try {
             Statement st = con.createStatement();
