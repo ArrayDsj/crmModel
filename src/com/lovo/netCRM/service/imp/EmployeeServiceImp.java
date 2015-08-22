@@ -5,6 +5,8 @@ import com.lovo.netCRM.dao.EmployeeDAO;
 import com.lovo.netCRM.dao.imp.EmployeeDAOImp;
 import com.lovo.netCRM.service.EmployeeService;
 
+import java.util.ArrayList;
+
 /**
  * Created by CodeA on 2015/8/21.
  */
@@ -13,5 +15,11 @@ public class EmployeeServiceImp implements EmployeeService{
     public EmployeeBean login(String loginName, String passWord) {
         EmployeeDAO emp = new EmployeeDAOImp();
         return emp.login(loginName,passWord);
+    }
+
+    @Override
+    public ArrayList<EmployeeBean> getAllStaffs() {
+        EmployeeDAO emp = new EmployeeDAOImp();
+        return emp.getAllStaffs();
     }
 }

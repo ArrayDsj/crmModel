@@ -1,10 +1,14 @@
 package com.lovo.netCRM.ui.employee.frame;
 
+import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 /**
  * 
  * 四川网脉CRM系统
@@ -190,6 +194,7 @@ public class EmployeePanel extends JPanel{
 				new String[]{"name","sex","birthday","edu","phone","dept","position"},
 				//主键属性名 employeeId
 				"ID");
+		updateEmployeeTable(1);
 		employeeTable.setSizeAndLocation(20, 90, 700, 300);
 		
 	}
@@ -198,7 +203,10 @@ public class EmployeePanel extends JPanel{
 	 */
 	private void updateEmployeeTable(int pageNO){
 		//更新表格,插入所有员工List集合
-		employeeTable.updateLovoTable(null);
+		//从数据库中取出数据
+		ArrayList<EmployeeBean> allEmps = new EmployeeServiceImp().getAllStaffs();
+
+		employeeTable.updateLovoTable(allEmps);
 		//设置总页数
 		this.setTotalPage(0);
 	}
