@@ -12,7 +12,7 @@ public interface EmployeeService {
     public EmployeeBean login(String loginName, String passWord);
 
     //取得所有员工信息
-    public ArrayList<EmployeeBean> getAllStaffs();
+    public ArrayList<Object> getAllStaffs();
 
     //删除员工信息
     public boolean deleteStaff(int EmployeeID);

@@ -1,6 +1,5 @@
 package com.lovo.netCRM.ui.employee.frame;
 
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 
@@ -202,7 +201,7 @@ public class EmployeePanel extends JPanel{
 	private void updateEmployeeTable(int pageNO){
 		//更新表格,插入所有员工List集合
 		//从数据库中取出数据
-		ArrayList<EmployeeBean> allEmps = new EmployeeServiceImp().getAllStaffs();
+		ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
 		employeeTable.updateLovoTable(allEmps);
 		//设置总页数
 		this.setTotalPage(2);

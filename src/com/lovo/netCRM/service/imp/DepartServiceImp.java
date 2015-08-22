@@ -1,6 +1,5 @@
 package com.lovo.netCRM.service.imp;
 
-import com.lovo.netCRM.bean.DepartBean;
 import com.lovo.netCRM.service.DepartService;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
  */
 public class DepartServiceImp implements DepartService{
     @Override
-    public ArrayList<DepartBean> getAllDepts() {
+    public ArrayList<Object> getAllDepts() {
 
         return null;
     }
