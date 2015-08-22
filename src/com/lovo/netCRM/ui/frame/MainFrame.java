@@ -75,7 +75,7 @@ public class MainFrame extends JFrame{
 		this.add(mainPanel);
 		
 		//给卡布局的容器添加面板，每加上一个面板，由第二个参数给面板取名
-		mainPanel.add(new InitPanel(),"init");
+		mainPanel.add(new InitPanel(),"init");//给主面板添加一张图片
 		mainPanel.add(emPanel,"employee");
 		mainPanel.add(deptPanel,"dept");
 		mainPanel.add(workPanel,"work");
@@ -102,17 +102,19 @@ public class MainFrame extends JFrame{
 		LovoTreeNode userNode = new LovoTreeNode("用户管理");
 		LovoTreeNode countNode = new LovoTreeNode("统计信息");
 		
-		//叶节点
+		//叶节点 员工管理
 		LovoTreeNode employeeNode = new LovoTreeNode("员工管理"){
 			
 			public void addListener(){
+				//EmployeePanel面板,在MainFrame被创建的时候,所有面板均被创建
+				//然后调用初始化数据的方法
 				emPanel.initData();
 				//切换到"employee"标签指定的面板
 				card.show(mainPanel, "employee");
 			}
 		};
 		
-		
+		//部门管理
 		LovoTreeNode deptNode = new LovoTreeNode("部门管理"){
 			
 			public void addListener(){
@@ -120,7 +122,8 @@ public class MainFrame extends JFrame{
 				card.show(mainPanel, "dept");
 			}
 		};
-		
+
+		//职位管理
 		LovoTreeNode workNode = new LovoTreeNode("职位管理"){
 			
 			public void addListener(){
@@ -128,7 +131,8 @@ public class MainFrame extends JFrame{
 				card.show(mainPanel, "work");
 			}
 		};
-		
+
+
 		LovoTreeNode activeNode = new LovoTreeNode("学校活动"){
 			public void addListener(){
 				//schoolActivePanel.initData();
@@ -174,16 +178,20 @@ public class MainFrame extends JFrame{
 		};
 		
 		//将叶节点加入枝节点
+		//资料管理
 		sorceNode.add(employeeNode);
 		sorceNode.add(deptNode);
 		sorceNode.add(workNode);
-		
+
+		//学校管理
 		schoolNode.add(activeNode);
 		schoolNode.add(smNode);
-		
+
+		//用户管理
 		userNode.add(studentNode);
 		userNode.add(classNode);
-		
+
+		//统计信息
 		countNode.add(areaNode);
 		countNode.add(scNode);
 		
@@ -204,7 +212,7 @@ public class MainFrame extends JFrame{
 		//创建树形菜单
 		this.tree = new LovoTree(rootNode);
 		//设置树形菜单的字体
-		this.tree.setFont(new Font("华文行楷",Font.BOLD,25));
+		this.tree.setFont(new Font("微软雅黑",Font.BOLD,25));
 		
 		//将树形菜单加入窗体
 		this.add(this.tree,BorderLayout.WEST);

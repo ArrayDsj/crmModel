@@ -1,18 +1,10 @@
 package com.lovo.netCRM.ui.employee.frame;
 
+import com.lovo.netCRM.component.*;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTitleLabel;
-import com.lovo.netCRM.component.LovoTitlePanel;
 /**
  * 
  * 四川网脉CRM系统
@@ -168,12 +160,13 @@ public class EmployeePanel extends JPanel{
 		LovoButton lb = new LovoButton("查找",180,100,jp);
 		lb.setSize(60, 20);
 		
-		lb.addActionListener(new ActionListener(){
+		lb.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				findEmployee(1);
-				
-			}});
+
+			}
+		});
 		
 	}
 	/**
@@ -181,7 +174,7 @@ public class EmployeePanel extends JPanel{
 	 * @param countPage 总页数
 	 */
 	private void setTotalPage(int countPage) {
-		this.jltTotalPage.setText("/"+countPage+"  页");
+		this.jltTotalPage.setText("/" + countPage + "  页");
 	}
 	
 	
@@ -193,8 +186,10 @@ public class EmployeePanel extends JPanel{
 	private void initTable() {
 		employeeTable = new LovoTable(this,
 				new String[]{"姓名","性别","出生日期","文化程度","联系方式","所在部门", "工作职位"},
-				new String[]{},//员工实体属性名数组 new String[]{"employeeName","sex"}
-				"");//主键属性名 employeeId
+				//员工实体属性名数组 new String[]{"employeeName","sex"}
+				new String[]{"name","sex","birthday","edu","phone","dept","position"},
+				//主键属性名 employeeId
+				"ID");
 		employeeTable.setSizeAndLocation(20, 90, 700, 300);
 		
 	}
@@ -229,7 +224,7 @@ public class EmployeePanel extends JPanel{
 	
 	/**
 	 * 删除员工
-	 * @param id 员工ID
+	 * @param employeeId 员工ID
 	 */
 	private void delEmployee(int employeeId){
 		
@@ -238,8 +233,8 @@ public class EmployeePanel extends JPanel{
 	}
 	/**
 	 * 查找员工
-	 * @param item 条件选项
-	 * @param value 条件值
+	 *  item 条件选项
+	 *  value 条件值
 	 */
 	private void findEmployee(int pageNO){
 		//得到选项
