@@ -1,6 +1,7 @@
 package com.lovo.test;
 
-import com.lovo.netCRM.ui.frame.LoginFrame;
+import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.ui.frame.MainFrame;
 
 
 public class Test{
@@ -11,7 +12,8 @@ public class Test{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new LoginFrame();
+		//new LoginFrame();
+		new MainFrame(new EmployeeBean());
 	}
 
 }

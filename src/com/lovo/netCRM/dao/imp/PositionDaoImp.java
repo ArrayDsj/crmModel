@@ -55,4 +55,14 @@ public class PositionDaoImp implements CrmDao {
     public boolean deleteObject(int ObjectID) {
         return false;
     }
+
+    @Override
+    public Object getObjectByID(int ObjectID) {
+        return null;
+    }
+
+    @Override
+    public boolean alterObject(EmployeeBean alterEmp) {
+        return false;
+    }
 }

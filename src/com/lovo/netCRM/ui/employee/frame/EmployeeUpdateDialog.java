@@ -1,7 +1,9 @@
 package com.lovo.netCRM.ui.employee.frame;
 
+import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.service.imp.DepartServiceImp;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 import com.lovo.netCRM.service.imp.PositionServiceImp;
 
 import javax.swing.*;
@@ -77,8 +79,10 @@ public class EmployeeUpdateDialog extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				boolean isOk = updateEmployee(employeeId);
 				if(isOk){
+					//销毁UpdateDialog窗口
 					EmployeeUpdateDialog.this.dispose();
-				}
+				}else
+					JOptionPane.showMessageDialog(null,"修改失败");
 			}});
 		
 		LovoButton lbcancel = new LovoButton("取消",400,350,this);
@@ -101,10 +105,16 @@ public class EmployeeUpdateDialog extends JDialog{
 		//从数据库中找出所有部门名称
 		ArrayList<Object> departNames = new DepartServiceImp().getAllDepts();
 		this.deptTxt = new LovoComboBox("所在部门",departNames,40,250,this);
+		//默认选择员工所在的部门
+
+
 		//添加职位List集合
 		//从数据库中找出所有职位名称
 		ArrayList<Object> positionNames = new PositionServiceImp().getAllPositions();
 		this.workTxt = new LovoComboBox("工作职位",positionNames,320,250,this);
+		//默认选择员工所处的职业
+
+
 	
 	}
 	
@@ -113,20 +123,44 @@ public class EmployeeUpdateDialog extends JDialog{
 	 * @param employeeId　员工ID
 	 */
 	private void initEmployeeData(int employeeId){
-		
+		//当点击修改员工信息的时候,将选中的员工信息显示到UpdateDialog面板上
+		EmployeeBean theEmp = new EmployeeServiceImp().getStaffByID(employeeId);
+		nameLabel.setText(theEmp.getName());
+		sexLabel.setText(theEmp.getSex());
+		birthdayLabel.setText(theEmp.getBirthday().toString());
+		eduLabel.setText(theEmp.getEdu());
+		specialityLabel.setText(theEmp.getSpeciality());
+		phoneTxt.setText(theEmp.getPhone());
+		adressLabel.setText(theEmp.getAddress());
+		enterJobLabel.setText(theEmp.getHireDay().toString());
 	}
 	
 	/**
 	 * 修改员工信息
 	 * @param employeeId 员工ID
 	 */
-	private boolean updateEmployee(int employeeId){
+	private boolean updateEmployee(int employeeId) {
 		//验证数据，数据验证失败返回false
-		
-		
-		//更新数据，显示修改结果
-		this.emPanel.initData();
-		
-		return true;
+		//使用正则表达式验证电话号码是否正确
+		String phone = phoneTxt.getText();
+		if (phone.matches("^[1][0-9]{10}$")) {
+			//读取面板上的数据,写入到数据库中
+			//1.根据ID查找用户
+			EmployeeBean willUpdateEmp = new EmployeeServiceImp().getStaffByID(employeeId);
+			//修改手机号
+			willUpdateEmp.setPhone(phone);
+			System.out.println("选中:" + deptTxt.getItem().toString());
+			//修改部门
+			willUpdateEmp.setDept(deptTxt.getItem().toString());
+			//修改职位
+			System.out.println("选中:"+workTxt.getItem().toString());
+			willUpdateEmp.setPosition(workTxt.getItem().toString());
+			//修改数据库
+			new EmployeeServiceImp().alterStaff(willUpdateEmp);
+			//更新数据，显示修改结果
+			this.emPanel.initData();
+			return true;
+		}else
+			return false;
 	}
 }

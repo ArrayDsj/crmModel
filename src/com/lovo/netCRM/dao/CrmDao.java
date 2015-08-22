@@ -16,4 +16,10 @@ public interface CrmDao {
 
     //删除员工信息
     public boolean deleteObject(int ObjectID);
+
+    //按ID查找信息
+    public Object getObjectByID(int ObjectID);
+
+    //根据ID修改数据
+    public boolean alterObject(EmployeeBean alterEmp);
 }

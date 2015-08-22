@@ -16,4 +16,10 @@ public interface EmployeeService {
 
     //删除员工信息
     public boolean deleteStaff(int EmployeeID);
+
+    //按ID查找用户信息
+    public EmployeeBean getStaffByID(int EmployeeID);
+
+    //修改员工数据
+    public boolean alterStaff(EmployeeBean alterEmp);
 }

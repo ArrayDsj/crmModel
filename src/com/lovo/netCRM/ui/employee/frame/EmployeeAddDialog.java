@@ -1,20 +1,14 @@
 package com.lovo.netCRM.ui.employee.frame;
 
+import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.service.imp.DepartServiceImp;
+import com.lovo.netCRM.service.imp.PositionServiceImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoDate;
-import com.lovo.netCRM.component.LovoFileChooser;
-import com.lovo.netCRM.component.LovoRadioButton;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTxt;
 /**
  * 
  * 四川网脉CRM系统
@@ -96,9 +90,11 @@ public class EmployeeAddDialog extends JDialog{
 	 */
 	private void initComboBox(){
 		//添加部门List集合
-		this.deptTxt = new LovoComboBox("所属部门",new ArrayList(),40,250,this);
+		ArrayList<Object> departNames = new DepartServiceImp().getAllDepts();
+		this.deptTxt = new LovoComboBox("所属部门",departNames,40,250,this);
 		//添加职位List集合
-		this.jobTxt = new LovoComboBox("工作职位",new ArrayList(),320,250,this);
+		ArrayList<Object> positionNames = new PositionServiceImp().getAllPositions();
+		this.jobTxt = new LovoComboBox("工作职位",positionNames,320,250,this);
 	
 	}
 	/**

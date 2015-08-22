@@ -28,4 +28,17 @@ public class EmployeeServiceImp implements EmployeeService{
         CrmDao emp = new EmployeeDaoImp();
         return emp.deleteObject(EmployeeID);
     }
+
+    @Override
+    public EmployeeBean getStaffByID(int EmployeeID) {
+        CrmDao emp = new EmployeeDaoImp();
+        EmployeeBean thisEmp = (EmployeeBean)emp.getObjectByID(EmployeeID);
+        return thisEmp;
+    }
+
+    @Override
+    public boolean alterStaff(EmployeeBean alterEmp) {
+        CrmDao emp = new EmployeeDaoImp();
+        return emp.alterObject(alterEmp);
+    }
 }
