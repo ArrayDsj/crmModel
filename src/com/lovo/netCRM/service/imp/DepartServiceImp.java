@@ -1,5 +1,7 @@
 package com.lovo.netCRM.service.imp;
 
+import com.lovo.netCRM.dao.CrmDao;
+import com.lovo.netCRM.dao.imp.DepartDaoImp;
 import com.lovo.netCRM.service.DepartService;
 
 import java.util.ArrayList;
@@ -10,8 +12,8 @@ import java.util.ArrayList;
 public class DepartServiceImp implements DepartService{
     @Override
     public ArrayList<Object> getAllDepts() {
-
-        return null;
+        CrmDao departs = new DepartDaoImp();
+        return departs.getAllObjects();
     }
 
     @Override
