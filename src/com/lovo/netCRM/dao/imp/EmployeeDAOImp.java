@@ -133,7 +133,12 @@ public class EmployeeDaoImp implements CrmDao {
     public Object getObjectByID(int ObjectID) {
         Connection con = ConnectionSQL.createConnectionSQL();
         //按ID查找指定用户
-        String getObjectByIDSQL = "select * from staff where staff_id = " + ObjectID;
+        String getObjectByIDSQL = "select * from staff s\n" +
+                "join depart d \n" +
+                "on s.staff_department_id = d.depart_id\n" +
+                "join position p\n" +
+                "on s.staff_position_id = p.position_id\n" +
+                "where staff_id =" + ObjectID;
         EmployeeBean emp = null;
         try {
             Statement st = con.createStatement();
@@ -152,6 +157,8 @@ public class EmployeeDaoImp implements CrmDao {
                 emp.setPolity(rs.getString(11));
                 emp.setHireDay(rs.getDate(12));
                 emp.setStatus(rs.getBoolean(13));
+                emp.setDept(rs.getString(17));
+                emp.setPosition(rs.getString(21));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,22 +188,25 @@ public class EmployeeDaoImp implements CrmDao {
         //根据员工Bean中的信息,找出部门和职位所代表的数字
         String dept = alterEmp.getDept();
         String pos = alterEmp.getPosition();
+        String polity = alterEmp.getPolity();
         int deptID = String2Int.string2Int(alterEmp, dept);
         System.out.println(deptID);
         int posID = String2Int.string2Int(alterEmp,pos);
         System.out.println(posID);
-        String aa = "update staff set \n" +
+        String alterSQL = "update staff set \n" +
+                    "staff_polity = ?,\n"+
                     "staff_phone = ?,\n" +
                     "staff_department_id = ?,\n" +
                     "staff_position_id = ?\n" +
                     "where staff_id = ?;";
         int result = -1;
         try {
-            PreparedStatement ps = con.prepareStatement(aa);
-            ps.setString(1, alterEmp.getPhone());
-            ps.setInt(2,deptID);
-            ps.setInt(3, posID);
-            ps.setInt(4, id);
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setString(1,polity);
+            ps.setString(2, alterEmp.getPhone());
+            ps.setInt(3,deptID);
+            ps.setInt(4, posID);
+            ps.setInt(5, id);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -264,7 +274,7 @@ public class EmployeeDaoImp implements CrmDao {
             ps.setString(5, staff_speciality);
             ps.setString(6,staff_phone);
             ps.setString(7,staff_address);
-            ps.setString(8,staff_polity);
+            ps.setString(8, staff_polity);
             //ps.setDate(9, staff_hireday);
             ps.setDate(9, new java.sql.Date(staff_hireday.getTime()));
             ps.setBoolean(10, staff_status);//状态

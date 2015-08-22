@@ -149,12 +149,14 @@ public class EmployeeUpdateDialog extends JDialog{
 			EmployeeBean willUpdateEmp = new EmployeeServiceImp().getStaffByID(employeeId);
 			//修改手机号
 			willUpdateEmp.setPhone(phone);
-			System.out.println("选中:" + deptTxt.getItem().toString());
+			//System.out.println("选中:" + deptTxt.getItem().toString());
 			//修改部门
 			willUpdateEmp.setDept(deptTxt.getItem().toString());
 			//修改职位
-			System.out.println("选中:"+workTxt.getItem().toString());
+			//System.out.println("选中:"+workTxt.getItem().toString());
 			willUpdateEmp.setPosition(workTxt.getItem().toString());
+			//修改政治面貌
+			willUpdateEmp.setPolity(polityFaceTxt.getItem().toString());
 			//修改数据库
 			new EmployeeServiceImp().alterStaff(willUpdateEmp);
 			//更新数据，显示修改结果

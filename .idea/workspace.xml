@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93b4ad0b-a076-44b6-a6bd-55e3653d8a3f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/CrmDao.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/CrmDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/DepartDaoImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/DepartDaoImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeAddDialog.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeAddDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/service/EmployeeService.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/service/EmployeeService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/EmployeeServiceImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/EmployeeServiceImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/PositionDaoImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/PositionDaoImp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeShowDialog.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeShowDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeUpdateDialog.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeUpdateDialog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MOVED" beforePath="D:\Workspace_IDEA\crmModel\src\com\lovo\netCRM\dao\imp\EmployeeDAOImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/EmployeeDaoImp.java" />
     </list>
@@ -70,14 +66,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EmployeeAddDialog.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeAddDialog.java">
+      <file leaf-file-name="String2Int.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/util/String2Int.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48908296">
-              <caret line="117" column="30" selection-start-line="117" selection-start-column="30" selection-end-line="117" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.05676856">
+              <caret line="53" column="42" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#917#925#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,7 +119,6 @@
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/DepartServiceImp.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/service/PositionService.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/PositionServiceImp.java" />
-        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeUpdateDialog.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/test/Test.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/util/String2Int.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/afc64221-8e3d-47a3-8ac7-92ca8460441f/console.sql" />
@@ -134,6 +128,9 @@
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/DepartDaoImp.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/EmployeeServiceImp.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeAddDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeUpdateDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeShowDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/util/Int2String.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/EmployeeDaoImp.java" />
       </list>
     </option>
@@ -701,7 +698,7 @@
       <workItem from="1440159185947" duration="9741000" />
       <workItem from="1440168964776" duration="963000" />
       <workItem from="1440211120640" duration="37049000" />
-      <workItem from="1440266069013" duration="6850000" />
+      <workItem from="1440266069013" duration="8726000" />
     </task>
     <task id="LOCAL-00001" summary="修改用户管理卡片">
       <created>1440214795207</created>
@@ -737,7 +734,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54603000" />
+    <option name="totallyTimeSpent" value="56479000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -750,7 +747,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -762,7 +759,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20745543" sideWeight="0.4969651" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2723824" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2723824" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2602428" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17754173" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -847,12 +844,16 @@
           <caret line="183" column="34" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="update staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="update staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="update staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="update staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -863,8 +864,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1440263416526" expanded="true" signature="-1:-1" placeholder="select depar..depart..." />
-            <marker date="1440263416526" expanded="true" signature="-1:-1" placeholder="select posit..position..." />
           </folding>
         </state>
       </provider>
@@ -875,12 +874,16 @@
           <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="update staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="update staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="update staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="update staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
@@ -1127,7 +1130,7 @@
         <state vertical-scroll-proportion="0.43003413">
           <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1204,30 +1207,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/EmployeeServiceImp.java">
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeAddDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6899563">
-          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.7235495">
+          <caret line="139" column="35" selection-start-line="139" selection-start-column="35" selection-end-line="139" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#917#925#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeUpdateDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="137" column="7" selection-start-line="137" selection-start-column="7" selection-end-line="137" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/util/String2Int.java">
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/EmployeeServiceImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4323144">
-          <caret line="53" column="42" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1440263416526" expanded="true" signature="-1:-1" placeholder="select depar..depart..." />
-            <marker date="1440263416526" expanded="true" signature="-1:-1" placeholder="select posit..position..." />
-          </folding>
+        <state vertical-scroll-proportion="0.41048035">
+          <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/CrmDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8471616">
-          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.44978166">
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1236,35 +1246,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/EmployeeDaoImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8668122">
-          <caret line="81" column="17" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="158" column="49" selection-start-line="158" selection-start-column="49" selection-end-line="158" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="update staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="update staff..." />
-            <marker date="1440272775715" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="update staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="select * fro..staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="update staff..." />
+            <marker date="1440274696581" expanded="true" signature="-1:-1" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeUpdateDialog.java">
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeShowDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9650655">
-          <caret line="158" column="43" selection-start-line="158" selection-start-column="43" selection-end-line="158" selection-end-column="43" />
-          <folding />
+        <state vertical-scroll-proportion="0.8471616">
+          <caret line="94" column="44" selection-start-line="94" selection-start-column="44" selection-end-line="94" selection-end-column="44" />
+          <folding>
+            <element signature="e#2040#2041#0" expanded="true" />
+            <element signature="e#2084#2085#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeeAddDialog.java">
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/util/String2Int.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48908296">
-          <caret line="117" column="30" selection-start-line="117" selection-start-column="30" selection-end-line="117" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.05676856">
+          <caret line="53" column="42" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#917#925#0" expanded="true" />
           </folding>
         </state>
       </provider>

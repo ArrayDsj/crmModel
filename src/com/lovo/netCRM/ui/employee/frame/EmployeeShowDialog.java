@@ -1,15 +1,14 @@
 package com.lovo.netCRM.ui.employee.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoImageLabel;
 import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * 
@@ -83,6 +82,18 @@ public class EmployeeShowDialog extends JDialog{
 	 * @param employeeId Ô±¹¤ID
 	 */
 	private void initEmployeeData(int employeeId){
-		
+		EmployeeBean theEmp = new EmployeeServiceImp().getStaffByID(employeeId);
+		nameLabel.setText(theEmp.getName());
+		sexLabel.setText(theEmp.getSex());
+		birthdayLabel.setText(theEmp.getBirthday().toString());
+		eduLabel.setText(theEmp.getEdu());
+		specialityLabel.setText(theEmp.getSpeciality());
+		phoneLabel.setText(theEmp.getPhone());
+		adressLabel.setText(theEmp.getAddress());
+		enterJobLabel.setText(theEmp.getHireDay().toString());
+		polityFaceLabel.setText(theEmp.getPolity());
+		deptLabel.setText(theEmp.getDept());
+		workLabel.setText(theEmp.getPosition());
+
 	}
 }
