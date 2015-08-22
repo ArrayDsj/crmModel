@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL" uuid="afc64221-8e3d-47a3-8ac7-92ca8460441f">
+    <database-info product="MySQL" version="5.6.24-enterprise-commercial-advanced-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-commercial-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="crm_system"/>
+    <table name="depart" schema="" catalog="crm_system" type="TABLE">
+      <column name="depart_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="depart_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="depart_settime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="depart_describe" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="depart_id"/>
+      <exported-key name="staff_ibfk_1" table="staff" schema="" catalog="crm_system" columns="staff_department_id"/>
+    </table>
+    <table name="position" schema="" catalog="crm_system" type="TABLE">
+      <column name="position_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="position_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="position_describe" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="position_power_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="position_id"/>
+      <foreign-key name="position_ibfk_1" columns="position_power_id" ref-table="power" ref-schema="" ref-catalog="crm_system" ref-columns="power_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="staff_ibfk_2" table="staff" schema="" catalog="crm_system" columns="staff_position_id"/>
+    </table>
+    <table name="power" schema="" catalog="crm_system" type="TABLE">
+      <column name="power_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="power_check" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="power_examine" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="power_sell" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="power_manager" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="power_admin" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <primary-key name="PRIMARY" columns="power_id"/>
+      <exported-key name="position_ibfk_1" table="position" schema="" catalog="crm_system" columns="position_power_id"/>
+    </table>
+    <table name="staff" schema="" catalog="crm_system" type="TABLE">
+      <column name="staff_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="staff_loginName" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="staff_passWord" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="staff_name" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="staff_sex" sqlType="VARCHAR" precision="2" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_birthday" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="staff_speciality" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_edu" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_phone" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_hireday" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="staff_polity" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_status" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7" def="YicwJw==" remarks="MOS4uuecnyzlnKjogYzkvY07MeS4uuWBhyznprvogYw="/>
+      <column name="staff_address" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_department_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="staff_position_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="staff_id"/>
+      <foreign-key name="staff_ibfk_1" columns="staff_department_id" ref-table="depart" ref-schema="" ref-catalog="crm_system" ref-columns="depart_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="staff_ibfk_2" columns="staff_position_id" ref-table="position" ref-schema="" ref-catalog="crm_system" ref-columns="position_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+  </data-source>
+</component>

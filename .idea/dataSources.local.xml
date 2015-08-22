@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL" uuid="afc64221-8e3d-47a3-8ac7-92ca8460441f">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>crm_system.*</schema-pattern>
+      <default-schemas>crm_system.*</default-schemas>
+    </data-source>
+  </component>
+</project>
