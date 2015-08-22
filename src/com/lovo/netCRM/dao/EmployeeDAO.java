@@ -13,4 +13,7 @@ public interface EmployeeDAO {
 
     //初始化数据操作,当登录后显示所有员工信息
     public ArrayList<EmployeeBean> getAllStaffs();
+
+    //删除员工信息
+    public boolean deleteStaff(int EmployeeID);
 }

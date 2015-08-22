@@ -74,7 +74,10 @@ public class EmployeeDAOImp implements EmployeeDAO{
                 emp.setDept(rs.getString(17));
                 emp.setPosition(rs.getString(21));
                 //添加到集合中
-                empList.add(emp);
+                //如果员工属于离职状态则不显示
+                if(!emp.isStatus()){
+                    empList.add(emp);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,5 +96,34 @@ public class EmployeeDAOImp implements EmployeeDAO{
             JOptionPane.showMessageDialog(null,"集合中没有员工");
             return null;
         }
+    }
+
+    @Override
+    public boolean deleteStaff(int EmployeeID) {
+        //根据员工ID删除员工
+        //不是物理删除,只是把stauts设置为1
+        Connection con = ConnectionSQL.createConnectionSQL();
+        //修改用户状态信息
+        String deletEmpSQL = "update staff set staff_status = 1  where staff_id = " + EmployeeID;
+        int result = 0;
+        try {
+            Statement st = con.createStatement();
+            result = st.executeUpdate(deletEmpSQL);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 }

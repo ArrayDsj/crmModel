@@ -22,4 +22,10 @@ public class EmployeeServiceImp implements EmployeeService{
         EmployeeDAO emp = new EmployeeDAOImp();
         return emp.getAllStaffs();
     }
+
+    @Override
+    public boolean deleteStaff(int EmployeeID) {
+        EmployeeDAO emp = new EmployeeDAOImp();
+        return emp.deleteStaff(EmployeeID);
+    }
 }

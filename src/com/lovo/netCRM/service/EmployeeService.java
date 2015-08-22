@@ -13,4 +13,7 @@ public interface EmployeeService {
 
     //取得所有员工信息
     public ArrayList<EmployeeBean> getAllStaffs();
+
+    //删除员工信息
+    public boolean deleteStaff(int EmployeeID);
 }

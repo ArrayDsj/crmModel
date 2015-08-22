@@ -109,11 +109,10 @@ public class EmployeePanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = employeeTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
-				
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				delEmployee(key);
 			}});
 		
@@ -205,10 +204,9 @@ public class EmployeePanel extends JPanel{
 		//更新表格,插入所有员工List集合
 		//从数据库中取出数据
 		ArrayList<EmployeeBean> allEmps = new EmployeeServiceImp().getAllStaffs();
-
 		employeeTable.updateLovoTable(allEmps);
 		//设置总页数
-		this.setTotalPage(0);
+		this.setTotalPage(2);
 	}
 	
 	/**
@@ -237,6 +235,8 @@ public class EmployeePanel extends JPanel{
 	private void delEmployee(int employeeId){
 		
 		//更新表格,显示删除结果
+		//调用数据库操作,删除选中的用户(只是更改status状态,原来为0,改为1)
+		boolean dele = new EmployeeServiceImp().deleteStaff(employeeId);
 		this.updateEmployeeTable(1);
 	}
 	/**
