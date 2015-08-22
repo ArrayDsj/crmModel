@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93b4ad0b-a076-44b6-a6bd-55e3653d8a3f" name="Default" comment="完成删除员工信息功能&#10;只是修改了员工status属性,是逻辑删除不是物理删除">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/service/DepartService.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/service/DepartService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/DepartServiceImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/DepartServiceImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeePanel.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/employee/frame/EmployeePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/service/EmployeeService.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/service/EmployeeService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/EmployeeServiceImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/EmployeeServiceImp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Workspace_IDEA\crmModel\src\com\lovo\netCRM\dao\EmployeeDAO.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/CrmDao.java" />
       <change type="MOVED" beforePath="D:\Workspace_IDEA\crmModel\src\com\lovo\netCRM\dao\imp\EmployeeDAOImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/EmployeeDaoImp.java" />
     </list>
     <ignored path="crmModel.iws" />
@@ -83,8 +78,8 @@
       <file leaf-file-name="DepartServiceImp.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/DepartServiceImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6757679">
-              <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.46075085">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#343#344#0" expanded="true" />
@@ -815,7 +810,7 @@
       <updated>1440159182214</updated>
       <workItem from="1440159185947" duration="9741000" />
       <workItem from="1440168964776" duration="963000" />
-      <workItem from="1440211120640" duration="16586000" />
+      <workItem from="1440211120640" duration="17041000" />
     </task>
     <task id="LOCAL-00001" summary="修改用户管理卡片">
       <created>1440214795207</created>
@@ -835,11 +830,17 @@
       <option name="project" value="LOCAL" />
       <updated>1440225896189</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="将Dao层的操作写到了一个接口中">
+      <created>1440236592612</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1440236592613</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27290000" />
+    <option name="totallyTimeSpent" value="27745000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -900,7 +901,8 @@
     <MESSAGE value="修改用户管理卡片" />
     <MESSAGE value="应该是修改资料管理&#10;将数据库中的员工信息显示在Table中&#10;下一步:增加删除员工记录" />
     <MESSAGE value="完成删除员工信息功能&#10;只是修改了员工status属性,是逻辑删除不是物理删除" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成删除员工信息功能&#10;只是修改了员工status属性,是逻辑删除不是物理删除" />
+    <MESSAGE value="将Dao层的操作写到了一个接口中" />
+    <option name="LAST_COMMIT_MESSAGE" value="将Dao层的操作写到了一个接口中" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1233,8 +1235,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/service/imp/DepartServiceImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6757679">
-          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.46075085">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#343#344#0" expanded="true" />

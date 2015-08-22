@@ -1,8 +1,8 @@
 package com.lovo.netCRM.service.imp;
 
 import com.lovo.netCRM.bean.EmployeeBean;
-import com.lovo.netCRM.dao.EmployeeDAO;
-import com.lovo.netCRM.dao.imp.EmployeeDAOImp;
+import com.lovo.netCRM.dao.CrmDao;
+import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
 import com.lovo.netCRM.service.EmployeeService;
 
 import java.util.ArrayList;
@@ -13,19 +13,19 @@ import java.util.ArrayList;
 public class EmployeeServiceImp implements EmployeeService{
     @Override
     public EmployeeBean login(String loginName, String passWord) {
-        EmployeeDAO emp = new EmployeeDAOImp();
+        CrmDao emp = new EmployeeDaoImp();
         return emp.login(loginName,passWord);
     }
 
     @Override
-    public ArrayList<EmployeeBean> getAllStaffs() {
-        EmployeeDAO emp = new EmployeeDAOImp();
-        return emp.getAllStaffs();
+    public ArrayList<Object> getAllStaffs() {
+        CrmDao emp = new EmployeeDaoImp();
+        return emp.getAllObjects();
     }
 
     @Override
     public boolean deleteStaff(int EmployeeID) {
-        EmployeeDAO emp = new EmployeeDAOImp();
-        return emp.deleteStaff(EmployeeID);
+        CrmDao emp = new EmployeeDaoImp();
+        return emp.deleteObject(EmployeeID);
     }
 }
