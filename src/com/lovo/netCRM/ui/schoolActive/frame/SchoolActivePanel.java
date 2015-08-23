@@ -1,17 +1,15 @@
 package com.lovo.netCRM.ui.schoolActive.frame;
 
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoList;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * 
  * 四川网脉CRM系统
@@ -31,8 +29,8 @@ public class SchoolActivePanel extends JPanel{
 	/**城市列表框*/
 	private LovoList cityList = new LovoList(20,90,150,300,this){
 		public void onchange(Object t){
-//			cityId = getCityId(t);
-//			showSchool(cityId);
+			cityId = getCityId(t);
+			showSchool(cityId);
 			System.out.println("&&&");
 		}
 	};
@@ -122,13 +120,13 @@ public class SchoolActivePanel extends JPanel{
 	 */
 	private void initList() {
 		List list = new ArrayList();
-		list.add(1);
-		list.add(2);
+		list.add("成都市");
+		list.add("绵阳市");
 		cityList.setList(list);
 	}
 	/**
 	 * 显示城市对应的学校
-	 * @param cityObj 城市对象
+	 *
 	 */
 	private void showSchool(int cityId){
 		System.out.println("&&&&&");

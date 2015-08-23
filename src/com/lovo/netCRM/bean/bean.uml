@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.lovo.netCRM.bean</OriginalElement>
+  <nodes>
+    <node x="71.3788461538461" y="0.0">com.lovo.netCRM.bean.PositionBean</node>
+    <node x="397.0" y="851.5">com.lovo.netCRM.bean.AreaBean</node>
+    <node x="128.1288461538461" y="282.0">com.lovo.netCRM.bean.EmployeeBean</node>
+    <node x="235.61923076923074" y="1578.0">com.lovo.netCRM.bean.ClassesBean</node>
+    <node x="306.90961538461534" y="1810.0">com.lovo.netCRM.bean.Student</node>
+    <node x="375.3788461538461" y="50.0">com.lovo.netCRM.bean.DepartBean</node>
+    <node x="544.0" y="814.0">com.lovo.netCRM.bean.RecallRecordBean</node>
+    <node x="115.61923076923074" y="1046.0">com.lovo.netCRM.bean.SchoolBean</node>
+    <node x="206.99999999999997" y="826.5">com.lovo.netCRM.bean.ConnectRecordBean</node>
+    <node x="0.0" y="814.0">com.lovo.netCRM.bean.ActiveBean</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.lovo.netCRM.bean.SchoolBean" target="com.lovo.netCRM.bean.ActiveBean">
+      <point x="-170.79999999999995" y="-241.0" />
+      <point x="158.31923076923078" y="1021.0" />
+      <point x="93.5" y="1021.0" />
+      <point x="0.0" y="91.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.EmployeeBean" target="com.lovo.netCRM.bean.PositionBean">
+      <point x="-107.25" y="-241.0" />
+      <point x="235.3788461538461" y="257.0" />
+      <point x="213.3788461538461" y="257.0" />
+      <point x="0.0" y="116.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.AreaBean" target="com.lovo.netCRM.bean.SchoolBean">
+      <point x="31.75" y="53.5" />
+      <point x="492.25" y="1021.0" />
+      <point x="499.9192307692307" y="1021.0" />
+      <point x="170.79999999999995" y="-241.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.SchoolBean" target="com.lovo.netCRM.bean.EmployeeBean">
+      <point x="0.0" y="-241.0" />
+      <point x="329.11923076923074" y="1021.0" />
+      <point x="386.5" y="1021.0" />
+      <point x="386.5" y="789.0" />
+      <point x="396.2538461538461" y="789.0" />
+      <point x="53.625" y="241.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.ActiveBean" target="com.lovo.netCRM.bean.EmployeeBean">
+      <point x="0.0" y="-91.0" />
+      <point x="93.5" y="789.0" />
+      <point x="181.7538461538461" y="789.0" />
+      <point x="-160.875" y="241.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.ConnectRecordBean" target="com.lovo.netCRM.bean.EmployeeBean">
+      <point x="0.0" y="-78.5" />
+      <point x="291.5" y="789.0" />
+      <point x="289.0038461538461" y="789.0" />
+      <point x="-53.625" y="241.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.SchoolBean" target="com.lovo.netCRM.bean.ConnectRecordBean">
+      <point x="-85.39999999999998" y="-241.0" />
+      <point x="243.71923076923076" y="1021.0" />
+      <point x="291.5" y="1021.0" />
+      <point x="0.0" y="78.5" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.Student" target="com.lovo.netCRM.bean.RecallRecordBean">
+      <point x="91.74999999999999" y="-203.5" />
+      <point x="582.1596153846153" y="1785.0" />
+      <point x="637.5" y="1785.0" />
+      <point x="0.0" y="91.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.RecallRecordBean" target="com.lovo.netCRM.bean.EmployeeBean">
+      <point x="0.0" y="-91.0" />
+      <point x="637.5" y="789.0" />
+      <point x="503.5038461538461" y="789.0" />
+      <point x="160.875" y="241.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.ClassesBean" target="com.lovo.netCRM.bean.SchoolBean">
+      <point x="0.0" y="-91.0" />
+      <point x="0.0" y="241.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.SchoolBean" target="com.lovo.netCRM.bean.AreaBean">
+      <point x="85.39999999999998" y="-241.0" />
+      <point x="414.5192307692307" y="1021.0" />
+      <point x="428.75" y="1021.0" />
+      <point x="-31.75" y="53.5" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.EmployeeBean" target="com.lovo.netCRM.bean.DepartBean">
+      <point x="107.25" y="-241.0" />
+      <point x="449.8788461538461" y="257.0" />
+      <point x="471.8788461538461" y="257.0" />
+      <point x="0.0" y="66.0" />
+    </edge>
+    <edge source="com.lovo.netCRM.bean.Student" target="com.lovo.netCRM.bean.ClassesBean">
+      <point x="-91.75" y="-203.5" />
+      <point x="398.65961538461534" y="1785.0" />
+      <point x="329.11923076923074" y="1785.0" />
+      <point x="0.0" y="91.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.949888243182834" x="463.79387265283077" y="2246.2451409478094" />
+  <SelectedNodes>
+    <node>com.lovo.netCRM.bean.PositionBean</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

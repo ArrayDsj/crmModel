@@ -11,13 +11,7 @@ public class DepartBean {
     private Date buildTime;
     private String describe;
 
-    public DepartBean( int departID,String departName, Date buildTime, String describe) {
-        this.departID = departID;
-        this.departName = departName;
-        this.describe = describe;
-        this.buildTime = buildTime;
 
-    }
 
     public DepartBean() {
 

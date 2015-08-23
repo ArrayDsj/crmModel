@@ -77,23 +77,7 @@ public class PositionBean {
         this.backRight = backRight;
     }
 
-    public PositionBean(int positionID,
-                        String name,
-                        String describe,
-                        boolean checkRight,
-                        boolean queryRight,
-                        boolean saleRight,
-                        boolean managerRight,
-                        boolean backRight) {
-        this.positionID = positionID;
-        this.name = name;
-        this.describe = describe;
-        this.checkRight = checkRight;
-        this.queryRight = queryRight;
-        this.saleRight = saleRight;
-        this.managerRight = managerRight;
-        this.backRight = backRight;
-    }
+
 
     public PositionBean() {
 

@@ -40,6 +40,25 @@ public class EmployeeBean {
     //Í·Ïñ
     private String headFile;
 
+    private DepartBean depart;
+    private PositionBean pos;
+
+    public DepartBean getDepart() {
+        return depart;
+    }
+
+    public void setDepart(DepartBean depart) {
+        this.depart = depart;
+    }
+
+    public PositionBean getPos() {
+        return pos;
+    }
+
+    public void setPos(PositionBean pos) {
+        this.pos = pos;
+    }
+
     public String getHeadFile() {
         return headFile;
     }
@@ -171,27 +190,5 @@ public class EmployeeBean {
     public EmployeeBean() {
     }
 
-    public EmployeeBean(String name,
-                        String sex,
-                        Date birthday,
-                        String edu,
-                        String speciality,
-                        String phone,
-                        String address,
-                        String polity,
-                        String dept,
-                        String position,
-                        String headFile) {
-        this.name = name;
-        this.sex = sex;
-        this.birthday = birthday;
-        this.edu = edu;
-        this.speciality = speciality;
-        this.phone = phone;
-        this.address = address;
-        this.polity = polity;
-        this.dept = dept;
-        this.position = position;
-        this.headFile = headFile;
-    }
+
 }
