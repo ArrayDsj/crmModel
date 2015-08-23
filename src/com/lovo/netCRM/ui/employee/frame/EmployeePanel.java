@@ -30,10 +30,18 @@ public class EmployeePanel extends JPanel{
 	private  LovoComboBox<String> itemCombox;
 	/**值文本框*/
 	private  JTextField valueTxt = new JTextField();
-	
+
+	//当前页
+	private static int pageNow = 1;
+	//分页大小
+	private final int pageSize = 17;
+	//总记录数
+	private static int counts;
 	public EmployeePanel(JFrame jf){
 		this.jf = jf;
 		this.setLayout(null);
+		ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
+		counts = allEmps.size();
 		this.init();
 	}
 	/**
@@ -55,7 +63,7 @@ public class EmployeePanel extends JPanel{
 	 * 初始化数据
 	 */
 	public void initData(){
-		this.updateEmployeeTable(1);
+		this.updateEmployeeTable(pageNow);
 	}
 	/**
 	 * 初始化按钮
@@ -138,11 +146,10 @@ public class EmployeePanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = employeeTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
-				
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				new EmployeeShowDialog(jf,key);
 			}});
 	}
@@ -168,8 +175,7 @@ public class EmployeePanel extends JPanel{
 		lb.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				findEmployee(1);
-
+				findEmployee(pageNow);
 			}
 		});
 		
@@ -196,39 +202,54 @@ public class EmployeePanel extends JPanel{
 				//主键属性名 employeeId
 				"ID");
 		//调用一次数据库数据
-		updateEmployeeTable(1);
+		updateEmployeeTable(pageNow);
 		employeeTable.setSizeAndLocation(20, 90, 700, 300);
 		
 	}
 	/**
 	 * 更新表格数据
 	 */
-	private void updateEmployeeTable(int pageNO){
+	private void updateEmployeeTable(int pageNow){
 		//更新表格,插入所有员工List集合
 		//从数据库中取出数据
-		ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
-		employeeTable.updateLovoTable(allEmps);
+		//分页,每一页17个
+		ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
+		//JOptionPane.showMessageDialog(null,"一共"+allEmps.size()+"条记录");
+		employeeTable.updateLovoTable(limitEmps);
 		//设置总页数
-		this.setTotalPage(2);
+		this.setTotalPage((int) Math.ceil(counts / (pageSize * 1.0)));
+		//JOptionPane.showMessageDialog(null, (int) Math.ceil(counts / (pageSize*1.0)));
 	}
 	
 	/**
 	 * 上一页点击事件
 	 */
 	private void prevClick(){
-		
+		if(pageNow == 1){
+			JOptionPane.showMessageDialog(null,"已经是第一页了" + pageNow);
+		}else {
+			pageNow -= 1;
+			ArrayList<Object> limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize);
+			employeeTable.updateLovoTable(limitEmps);
+			//JOptionPane.showMessageDialog(null, pageNow);
+		}
 	}
 	/**
 	 * 下一页点击事件
 	 */
 	private void nextClick(){
-		
+		pageNow += 1;
+		ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
+		employeeTable.updateLovoTable(limitEmps);
+		//JOptionPane.showMessageDialog(null,pageNow);
 	}
 	/**
 	 * 转向指定页码
 	 */
 	private void goClick(String pageNO){
-		
+		pageNow = Integer.parseInt(pageNO);
+		ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
+		employeeTable.updateLovoTable(limitEmps);
 	}
 	
 	/**
@@ -241,7 +262,7 @@ public class EmployeePanel extends JPanel{
 		//调用数据库操作,删除选中的用户(只是更改status状态,原来为0,改为1)
 		if((JOptionPane.showConfirmDialog(null,"是否删除选中员工信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
 			boolean dele = new EmployeeServiceImp().deleteStaff(employeeId);
-			this.updateEmployeeTable(1);
+			this.updateEmployeeTable(pageNow);
 		}
 	}
 	/**
@@ -249,7 +270,7 @@ public class EmployeePanel extends JPanel{
 	 *  item 条件选项
 	 *  value 条件值
 	 */
-	private void findEmployee(int pageNO){
+	private void findEmployee(int pageNow){
 		//得到选项(条件)
 		String item = itemCombox.getItem();
 		//得到选项值(模糊查询条件)
@@ -258,6 +279,9 @@ public class EmployeePanel extends JPanel{
 		//更新表格,显示查询结果
 		employeeTable.updateLovoTable(checkEmps);
 		//设置总页数
-		this.setTotalPage(pageNO);
+		//每页17个用户信息
+		if(checkEmps != null){
+			this.setTotalPage((int)Math.ceil(checkEmps.size() / (pageSize*1.0)));
+		}
 	}
 }

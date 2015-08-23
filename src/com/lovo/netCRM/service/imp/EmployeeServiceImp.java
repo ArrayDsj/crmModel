@@ -23,6 +23,11 @@ public class EmployeeServiceImp implements EmployeeService{
         return emp.getAllObjects();
     }
 
+    public ArrayList<Object> getAllStaffs(int pageNow,int pageSize) {
+        EmployeeDaoImp emp = new EmployeeDaoImp();
+        return emp.getAllObjects(pageNow,pageSize);
+    }
+
     @Override
     public boolean deleteStaff(int EmployeeID) {
         CrmDao emp = new EmployeeDaoImp();

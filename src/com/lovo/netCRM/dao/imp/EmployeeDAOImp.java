@@ -55,7 +55,8 @@ public class EmployeeDaoImp implements CrmDao {
                 "join depart d \n" +
                 "on s.staff_department_id = d.depart_id\n" +
                 "join position p\n" +
-                "on s.staff_position_id = p.position_id";
+                "on s.staff_position_id = p.position_id\n";
+
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(allEmp);
@@ -100,6 +101,64 @@ public class EmployeeDaoImp implements CrmDao {
             return null;
         }
     }
+
+    //查询所有的员工信息,使用分页查询,每页17个信息
+    public ArrayList<Object> getAllObjects(int pageNow,int pageSize) {
+        ArrayList<Object> empList = new ArrayList<Object>();
+        Connection con = ConnectionSQL.createConnectionSQL();
+        //查找当前用户信息
+        String allEmp = "select * from staff s\n" +
+                "join depart d \n" +
+                "on s.staff_department_id = d.depart_id\n" +
+                "join position p\n" +
+                "on s.staff_position_id = p.position_id\n" +
+                "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
+
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(allEmp);
+            while(rs.next()){
+                //组合员工信息
+                EmployeeBean emp = new EmployeeBean();
+                emp.setID(rs.getInt(1));
+                emp.setName(rs.getString(4));
+                emp.setSex(rs.getString(5));
+                emp.setBirthday(rs.getDate(6));
+                emp.setEdu(rs.getString(7));
+                emp.setSpeciality(rs.getString(8));
+                emp.setPhone(rs.getString(9));
+                emp.setAddress(rs.getString(10));
+                emp.setPolity(rs.getString(11));
+                emp.setHireDay(rs.getDate(12));
+                emp.setStatus(rs.getBoolean(13));
+                emp.setHeadFile(rs.getString(16));
+                emp.setDept(rs.getString(18));
+                emp.setPosition(rs.getString(22));
+                //添加到集合中
+                //如果员工属于离职状态则不显示
+                if(emp.isStatus()){
+                    empList.add(emp);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(empList.size() != 0){
+            return empList;
+        }else {
+            JOptionPane.showMessageDialog(null,"集合中没有员工");
+            return null;
+        }
+    }
+
 
     @Override
     public boolean deleteObject(int ObjectID) {
