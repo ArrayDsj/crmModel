@@ -251,9 +251,9 @@ public class EmployeeDaoImp implements CrmDao {
         String pos = alterEmp.getPosition();
         String polity = alterEmp.getPolity();
         int deptID = String2Int.string2Int(alterEmp, dept);
-        System.out.println(deptID);
+        //System.out.println(deptID);
         int posID = String2Int.string2Int(alterEmp,pos);
-        System.out.println(posID);
+        //System.out.println(posID);
         String alterSQL = "update staff set \n" +
                     "staff_polity = ?,\n"+
                     "staff_phone = ?,\n" +

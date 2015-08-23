@@ -20,7 +20,7 @@ public interface CrmDao {
     //按ID查找信息
     public Object getObjectByID(int ObjectID);
 
-    //根据ID修改数据
+    //修改数据
     public boolean alterObject(Object alterObj);
 
     //添加

@@ -1,6 +1,7 @@
 package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.bean.PositionBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
@@ -21,18 +22,20 @@ public class PositionDaoImp implements CrmDao {
 
     @Override
     public ArrayList<Object> getAllObjects() {
-        ArrayList<Object> positionsName = new ArrayList<Object>();
+        ArrayList<Object> positions = new ArrayList<Object>();
         Connection con = ConnectionSQL.createConnectionSQL();
 
-        String allPositionsName = "select position_name from position";
+        String allPositionsName = "select * from position";
 
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(allPositionsName);
             while (rs.next()) {
-                String dept = rs.getString(1);
-                positionsName.add(dept);
-                System.out.println(dept);
+                PositionBean pos = new PositionBean();
+                //pos.setPositionID(rs.getInt(1));
+                pos.setName(rs.getString(2));
+                pos.setDescribe(rs.getString(3));
+                positions.add(pos);
             }
         } catch (SQLException e1) {
             e1.printStackTrace();
@@ -45,8 +48,8 @@ public class PositionDaoImp implements CrmDao {
                 }
             }
         }
-        if(positionsName.size() != 0){
-            return positionsName;
+        if(positions.size() != 0){
+            return positions;
         }else
             return null;
     }

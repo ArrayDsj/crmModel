@@ -1,6 +1,8 @@
 package com.lovo.netCRM.ui.employee.frame;
 
+import com.lovo.netCRM.bean.DepartBean;
 import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.bean.PositionBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.service.imp.DepartServiceImp;
 import com.lovo.netCRM.service.imp.EmployeeServiceImp;
@@ -103,14 +105,26 @@ public class EmployeeUpdateDialog extends JDialog{
 	private void initComboBox(){
 		//添加部门List集合
 		//从数据库中找出所有部门名称
-		ArrayList<Object> departNames = new DepartServiceImp().getAllDepts();
+		ArrayList<Object> departs = new DepartServiceImp().getAllDepts();
+		ArrayList<String> departNames = new ArrayList<String>();
+		for(Object depat: departs){
+			DepartBean d = (DepartBean)depat;
+			String deptName = d.getDepartName();
+			departNames.add(deptName);
+		}
 		this.deptTxt = new LovoComboBox("所在部门",departNames,40,250,this);
 		//默认选择员工所在的部门
 
 
 		//添加职位List集合
 		//从数据库中找出所有职位名称
-		ArrayList<Object> positionNames = new PositionServiceImp().getAllPositions();
+		ArrayList<Object> positions = new PositionServiceImp().getAllPositions();
+		ArrayList<String> positionNames = new ArrayList<String>();
+		for(Object pos: positions){
+			PositionBean d = (PositionBean)pos;
+			String posName = d.getName();
+			positionNames.add(posName);
+		}
 		this.workTxt = new LovoComboBox("工作职位",positionNames,320,250,this);
 		//默认选择员工所处的职业
 

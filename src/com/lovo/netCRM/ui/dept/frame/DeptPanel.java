@@ -1,14 +1,15 @@
 package com.lovo.netCRM.ui.dept.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+import com.lovo.netCRM.service.imp.DepartServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 /**
  * 
  * 四川网脉CRM系统
@@ -63,10 +64,10 @@ public class DeptPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = deptTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				new DeptUpdateDialog(jf,key,DeptPanel.this);
 			}});
@@ -80,8 +81,10 @@ public class DeptPanel extends JPanel{
 	private void initTable() {
 		deptTable = new LovoTable(this,
 				new String[]{"部门名称","成立时间","部门描述"},
-				new String[]{},//部门实体属性名数组 new String[]{"deptName","time"}
-				"");//主键属性名 deptId
+				//部门实体属性名数组 new String[]{"deptName","time"}
+				new String[]{"departName","buildTime","describe"},
+				//主键属性名 deptId
+				"departID");
 		deptTable.setSizeAndLocation(20, 90, 700, 300);
 		
 	}
@@ -90,6 +93,9 @@ public class DeptPanel extends JPanel{
 	 */
 	private void updateDeptTable(){
 		//更新表格,插入部门List集合
-		deptTable.updateLovoTable(null);
+		ArrayList<Object> allDepts = new DepartServiceImp().getAllDepts();
+		if(allDepts != null){
+			deptTable.updateLovoTable(allDepts);
+		}
 	}
 }

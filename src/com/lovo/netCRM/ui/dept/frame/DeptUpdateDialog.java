@@ -1,15 +1,14 @@
 package com.lovo.netCRM.ui.dept.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import com.lovo.netCRM.bean.DepartBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxtArea;
+import com.lovo.netCRM.service.imp.DepartServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  * 
  * 四川网脉CRM系统
@@ -71,17 +70,25 @@ public class DeptUpdateDialog extends JDialog{
 	 * 初始化信息
 	 */
 	private void initData(int deptId) {
-		
+		DepartBean theDeapt = new DepartServiceImp().getDeptByID(deptId);
+		nameLabel.setText(theDeapt.getDepartName());
+		timeLabel.setText(theDeapt.getBuildTime().toString());
+		descriptionTxt.setText(theDeapt.getDescribe());
 	}
 	/**
 	 * 修改部门信息
 	 * @param deptId
 	 */
 	private boolean updateDept(int deptId){
-		
-		//更新表格，显示修改结果
-		this.deptPanel.initData();
-		
-		return true;
+		String desc = descriptionTxt.getText();
+		if(this.descriptionTxt.getText().matches("[\\u4e00-\\u9fa5]{2,10}")) {
+			DepartBean willUpdateDept = new DepartServiceImp().getDeptByID(deptId);
+			willUpdateDept.setDescribe(descriptionTxt.getText());
+			new DepartServiceImp().alterDept(willUpdateDept);
+			//更新表格，显示修改结果
+			this.deptPanel.initData();
+			return true;
+		}else
+			return false;
 	}
 }

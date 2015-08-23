@@ -8,14 +8,15 @@ import java.util.Date;
 public class DepartBean {
     private int departID;
     private String departName;
-    private String describe;
     private Date buildTime;
+    private String describe;
 
-    public DepartBean(String departName, String describe, Date buildTime, int departID) {
+    public DepartBean( int departID,String departName, Date buildTime, String describe) {
+        this.departID = departID;
         this.departName = departName;
         this.describe = describe;
         this.buildTime = buildTime;
-        this.departID = departID;
+
     }
 
     public DepartBean() {
@@ -23,7 +24,6 @@ public class DepartBean {
     }
 
     public int getDepartID() {
-
         return departID;
     }
 
