@@ -61,7 +61,7 @@ public class DepartDaoImp implements CrmDao{
     public Object getObjectByID(int ObjectID) {
         Connection con = ConnectionSQL.createConnectionSQL();
         //按ID查找指定用户
-        String getObjectByIDSQL = "select * from depart s\n" +
+        String getObjectByIDSQL = "select * from depart \n" +
                 "where depart_id =" + ObjectID;
         DepartBean dept = null;
         try {

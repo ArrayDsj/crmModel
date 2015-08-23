@@ -1,16 +1,16 @@
 package com.lovo.netCRM.ui.work.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import com.lovo.netCRM.bean.PositionBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoCheckBox;
 import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxtArea;
+import com.lovo.netCRM.service.imp.PositionServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * 
  * 四川网脉CRM系统
@@ -37,7 +37,7 @@ public class WorkUpdateDialog extends JDialog{
 		this.workId = workId;
 		
 		this.setLayout(null);
-		this.setTitle("添加新职位");
+		this.setTitle("修改职位");
 		
 		this.init();
 		
@@ -75,6 +75,11 @@ public class WorkUpdateDialog extends JDialog{
 	 * @param workId 工作职位ID
 	 */
 	private void initData(int workId) {
+		PositionBean thePos = new PositionServiceImp().getPosByID(workId);
+		if (thePos != null) {
+			nameLabel.setText(thePos.getName());
+			descriptionTxt.setText(thePos.getDescribe());
+		}
 		//设置选中项
 		gradeTxt.setItem(new String[]{});
 		

@@ -1,14 +1,14 @@
 package com.lovo.netCRM.ui.work.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+import com.lovo.netCRM.service.imp.PositionServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * 
@@ -64,10 +64,10 @@ public class WorkPanel  extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = workTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				new WorkUpdateDialog(jf,key,WorkPanel.this);
 			}});
@@ -81,8 +81,9 @@ public class WorkPanel  extends JPanel{
 	private void initTable() {
 		workTable = new LovoTable(this,
 				new String[]{"职位名称","职位描述","查询权限","考核权限","销售统计分析","权限管理","后台管理"},
-				new String[]{},//职位实体属性名数组 new String[]{"workName","description"}
-				"");//主键属性名 workId
+				//职位实体属性名数组 new String[]{"workName","description"}
+				new String[]{"name","describe","checkRight","queryRight","saleRight","managerRight","backRight"},
+				"positionID");//主键属性名 workId
 		workTable.setSizeAndLocation(20, 90, 700, 300);
 		
 	}
@@ -90,7 +91,11 @@ public class WorkPanel  extends JPanel{
 	 * 更新表格数据
 	 */
 	private void updateWorkTable(){
-		//更新表格,插入职位List集合
-		workTable.updateLovoTable(null);
+		ArrayList<Object> allPos = new PositionServiceImp().getAllPositions();
+
+		if(allPos != null){
+			workTable.updateLovoTable(allPos);
+		}
+
 	}
 }
