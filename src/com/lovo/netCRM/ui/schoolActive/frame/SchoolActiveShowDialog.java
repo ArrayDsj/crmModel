@@ -1,14 +1,16 @@
 package com.lovo.netCRM.ui.schoolActive.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import com.lovo.netCRM.bean.ActiveBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+import com.lovo.netCRM.service.imp.ActiveServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 /**
  * 
  * 四川网脉CRM系统
@@ -62,11 +64,11 @@ public class SchoolActiveShowDialog  extends JDialog {
 	private void initTable(int schoolId) {
 		activeTable = new LovoTable(this,
 				new String[]{"活动名称","时间","地点","主题","负责部门","负责人"},
-				new String[]{},//活动实体属性名数组 new String[]{"activeName","time"}
-				"");//主键属性名 activeId
+				new String[]{"name","time","address","title","emp.dept","emp.name"},//活动实体属性名数组 new String[]{"activeName","time"}
+				"id");//主键属性名 activeId
 		activeTable.setSizeAndLocation(20, 90, 600, 300);
-		
 		//更新表格,插入学校活动List集合
-		activeTable.updateLovoTable(null);
+		ArrayList<ActiveBean> allActives = new ActiveServiceImp().getAllActives(schoolId);
+		activeTable.updateLovoTable(allActives);
 	}
 }
