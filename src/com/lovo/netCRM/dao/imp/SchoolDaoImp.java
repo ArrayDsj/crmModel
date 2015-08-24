@@ -69,7 +69,7 @@ public class SchoolDaoImp implements CrmDao{
             ps.setString(7, newsch.getIPAddress());
             ps.setString(8, newsch.getFlow());
             ps.setString(9, newsch.getDescribe());
-            ps.setString(10,newsch.getStatus());
+            ps.setString(10, newsch.getStatus());
             ps.setDate(11, new java.sql.Date(newsch.getFoundTime().getTime()));
             ps.setInt(12,newsch.getArea().getId());
             ps.setInt(13,newsch.getEmp().getID());
@@ -115,7 +115,7 @@ public class SchoolDaoImp implements CrmDao{
                 sch.setActive(getActiveBySchoolID(rs.getInt(15)));
                 //根据xuexiaoid查找当前学校,一个学校对应唯一一个地区,一个地区对应多个学校
                 sch.setArea((AreaBean) new AreaDaoImp().getObjectByID(rs.getInt(16)));
-                sch.setConnectRecord(getConnectRecordBySchoolID(rs.getInt(17)));
+                //sch.setConnectRecord(getConnectRecordBySchoolID(rs.getInt(17)));
                 sch.setEmp((EmployeeBean) new EmployeeDaoImp().getObjectByID(rs.getInt(18)));
                 sch.setInTime(rs.getDate(19));
             }
@@ -181,7 +181,7 @@ public class SchoolDaoImp implements CrmDao{
         Connection con = ConnectionSQL.createConnectionSQL();
 
         ArrayList<ConnectRecordBean> connectRecords = new ArrayList<ConnectRecordBean>();
-        String sql = "select * from connectrecord where connectRecord_id = " + schID ;
+        String sql = "select * from connectrecord where school_id = " + schID ;
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -190,8 +190,9 @@ public class SchoolDaoImp implements CrmDao{
                 connectRecord.setId(rs.getInt(1));
                 connectRecord.setMan(rs.getString(2));
                 connectRecord.setTime(rs.getDate(3));
-                connectRecord.setTime(rs.getDate(4));
-                connectRecord.setEmp((EmployeeBean) new EmployeeDaoImp().getObjectByID(rs.getInt(5)));
+                connectRecord.setPos(rs.getString(4));
+                connectRecord.setDescribe(rs.getString(5));
+                connectRecord.setEmp((EmployeeBean) new EmployeeDaoImp().getObjectByID(rs.getInt(6)));
                 connectRecords.add(connectRecord);
             }
         } catch (SQLException e) {

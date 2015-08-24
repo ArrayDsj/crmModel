@@ -1,12 +1,5 @@
 package com.lovo.netCRM.ui.school.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import com.lovo.netCRM.bean.AreaBean;
 import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoButton;
@@ -15,6 +8,11 @@ import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
 import com.lovo.netCRM.dao.imp.SchoolDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * 
@@ -85,10 +83,10 @@ public class SchoolPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = schoolTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null, "请选择行");
+					return;
+				}
 				
 				new SchoolShowDialog(jf,key);
 			}});

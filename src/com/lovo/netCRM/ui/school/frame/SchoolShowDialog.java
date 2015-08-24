@@ -1,21 +1,15 @@
 package com.lovo.netCRM.ui.school.frame;
 
-import java.awt.Color;
+import com.lovo.netCRM.bean.ConnectRecordBean;
+import com.lovo.netCRM.bean.SchoolBean;
+import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.SchoolDaoImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTitlePanel;
-import com.lovo.netCRM.component.LovoTxtArea;
 /**
  * 
  * 四川网脉CRM系统
@@ -108,7 +102,29 @@ public class SchoolShowDialog extends JDialog{
 	 * @param schoolId 学校ID
 	 */
 	private void initData(int schoolId){
-		
+		//按学校ID查找信息
+		SchoolBean sch = (SchoolBean)new SchoolDaoImp().getObjectByID(schoolId);
+		nameLabel.setText(sch.getName());
+		cityLabel.setText(sch.getArea().getName());
+		addressLabel.setText(sch.getAddress());
+		masterLabel.setText(sch.getMaster());
+		phoneLabel.setText(sch.getPhone());
+		studentNumberLabel.setText(sch.getStuNum()+"");
+		teacherNumberLabel.setText(sch.getTeaNum()+"");
+		ipLabel.setText(sch.getIPAddress());
+		netFluxLabel.setText(sch.getFlow());
+		stateLabel.setText(sch.getStatus());
+		deptLabel.setText(sch.getEmp().getDept());
+		employeeLabel.setText(sch.getEmp().getName());
+		enterTimeLabel.setText(sch.getFoundTime().toString());
+		descriptionTxt.setText(sch.getDescribe());
+		if(sch.getProposeTime() == null){
+			applyTimeLabel.setText("未申请立项");
+		}
+		if(sch.getPermitTime() == null){
+			passTimeLabel.setText("未处理");
+		}
+
 	}
 	/**
 	 * 初始化表格
@@ -117,12 +133,13 @@ public class SchoolShowDialog extends JDialog{
 	private void initTable(int schoolId,JPanel jp){
 		communicateTable = new LovoTable(jp,
 				new String[]{"时间","校方联系人","职务","沟通人","沟通内容"},
-				new String[]{},//学校实体属性名数组 new String[]{"time","schoolConnector"}
-				"");//主键属性名 schoolId
+				new String[]{"time","man","pos","emp.name","describe"},//学校实体属性名数组 new String[]{"time","schoolConnector"}
+				"id");//主键属性名 schoolId
 		communicateTable.setSizeAndLocation(10, 20, 480, 170);
 		
 		//更新表格,插入List集合
-		communicateTable.updateLovoTable(null);
+		ArrayList<ConnectRecordBean> arrCon = new SchoolDaoImp().getConnectRecordBySchoolID(schoolId);
+		communicateTable.updateLovoTable(arrCon);
 	}
 	
 

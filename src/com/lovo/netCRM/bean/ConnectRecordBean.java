@@ -9,6 +9,7 @@ public class ConnectRecordBean {
     private int id;
     private String man;
     private Date time;
+    private String pos;
     private String describe;
     private EmployeeBean emp;
 
@@ -17,6 +18,14 @@ public class ConnectRecordBean {
 
     public int getId() {
         return id;
+    }
+
+    public String getPos() {
+        return pos;
+    }
+
+    public void setPos(String pos) {
+        this.pos = pos;
     }
 
     public void setId(int id) {

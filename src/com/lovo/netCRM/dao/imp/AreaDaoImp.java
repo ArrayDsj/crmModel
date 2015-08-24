@@ -78,13 +78,13 @@ public class AreaDaoImp implements CrmDao{
     //·µ»ØAreaBean¶ÔÏó
     public Object getObjectByID(int ObjectID) {
         Connection con = ConnectionSQL.createConnectionSQL();
-        AreaBean area = null;
+        AreaBean area = new AreaBean();
         String getAreaSQL = "select * from area where area_id = " + ObjectID;
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(getAreaSQL);
             while(rs.next()) {
-                area.setId(rs.getInt(1));
+                area.setId(rs.getInt("area_id"));
                 area.setName(rs.getString(2));
                 area.setSchool(new SchoolDaoImp().getSchoolByAreaID(ObjectID));
             }
