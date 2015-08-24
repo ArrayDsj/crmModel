@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.lovo.netCRM.bean.AreaBean;
+import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoList;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+import com.lovo.netCRM.dao.imp.SchoolDaoImp;
+import com.lovo.netCRM.service.imp.AreaServiceImp;
 
 /**
  * 
@@ -150,7 +154,10 @@ public class SchoolPanel extends JPanel{
 	 * @return
 	 */
 	private int getCityId(Object cityObj){
-		
+		if(cityObj instanceof AreaBean){
+			AreaBean area = (AreaBean)cityObj;
+			return area.getId();
+		}
 		return 0;
 	}
 	/**
@@ -159,26 +166,28 @@ public class SchoolPanel extends JPanel{
 	private void initTable() {
 		schoolTable = new LovoTable(this,
 				new String[]{"学校名称","校长","录入时间","状态"},
-				new String[]{},//学校实体属性名数组 new String[]{"schoolName","schoolMaster"}
-				"");//主键属性名 schoolId
+				new String[]{"name","master","foundTime","status"},//学校实体属性名数组 new String[]{"schoolName","schoolMaster"}
+				"id");//主键属性名 schoolId
 		schoolTable.setSizeAndLocation(180, 90, 550, 300);
-	
 	}
 	/**
 	 * 初始化列表框
 	 *
 	 */
 	private void initList() {
-		cityList.setList(new ArrayList());
+		//查找所有地区
+		ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
+		cityList.setList(allAreas);
 	}
 	/**
 	 * 显示城市对应的学校
 	 * @param cityObj 城市对象
 	 */
 	private void showSchool(int cityId){
-		
-//		更新表格,插入List集合
-		schoolTable.updateLovoTable(null);
+		ArrayList<SchoolBean> schools = new ArrayList<SchoolBean>();
+		schools = new SchoolDaoImp().getSchoolByAreaID(cityId);
+		//更新表格,插入List集合
+		schoolTable.updateLovoTable(schools);
 	}
 	/**
 	 * 申请立项

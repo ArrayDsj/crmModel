@@ -5,6 +5,7 @@ import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,6 +105,41 @@ public class AreaDaoImp implements CrmDao{
             return null;
     }
 
+
+
+    //根据名字查找对象
+    public AreaBean getAreaByName(String name) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        //查找当前用户信息
+        String getAreaSQL = "select * from area where area_name = '" + name + "'";
+        AreaBean areaBean = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(getAreaSQL);
+            while(rs.next()){
+                //组合员工信息
+                areaBean = new AreaBean();
+                areaBean.setId(rs.getInt(1));
+                areaBean.setName(rs.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(areaBean != null){
+            return areaBean;
+        }else {
+            JOptionPane.showMessageDialog(null, "集合中没有员工");
+            return null;
+        }
+    }
 
     //根据学校id查找地区信息,这个地区对象中只有一个学校
 //    public Object getObjectBySchoolID(int schID) {

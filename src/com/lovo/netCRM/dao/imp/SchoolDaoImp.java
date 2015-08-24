@@ -33,13 +33,55 @@ public class SchoolDaoImp implements CrmDao{
     }
 
     @Override
-    public boolean addObject(Object object) {
-        return false;
-    }
-
-    @Override
     public ArrayList<Object> getObjectByCon(String item, String value) {
         return null;
+    }
+
+
+    @Override
+    public boolean addObject(Object object) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        SchoolBean newsch = (SchoolBean)object;
+        String SQL = "insert into school(\n" +
+                "school_name,school_master,school_phone,school_stuNum,\n" +
+                "school_teaNum,school_address,school_IPaddress,school_flow,\n" +
+                "school_describe,school_status,\n" +
+                "school_foundTime, \n" +
+                "area_id,\n" +
+                "staff_id) \n" +
+                "VALUES(\n" +
+                "?, ?, ?, ?, \n" +
+                "?, ?, ?, ?, \n" +
+                "?, ?,\n" +
+                "?,\n" +
+                "?,\n" +
+                "?\n" +
+                ");";
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, newsch.getName());
+            ps.setString(2, newsch.getMaster());
+            ps.setString(3, newsch.getPhone());
+            ps.setInt(4, newsch.getStuNum());
+            ps.setInt(5, newsch.getTeaNum());
+            ps.setString(6, newsch.getAddress());
+            ps.setString(7, newsch.getIPAddress());
+            ps.setString(8, newsch.getFlow());
+            ps.setString(9, newsch.getDescribe());
+            ps.setString(10,newsch.getStatus());
+            ps.setDate(11, new java.sql.Date(newsch.getFoundTime().getTime()));
+            ps.setInt(12,newsch.getArea().getId());
+            ps.setInt(13,newsch.getEmp().getID());
+
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 
 
@@ -65,7 +107,7 @@ public class SchoolDaoImp implements CrmDao{
                 sch.setIPAddress(rs.getString(8));
                 sch.setFlow(rs.getString(9));
                 sch.setDescribe(rs.getString(10));
-                sch.setStatus(rs.getBoolean(11));
+                sch.setStatus(rs.getString(11));
                 sch.setFoundTime(rs.getDate(12));
                 sch.setProposeTime(rs.getDate(13));
                 sch.setPermitTime(rs.getDate(14));
@@ -192,7 +234,7 @@ public class SchoolDaoImp implements CrmDao{
                 sch.setIPAddress(rs.getString(8));
                 sch.setFlow(rs.getString(9));
                 sch.setDescribe(rs.getString(10));
-                sch.setStatus(rs.getBoolean(11));
+                sch.setStatus(rs.getString(11));
                 sch.setFoundTime(rs.getDate(12));
                 sch.setProposeTime(rs.getDate(13));
                 sch.setPermitTime(rs.getDate(14));

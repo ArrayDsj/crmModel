@@ -1,18 +1,22 @@
 package com.lovo.netCRM.ui.school.frame;
 
+import com.lovo.netCRM.bean.DepartBean;
+import com.lovo.netCRM.bean.SchoolBean;
+import com.lovo.netCRM.component.LovoButton;
+import com.lovo.netCRM.component.LovoComboBox;
+import com.lovo.netCRM.component.LovoTxt;
+import com.lovo.netCRM.component.LovoTxtArea;
+import com.lovo.netCRM.dao.imp.AreaDaoImp;
+import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
+import com.lovo.netCRM.dao.imp.SchoolDaoImp;
+import com.lovo.netCRM.service.imp.AreaServiceImp;
+import com.lovo.netCRM.service.imp.DepartServiceImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTxt;
-import com.lovo.netCRM.component.LovoTxtArea;
+import java.util.Date;
 
 
 /**
@@ -99,18 +103,20 @@ public class SchoolAddDialog extends JDialog{
 	 */
 	private void initComboBox(){
 //		添加城市集合
-		this.cityTxt = new LovoComboBox("所属城市",new ArrayList(),320,50,this);
+		ArrayList<Object> areas = new AreaServiceImp().getAllAreas();
+		this.cityTxt = new LovoComboBox("所属城市",areas,320,50,this);
 		
 		//添加部门List集合
-		this.deptTxt = new LovoComboBox("负责部门",new ArrayList(),50,300,this){
+		ArrayList<Object> departs = new DepartServiceImp().getAllDepts();
+		this.deptTxt = new LovoComboBox("负责部门",departs,50,300,this){
 			/**
 			 * 根据部门ID显示员工集合
 			 * @param deptObj 部门对象
 			 */
 			public void onchange(Object deptObj){
-				
+				DepartBean dept = (DepartBean)deptObj;
 				//设置员工集合
-				employeeTxt.setList(null);
+				employeeTxt.setList(new EmployeeDaoImp().getAllEmpByDeptID(dept.getDepartID()));
 			}
 		};
 		
@@ -121,9 +127,59 @@ public class SchoolAddDialog extends JDialog{
 	 */
 	private boolean addSchool(){
 		//验证数据，验证失败返回false
-		
-		//封装实体
-		
+		SchoolBean sch = new SchoolBean();
+		//验证数据,验证失败返回false
+		String error = "";
+		if(nameTxt.getText() == null || nameTxt.getText().equals("")){
+			error += "学校名不能为空\n";
+		}
+		if(addressTxt.getText() == null || addressTxt.getText().equals("")){
+			error += "地址不能为空\n";
+		}
+		if(masterTxt.getText() == null || masterTxt.getText().equals("")){
+			error += "没校长,滚犊子\n";
+		}
+		if(phoneTxt.getText() == null || phoneTxt.getText().equals("")){
+			error += "没手机,滚犊子\n";
+		}
+		if(studentNumberTxt.getText() == null || studentNumberTxt.getText().equals("")){
+			error += "没学生,滚犊子\n";
+		}
+		if(teacherNumberTxt.getText() == null || teacherNumberTxt.getText().equals("")){
+			error += "没老师,滚犊子\n";
+		}
+		if(ipTxt.getText() == null || ipTxt.getText().equals("")){
+			error += "没IP,滚犊子\n";
+		}
+		if(netFluxTxt.getText() == null || netFluxTxt.getText().equals("")){
+			error += "没流量,滚犊子\n";
+		}
+		if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+			error += "没说明,滚犊子\n";
+		}
+		if(error.length() != 0) {
+			JOptionPane.showMessageDialog(null, error);
+			return false;
+		} else{
+			//封装实体
+			sch.setName(nameTxt.getText());
+			sch.setAddress(addressTxt.getText());
+			sch.setMaster(masterTxt.getText());
+			sch.setPhone(phoneTxt.getText());
+			sch.setStuNum(Integer.parseInt(studentNumberTxt.getText()));
+			sch.setTeaNum(Integer.parseInt(teacherNumberTxt.getText()));
+			sch.setIPAddress(ipTxt.getText());
+			sch.setFlow(netFluxTxt.getText());
+			sch.setDescribe(descriptionTxt.getText());
+			sch.setArea(new AreaDaoImp().getAreaByName(cityTxt.getItem().toString()));
+			sch.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+			sch.setStatus("接洽中");
+			sch.setFoundTime(new Date());
+
+		}
+
+		//写入数据库
+		new SchoolDaoImp().addObject(sch);
 		//更新表格，显示添加结果
 		this.schoolPanel.initData();
 		

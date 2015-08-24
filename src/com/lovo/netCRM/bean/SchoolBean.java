@@ -17,11 +17,9 @@ public class SchoolBean {
     private String IPAddress;
     private String flow;
     private String describe;
-    private boolean status;
+    private String status;
     //活动录入时间
     private Date inTime;
-
-
 
     private Date foundTime;
     private Date proposeTime;
@@ -30,6 +28,8 @@ public class SchoolBean {
     private AreaBean area;
     private ArrayList<ConnectRecordBean> connectRecord;
     private EmployeeBean emp;
+
+
 
     public SchoolBean() {
     }
@@ -121,11 +121,11 @@ public class SchoolBean {
         this.describe = describe;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

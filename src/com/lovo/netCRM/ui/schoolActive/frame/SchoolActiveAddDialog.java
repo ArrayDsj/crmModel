@@ -93,7 +93,6 @@ public class SchoolActiveAddDialog extends JDialog{
 	private void initComboBox(){
 		//添加部门List集合
 		ArrayList<Object> departs = new DepartServiceImp().getAllDepts();
-
 		this.deptTxt = new LovoComboBox("负责部门",departs,50,250,this){
 			/**
 			 * 根据部门ID显示员工集合
@@ -103,7 +102,6 @@ public class SchoolActiveAddDialog extends JDialog{
 				DepartBean dept = (DepartBean)deptObj;
 				//通过deptID找到所有员工
 				//设置员工集合
-				employeeTxt.setList(new EmployeeDaoImp().getAllEmpByDeptID(dept.getDepartID()));
 				employeeTxt.setList(new EmployeeDaoImp().getAllEmpByDeptID(dept.getDepartID()));
 			}
 		};

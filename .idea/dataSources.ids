@@ -100,6 +100,7 @@
       <column name="connectRecord_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="staff_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="school_inTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="school_conInTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <primary-key name="PRIMARY" columns="school_id"/>
       <foreign-key name="school_ibfk_3" columns="staff_id" ref-table="staff" ref-schema="" ref-catalog="crm_system" ref-columns="staff_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="school_ibfk_4" columns="connectRecord_id" ref-table="connectrecord" ref-schema="" ref-catalog="crm_system" ref-columns="connectRecord_id" update-rule="3" delete-rule="3" deferrability="2"/>

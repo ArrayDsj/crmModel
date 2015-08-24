@@ -139,8 +139,7 @@ public class SchoolActivePanel extends JPanel{
 	private void showSchool(int cityId){
 		ArrayList<SchoolBean> schools = new ArrayList<SchoolBean>();
 		schools = new SchoolDaoImp().getSchoolByAreaID(cityId);
-
-//		更新表格,插入List集合
+		//更新表格,插入List集合
 		schoolTable.updateLovoTable(schools);
 	}
 }
