@@ -4,11 +4,9 @@ import com.lovo.netCRM.bean.*;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by CodeA on 2015/8/24.
@@ -225,5 +223,35 @@ public class SchoolDaoImp implements CrmDao{
             return allSchoolInthisArea;
         }else
             return null;
+    }
+
+    //根据学校id修改信息
+    public boolean alterSchoolByID(int schID){
+        java.sql.Date inTime = new java.sql.Date(new Date().getTime());
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL = "update school set school_inTime = ? where school_id = ?";
+        int result = -1;
+
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setDate(1,inTime);
+            ps.setInt(2,schID);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 }

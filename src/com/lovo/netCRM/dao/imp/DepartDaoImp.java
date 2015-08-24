@@ -132,6 +132,7 @@ public class DepartDaoImp implements CrmDao{
         String describe = newDept.getDescribe();
         Date buildTime = newDept.getBuildTime();
 
+
         Connection con = ConnectionSQL.createConnectionSQL();
         int result = -1;
         String addSQL = "insert into depart(\n" +
@@ -146,6 +147,7 @@ public class DepartDaoImp implements CrmDao{
             PreparedStatement ps = con.prepareStatement(addSQL);
             ps.setString(1, name);
             ps.setDate(2, new java.sql.Date(buildTime.getTime()));
+
             ps.setString(3, describe);
             result = ps.executeUpdate();
         } catch (SQLException e) {

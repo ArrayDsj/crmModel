@@ -4,6 +4,7 @@ import com.lovo.netCRM.bean.ActiveBean;
 import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.bean.ConnectRecordBean;
 import com.lovo.netCRM.bean.SchoolBean;
+import com.lovo.netCRM.dao.imp.SchoolDaoImp;
 import com.lovo.netCRM.service.SchoolService;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class SchoolServiceImp implements SchoolService{
 
     @Override
     public boolean alterSchoolByID(int schID) {
+        new SchoolDaoImp().alterSchoolByID(schID);
         return false;
     }
 

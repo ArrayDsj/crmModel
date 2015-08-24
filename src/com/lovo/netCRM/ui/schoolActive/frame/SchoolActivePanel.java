@@ -79,7 +79,7 @@ public class SchoolActivePanel extends JPanel{
 					JOptionPane.showMessageDialog(null,"请选择行");
 					return;
 				}
-				new SchoolActiveAddDialog(jf,key);
+				new SchoolActiveAddDialog(SchoolActivePanel.this,jf,key);
 			}});
 		
 		
@@ -88,12 +88,13 @@ public class SchoolActivePanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = schoolTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
-				
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
+				//schoolTable.getSelectColumn(0) 意思是选正学校列表中的第一个列,就是学校名字
 				new SchoolActiveShowDialog(jf,schoolTable.getSelectColumn(0),key);
+
 			}});
 	}
 	

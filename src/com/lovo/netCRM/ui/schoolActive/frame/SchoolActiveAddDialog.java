@@ -6,8 +6,8 @@ import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoComboBox;
 import com.lovo.netCRM.component.LovoDate;
 import com.lovo.netCRM.component.LovoTxt;
-import com.lovo.netCRM.dao.imp.ActiveDaoImp;
 import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
+import com.lovo.netCRM.service.imp.ActiveServiceImp;
 import com.lovo.netCRM.service.imp.DepartServiceImp;
 
 import javax.swing.*;
@@ -39,14 +39,17 @@ public class SchoolActiveAddDialog extends JDialog{
 	/**负责人*/
 	private LovoComboBox employeeTxt = new LovoComboBox("负责人",new ArrayList(),50,300,this);;
 
+	// 活动主页
+	private SchoolActivePanel activePanel ;
 	/**
 	 * 添加活动对话框
 	 * @param jf 窗体对象
 	 *
 	 *
 	 */
-	public SchoolActiveAddDialog(JFrame jf,int schoolId){
+	public SchoolActiveAddDialog(SchoolActivePanel activePanel,JFrame jf,int schoolId){
 		super(jf,true);
+		this.activePanel = activePanel;
 		this.schoolId = schoolId;
 		this.setLayout(null);
 		this.setTitle("添加新活动");
@@ -117,16 +120,16 @@ public class SchoolActiveAddDialog extends JDialog{
 		//验证数据,验证失败返回false
 		String error = "";
 		if(nameTxt.getText() == null || nameTxt.getText().equals("")){
-			error += "活动名不能为空";
+			error += "活动名不能为空\n";
 		}
 		if(timeTxt.getDate() == null ){
-			error += "时间不能为空";
+			error += "时间不能为空\n";
 		}
 		if(addressTxt.getText() == null || addressTxt.getText().equals("")){
-			error += "地址不能为空";
+			error += "地址不能为空\n";
 		}
 		if(titleTxt.getText() == null || titleTxt.getText().equals("")){
-			error += "活动主题不能为空";
+			error += "活动主题不能为空\n";
 		}
 
 		if(error.length() != 0){
@@ -142,7 +145,9 @@ public class SchoolActiveAddDialog extends JDialog{
 		}
 
 		//写入数据库
-		new ActiveDaoImp().addActive(active,schoolId);
+		new ActiveServiceImp().addActive(active,schoolId);
+		//更新数据
+		//activePanel.showSchool();
 		return true;
 	}
 }
