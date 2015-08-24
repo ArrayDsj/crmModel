@@ -20,7 +20,8 @@ public class SchoolBean {
     private String status;
     //活动录入时间
     private Date inTime;
-
+    //审批意见
+    private String checkNotic;
     private Date foundTime;
     private Date proposeTime;
     private Date permitTime;
@@ -32,6 +33,14 @@ public class SchoolBean {
 
 
     public SchoolBean() {
+    }
+
+    public String getCheckNotic() {
+        return checkNotic;
+    }
+
+    public void setCheckNotic(String checkNotic) {
+        this.checkNotic = checkNotic;
     }
 
     public Date getInTime() {

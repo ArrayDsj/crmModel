@@ -1,18 +1,11 @@
 package com.lovo.netCRM.ui.school.frame;
 
+import com.lovo.netCRM.component.*;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoDate;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTxt;
-import com.lovo.netCRM.component.LovoTxtArea;
 
 /**
  * 
@@ -81,6 +74,7 @@ public class SchoolCommunicateAddDialog extends JDialog{
 	private void initComboBox(int schoolId){
 
 		//添加负责人集合
+		//通过学校ID找员工
 		this.employeeTxt = new LovoComboBox("负责人",new ArrayList(),50,200,this);
 		
 	}

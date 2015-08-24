@@ -1,20 +1,15 @@
 package com.lovo.netCRM.ui.school.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-
-import javax.swing.*;
-
 import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxt;
 import com.lovo.netCRM.component.LovoTxtArea;
-import com.lovo.netCRM.dao.imp.AreaDaoImp;
-import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
 import com.lovo.netCRM.dao.imp.SchoolDaoImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * 
@@ -128,12 +123,15 @@ public class SchoolUpdateDialog extends JDialog{
 		employeeLabel.setText(sch.getEmp().getName());
 		enterTimeLabel.setText(sch.getFoundTime().toString());
 		descriptionTxt.setText(sch.getDescribe());
+		mindTxt.setText(sch.getCheckNotic());
 		if(sch.getProposeTime() == null){
-			applyTimeLabel.setText("未申请立项");
-		}
+			applyTimeLabel.setText("");
+		}else
+			applyTimeLabel.setText(sch.getProposeTime().toString());
 		if(sch.getPermitTime() == null){
-			passTimeLabel.setText("未处理");
-		}
+			passTimeLabel.setText("");
+		} else
+			passTimeLabel.setText(sch.getPermitTime().toString());
 	}
 	/**
 	 * 修改学校
@@ -171,7 +169,7 @@ public class SchoolUpdateDialog extends JDialog{
 		}
 		
 		//更新表格，显示修改结果
-		new SchoolDaoImp().alterSchoolByID(sch,schoolId);
+		new SchoolDaoImp().alterSchoolByID(sch, schoolId);
 		this.schoolPanel.initData();
 		return true;
 	}

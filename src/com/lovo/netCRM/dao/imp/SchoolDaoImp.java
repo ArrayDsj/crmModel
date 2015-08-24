@@ -120,6 +120,7 @@ public class SchoolDaoImp implements CrmDao{
                 //sch.setConnectRecord(getConnectRecordBySchoolID(rs.getInt(17)));
                 sch.setEmp((EmployeeBean) new EmployeeDaoImp().getObjectByID(rs.getInt(18)));
                 sch.setInTime(rs.getDate(19));
+                sch.setCheckNotic(rs.getString(20));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -315,10 +316,106 @@ public class SchoolDaoImp implements CrmDao{
             PreparedStatement ps = con.prepareStatement(alterSQL);
             ps.setString(1,sch.getMaster());
             ps.setInt(2,sch.getStuNum());
-            ps.setInt(3,sch.getTeaNum());
-            ps.setString(4,sch.getIPAddress());
-            ps.setString(5,sch.getFlow());
-            ps.setInt(6,schID);
+            ps.setInt(3, sch.getTeaNum());
+            ps.setString(4, sch.getIPAddress());
+            ps.setString(5, sch.getFlow());
+            ps.setInt(6, schID);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+    //按条件修改学校的状态
+    public boolean alterSchoolByStatus(int schoolId,String status) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL =
+                "update school set school_status = ? ,school_proposeTime = ?" +
+                        "where school_id = ?";
+
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setString(1,status);
+            ps.setDate(2, new java.sql.Date(new Date().getTime()));
+            ps.setInt(3,schoolId);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+    public boolean alterSchoolByDescripOn(int schoolId,String descrip) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL =
+                "update school set school_describe = ? ,school_permitTime = ? ,school_status = ? " +
+                        " where  school_id = ?";
+
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setString(1,descrip);
+            ps.setDate(2, new java.sql.Date(new Date().getTime()));
+            ps.setString(3, "推广开展");
+            ps.setInt(4,schoolId);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+    public boolean alterSchoolByDescripOff(int schoolId,String descrip) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL =
+                "update school set school_describe = ? ,school_status = ? " +
+                        " where  school_id = ?";
+
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setString(1,descrip);
+
+            ps.setString(2, "审核未通过");
+            ps.setInt(3,schoolId);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

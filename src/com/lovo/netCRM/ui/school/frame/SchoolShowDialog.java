@@ -118,12 +118,15 @@ public class SchoolShowDialog extends JDialog{
 		employeeLabel.setText(sch.getEmp().getName());
 		enterTimeLabel.setText(sch.getFoundTime().toString());
 		descriptionTxt.setText(sch.getDescribe());
+		mindTxt.setText(sch.getCheckNotic());
 		if(sch.getProposeTime() == null){
-			applyTimeLabel.setText("未申请立项");
-		}
+			applyTimeLabel.setText("");
+		}else
+			applyTimeLabel.setText(sch.getProposeTime().toString());
 		if(sch.getPermitTime() == null){
-			passTimeLabel.setText("未处理");
-		}
+			passTimeLabel.setText("");
+		} else
+			passTimeLabel.setText(sch.getPermitTime().toString());
 
 	}
 	/**

@@ -175,9 +175,7 @@ public class SchoolAddDialog extends JDialog{
 			sch.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
 			sch.setStatus("接洽中");
 			sch.setFoundTime(new Date());
-
 		}
-
 		//写入数据库
 		new SchoolDaoImp().addObject(sch);
 		//更新表格，显示添加结果

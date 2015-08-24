@@ -2,14 +2,19 @@ package com.lovo.netCRM.ui.school.frame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
+import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoLabel;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxtArea;
+import com.lovo.netCRM.dao.imp.AreaDaoImp;
+import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
+import com.lovo.netCRM.dao.imp.SchoolDaoImp;
+
 /**
  * 
  * 四川网脉CRM系统
@@ -109,7 +114,27 @@ public class SchoolCheckDialog extends JDialog{
 	 *	@param schoolId 学校ID
 	 */
 	private void initData(int schoolId){
-		
+		SchoolBean sch = (SchoolBean)new SchoolDaoImp().getObjectByID(schoolId);
+		nameLabel.setText(sch.getName());
+		cityLabel.setText(sch.getArea().getName());
+		addressLabel.setText(sch.getAddress());
+		masterLabel.setText(sch.getMaster());
+		phoneLabel.setText(sch.getPhone());
+		studentNumberLabel.setText(sch.getStuNum()+"");
+		teacherNumberLabel.setText(sch.getTeaNum()+"");
+		ipLabel.setText(sch.getIPAddress());
+		netFluxLabel.setText(sch.getFlow());
+		stateLabel.setText(sch.getStatus());
+		deptLabel.setText(sch.getEmp().getDept());
+		employeeLabel.setText(sch.getEmp().getName());
+		enterTimeLabel.setText(sch.getFoundTime().toString());
+		descriptionTxt.setText(sch.getDescribe());
+		mindTxt.setText(sch.getCheckNotic());
+		if(sch.getProposeTime() == null){
+			applyTimeLabel.setText("");
+		}else
+			applyTimeLabel.setText(sch.getProposeTime().toString());
+
 	}
 	/**
 	 * 批准立项
@@ -117,10 +142,16 @@ public class SchoolCheckDialog extends JDialog{
 	 * @param cityObj 城市对象
 	 */
 	private void passSchool(int schoolId){
-		//验证数据
-		
-		//封装实体
-		
+		//验证数据,验证失败返回false
+		String error = "";
+		if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+			error += "没说明,滚犊子\n";
+		}if(error.length() != 0) {
+			JOptionPane.showMessageDialog(null, error);
+			return ;
+		} else{
+			new SchoolDaoImp().alterSchoolByDescripOn(schoolId, descriptionTxt.getText());
+		}
 		//更新表格，显示修改结果
 		this.schoolPanel.initData();
 	}
@@ -131,9 +162,15 @@ public class SchoolCheckDialog extends JDialog{
 	 * @param cityObj 城市对象
 	 */
 	private void backSchool(int schoolId){
-		//验证数据
-		
-		//封装实体
+		String error = "";
+		if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+			error += "没说明,滚犊子\n";
+		}if(error.length() != 0) {
+			JOptionPane.showMessageDialog(null, error);
+			return ;
+		} else{
+			new SchoolDaoImp().alterSchoolByDescripOff(schoolId,descriptionTxt.getText());
+		}
 		
 		//更新表格，显示修改结果
 		this.schoolPanel.initData();

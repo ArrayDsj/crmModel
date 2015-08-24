@@ -110,10 +110,10 @@ public class SchoolPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = schoolTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				apply(key,schoolTable.getSelectColumn(3));
 			}});
@@ -123,10 +123,10 @@ public class SchoolPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = schoolTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				checkSchool(key,schoolTable.getSelectColumn(3));
 			}});
@@ -195,7 +195,16 @@ public class SchoolPanel extends JPanel{
 	 */
 	private void apply(int schoolId,String schoolState){
 		//验证状态是否为“接洽中”
-		
+		//SchoolBean sch = (SchoolBean)new SchoolDaoImp().getObjectByID(schoolId);
+		if(schoolState.equals("接洽中")){
+			new SchoolDaoImp().alterSchoolByStatus(schoolId, "待审");
+			JDialog ShowMessage = new JDialog(jf,"申请立项");
+			ShowMessage.setBounds(450, 250, 300, 200);
+			JLabel t = new JLabel();
+			t.setText(schoolTable.getSelectColumn(0) + "申请立项成功,等待审核");
+			ShowMessage.add(t);
+			ShowMessage.setVisible(true);
+		}
 		//显示申请立项结果
 		this.initData();
 	}
@@ -207,7 +216,8 @@ public class SchoolPanel extends JPanel{
 	 */
 	private void checkSchool(int schoolId,String schoolState){
 //		验证状态是否为“待审”或“审核未通过”
-		
-		new SchoolCheckDialog(jf,schoolId,this);
+		if(schoolState.equals("待审") || schoolState.equals("审核未通过")){
+			new SchoolCheckDialog(jf,schoolId,this);
+		}
 	}
 }
