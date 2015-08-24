@@ -48,4 +48,8 @@ public class DepartBean {
     public void setBuildTime(Date buildTime) {
         this.buildTime = buildTime;
     }
+
+    public String toString(){
+        return this.departName;
+    }
 }

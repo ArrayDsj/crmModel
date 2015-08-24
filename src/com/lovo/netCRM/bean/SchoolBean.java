@@ -1,5 +1,6 @@
 package com.lovo.netCRM.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
 public class SchoolBean {
     private int id;
     private String name;
-    private String lader;
+    private String master;
     private String phone;
     private int stuNum;
     private int teaNum;
@@ -17,17 +18,29 @@ public class SchoolBean {
     private String flow;
     private String describe;
     private boolean status;
+    //活动录入时间
+    private Date inTime;
+
+
+
     private Date foundTime;
     private Date proposeTime;
     private Date permitTime;
-    private ActiveBean active;
+    private ArrayList<ActiveBean> active;
     private AreaBean area;
-    private ConnectRecordBean connectRecord;
+    private ArrayList<ConnectRecordBean> connectRecord;
     private EmployeeBean emp;
 
     public SchoolBean() {
     }
 
+    public Date getInTime() {
+        return inTime;
+    }
+
+    public void setInTime(Date inTime) {
+        this.inTime = inTime;
+    }
     public int getId() {
         return id;
     }
@@ -44,12 +57,12 @@ public class SchoolBean {
         this.name = name;
     }
 
-    public String getLader() {
-        return lader;
+    public String getMaster() {
+        return master;
     }
 
-    public void setLader(String lader) {
-        this.lader = lader;
+    public void setMaster(String master) {
+        this.master = master;
     }
 
     public String getPhone() {
@@ -140,11 +153,11 @@ public class SchoolBean {
         this.permitTime = permitTime;
     }
 
-    public ActiveBean getActive() {
+    public ArrayList<ActiveBean> getActive() {
         return active;
     }
 
-    public void setActive(ActiveBean active) {
+    public void setActive(ArrayList<ActiveBean> active) {
         this.active = active;
     }
 
@@ -156,11 +169,11 @@ public class SchoolBean {
         this.area = area;
     }
 
-    public ConnectRecordBean getConnectRecord() {
+    public ArrayList<ConnectRecordBean> getConnectRecord() {
         return connectRecord;
     }
 
-    public void setConnectRecord(ConnectRecordBean connectRecord) {
+    public void setConnectRecord(ArrayList<ConnectRecordBean> connectRecord) {
         this.connectRecord = connectRecord;
     }
 

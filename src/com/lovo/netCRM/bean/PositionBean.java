@@ -82,4 +82,7 @@ public class PositionBean {
     public PositionBean() {
 
     }
+    public String toString(){
+        return this.name;
+    }
 }

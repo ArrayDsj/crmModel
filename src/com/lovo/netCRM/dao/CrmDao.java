@@ -14,7 +14,7 @@ public interface CrmDao {
     //初始化数据操作,当登录后显示所有员工信息
     public ArrayList<Object> getAllObjects();
 
-    //删除员工信息
+    //删除信息
     public boolean deleteObject(int ObjectID);
 
     //按ID查找信息
@@ -23,9 +23,9 @@ public interface CrmDao {
     //修改数据
     public boolean alterObject(Object alterObj);
 
-    //添加
+    //添加数据
     public boolean addObject(Object object);
 
-    //按条件查找
+    //按条件查找数据
     public ArrayList<Object> getObjectByCon(String item,String value);
 }

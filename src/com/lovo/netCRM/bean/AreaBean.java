@@ -1,12 +1,14 @@
 package com.lovo.netCRM.bean;
 
+import java.util.ArrayList;
+
 /**
  * Created by CodeA on 2015/8/23.
  */
 public class AreaBean {
     private int id;
     private String name;
-    private SchoolBean school;
+    private ArrayList<SchoolBean> school;
 
     public AreaBean() {
     }
@@ -27,11 +29,18 @@ public class AreaBean {
         this.name = name;
     }
 
-    public SchoolBean getSchool() {
+    public ArrayList<SchoolBean> getSchool() {
         return school;
     }
 
-    public void setSchool(SchoolBean school) {
+    public void setSchool(ArrayList<SchoolBean> school) {
         this.school = school;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.name;
+    }
+
 }

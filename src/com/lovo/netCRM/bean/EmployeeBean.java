@@ -190,5 +190,7 @@ public class EmployeeBean {
     public EmployeeBean() {
     }
 
-
+    public String toString(){
+        return this.name;
+    }
 }

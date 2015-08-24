@@ -1,17 +1,19 @@
 package com.lovo.netCRM.ui.schoolActive.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import com.lovo.netCRM.bean.ActiveBean;
+import com.lovo.netCRM.bean.DepartBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoComboBox;
 import com.lovo.netCRM.component.LovoDate;
-import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxt;
+import com.lovo.netCRM.dao.imp.ActiveDaoImp;
+import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
+import com.lovo.netCRM.service.imp.DepartServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 /**
  * 
  * 四川网脉CRM系统
@@ -40,8 +42,8 @@ public class SchoolActiveAddDialog extends JDialog{
 	/**
 	 * 添加活动对话框
 	 * @param jf 窗体对象
-	 * @param schoolTable 学校表格
-	 * @param cityObj 点中城市
+	 *
+	 *
 	 */
 	public SchoolActiveAddDialog(JFrame jf,int schoolId){
 		super(jf,true);
@@ -87,17 +89,22 @@ public class SchoolActiveAddDialog extends JDialog{
 	 */
 	private void initComboBox(){
 		//添加部门List集合
-		this.deptTxt = new LovoComboBox("负责部门",new ArrayList(),50,250,this){
+		ArrayList<Object> departs = new DepartServiceImp().getAllDepts();
+
+		this.deptTxt = new LovoComboBox("负责部门",departs,50,250,this){
 			/**
 			 * 根据部门ID显示员工集合
 			 * @param deptObj 部门对象
 			 */
 			public void onchange(Object deptObj){
-				
+				DepartBean dept = (DepartBean)deptObj;
+				//通过deptID找到所有员工
 				//设置员工集合
-				employeeTxt.setList(null);
+				employeeTxt.setList(new EmployeeDaoImp().getAllEmpByDeptID(dept.getDepartID()));
+				employeeTxt.setList(new EmployeeDaoImp().getAllEmpByDeptID(dept.getDepartID()));
 			}
 		};
+		
 
 	
 	}
@@ -106,11 +113,36 @@ public class SchoolActiveAddDialog extends JDialog{
 	 * 添加活动
 	 */
 	private boolean addActive(int schoolId){
+		ActiveBean active = new ActiveBean();
 		//验证数据,验证失败返回false
-		
-		//封装实体
-		
+		String error = "";
+		if(nameTxt.getText() == null || nameTxt.getText().equals("")){
+			error += "活动名不能为空";
+		}
+		if(timeTxt.getDate() == null ){
+			error += "时间不能为空";
+		}
+		if(addressTxt.getText() == null || addressTxt.getText().equals("")){
+			error += "地址不能为空";
+		}
+		if(titleTxt.getText() == null || titleTxt.getText().equals("")){
+			error += "活动主题不能为空";
+		}
+
+		if(error.length() != 0){
+			JOptionPane.showMessageDialog(null, error);
+			return false;
+		}else{
+			//封装实体
+			active.setName(nameTxt.getText());
+			active.setAddress(addressTxt.getText());
+			active.setTime(timeTxt.getDate());
+			active.setTitle(titleTxt.getText());
+			active.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+		}
+
+		//写入数据库
+		new ActiveDaoImp().addActive(active,schoolId);
 		return true;
-		
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by CodeA on 2015/8/24.
  */
-public class Student {
+public class StudentBean {
     private int id;
     private String name;
     private String sex;
@@ -22,7 +22,7 @@ public class Student {
     private RecallRecordBean recallRecord;
     private ClassesBean classes;
 
-    public Student() {
+    public StudentBean() {
     }
 
     public int getId() {

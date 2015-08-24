@@ -1,15 +1,18 @@
 package com.lovo.netCRM.ui.schoolActive.frame;
 
+import com.lovo.netCRM.bean.AreaBean;
+import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoList;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+import com.lovo.netCRM.dao.imp.SchoolDaoImp;
+import com.lovo.netCRM.service.imp.AreaServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 /**
  * 
  * 四川网脉CRM系统
@@ -30,6 +33,7 @@ public class SchoolActivePanel extends JPanel{
 	private LovoList cityList = new LovoList(20,90,150,300,this){
 		public void onchange(Object t){
 			cityId = getCityId(t);
+
 			showSchool(cityId);
 			System.out.println("&&&");
 		}
@@ -71,10 +75,10 @@ public class SchoolActivePanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = schoolTable.getKey();
-//				if(key == -1){
-//				JOptionPane.showMessageDialog(null,"请选择行");
-//				return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				new SchoolActiveAddDialog(jf,key);
 			}});
 		
@@ -100,7 +104,10 @@ public class SchoolActivePanel extends JPanel{
 	 * @return
 	 */
 	private int getCityId(Object cityObj){
-		
+		if(cityObj instanceof AreaBean){
+			AreaBean area = (AreaBean)cityObj;
+			return area.getId();
+		}
 		return 0;
 	}
 	/**
@@ -109,8 +116,9 @@ public class SchoolActivePanel extends JPanel{
 	private void initTable() {
 		schoolTable = new LovoTable(this,
 				new String[]{"学校名称","校长","录入时间","联系电话"},
-				new String[]{},//学校实体属性名数组 new String[]{"schoolName","schoolMaster"}
-				"");//主键属性名 schoolId
+				//学校实体属性名数组 new String[]{"schoolName","schoolMaster"}
+				new String[]{"name","master","inTime","phone"},
+				"id");//主键属性名 schoolId
 		schoolTable.setSizeAndLocation(180, 90, 550, 300);
 
 	}
@@ -119,18 +127,19 @@ public class SchoolActivePanel extends JPanel{
 	 *
 	 */
 	private void initList() {
-		List list = new ArrayList();
-		list.add("成都市");
-		list.add("绵阳市");
-		cityList.setList(list);
+		//查找所有地区
+		ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
+		cityList.setList(allAreas);
 	}
 	/**
 	 * 显示城市对应的学校
 	 *
 	 */
 	private void showSchool(int cityId){
-		System.out.println("&&&&&");
+		ArrayList<SchoolBean> schools = new ArrayList<SchoolBean>();
+		schools = new SchoolDaoImp().getSchoolByAreaID(cityId);
+
 //		更新表格,插入List集合
-		schoolTable.updateLovoTable(null);
+		schoolTable.updateLovoTable(schools);
 	}
 }

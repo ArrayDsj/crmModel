@@ -7,6 +7,48 @@
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="crm_system"/>
+    <table name="active" schema="" catalog="crm_system" type="TABLE">
+      <column name="active_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="active_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="active_address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="active_title" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="active_time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="staff_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="school_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="active_id"/>
+      <foreign-key name="active_ibfk_1" columns="staff_id" ref-table="staff" ref-schema="" ref-catalog="crm_system" ref-columns="staff_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="active_ibfk_2" columns="school_id" ref-table="school" ref-schema="" ref-catalog="crm_system" ref-columns="school_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="area" schema="" catalog="crm_system" type="TABLE">
+      <column name="area_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="area_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="area_id"/>
+      <exported-key name="school_ibfk_5" table="school" schema="" catalog="crm_system" columns="area_id"/>
+    </table>
+    <table name="classes" schema="" catalog="crm_system" type="TABLE">
+      <column name="class_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="class_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="class_buildTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="class_stuNum" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="class_teaName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="class_id"/>
+      <foreign-key name="classes_ibfk_1" columns="school_id" ref-table="school" ref-schema="" ref-catalog="crm_system" ref-columns="school_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="student_ibfk_2" table="student" schema="" catalog="crm_system" columns="classes_id"/>
+    </table>
+    <table name="connectrecord" schema="" catalog="crm_system" type="TABLE">
+      <column name="connectRecord_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="connectRecord_man" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="connectRecord_time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="connectRecord_position" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="connectRecord_describe" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="school_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="connectRecord_id"/>
+      <foreign-key name="connectrecord_ibfk_1" columns="staff_id" ref-table="staff" ref-schema="" ref-catalog="crm_system" ref-columns="staff_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="connectrecord_ibfk_2" columns="school_id" ref-table="school" ref-schema="" ref-catalog="crm_system" ref-columns="school_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="school_ibfk_4" table="school" schema="" catalog="crm_system" columns="connectRecord_id"/>
+    </table>
     <table name="depart" schema="" catalog="crm_system" type="TABLE">
       <column name="depart_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="depart_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
@@ -26,6 +68,46 @@
       <column name="backRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7" def="YicwJw=="/>
       <primary-key name="PRIMARY" columns="position_id"/>
       <exported-key name="staff_ibfk_2" table="staff" schema="" catalog="crm_system" columns="staff_position_id"/>
+    </table>
+    <table name="recallrecord" schema="" catalog="crm_system" type="TABLE">
+      <column name="recallRecord_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="recallRecord_time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="recallRecord_describe" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="recallRecord_recallMan" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="recallRecord_title" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="staff_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="recallRecord_id"/>
+      <foreign-key name="recallrecord_ibfk_1" columns="staff_id" ref-table="staff" ref-schema="" ref-catalog="crm_system" ref-columns="staff_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="student_ibfk_1" table="student" schema="" catalog="crm_system" columns="recallRecord_id"/>
+    </table>
+    <table name="school" schema="" catalog="crm_system" type="TABLE">
+      <column name="school_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="school_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="school_master" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_stuNum" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="school_teaNum" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="school_address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_IPaddress" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_flow" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_describe" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="school_foundTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" remarks="5bu656uL5pe26Ze0L+W9leWFpeaXtumXtA=="/>
+      <column name="school_proposeTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" remarks="55Sz6K+356uL6aG55pe26Ze0"/>
+      <column name="school_permitTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" remarks="56uL6aG55om55YeG5pe26Ze0"/>
+      <column name="active_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="area_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="connectRecord_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="staff_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="school_inTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="school_id"/>
+      <foreign-key name="school_ibfk_3" columns="staff_id" ref-table="staff" ref-schema="" ref-catalog="crm_system" ref-columns="staff_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="school_ibfk_4" columns="connectRecord_id" ref-table="connectrecord" ref-schema="" ref-catalog="crm_system" ref-columns="connectRecord_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="school_ibfk_5" columns="area_id" ref-table="area" ref-schema="" ref-catalog="crm_system" ref-columns="area_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="active_ibfk_2" table="active" schema="" catalog="crm_system" columns="school_id"/>
+      <exported-key name="classes_ibfk_1" table="classes" schema="" catalog="crm_system" columns="school_id"/>
+      <exported-key name="connectrecord_ibfk_2" table="connectrecord" schema="" catalog="crm_system" columns="school_id"/>
+      <index name="active_id" unique="false" columns="active_id"/>
     </table>
     <table name="staff" schema="" catalog="crm_system" type="TABLE">
       <column name="staff_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -47,6 +129,30 @@
       <primary-key name="PRIMARY" columns="staff_id"/>
       <foreign-key name="staff_ibfk_1" columns="staff_department_id" ref-table="depart" ref-schema="" ref-catalog="crm_system" ref-columns="depart_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="staff_ibfk_2" columns="staff_position_id" ref-table="position" ref-schema="" ref-catalog="crm_system" ref-columns="position_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="active_ibfk_1" table="active" schema="" catalog="crm_system" columns="staff_id"/>
+      <exported-key name="connectrecord_ibfk_1" table="connectrecord" schema="" catalog="crm_system" columns="staff_id"/>
+      <exported-key name="recallrecord_ibfk_1" table="recallrecord" schema="" catalog="crm_system" columns="staff_id"/>
+      <exported-key name="school_ibfk_3" table="school" schema="" catalog="crm_system" columns="staff_id"/>
+    </table>
+    <table name="student" schema="" catalog="crm_system" type="TABLE">
+      <column name="stu_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="stu_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_sex" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_birthday" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="stu_describe" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_status" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="stu_vip" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="stu_phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_father" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_fatherPhone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_mother" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stu_motherPhone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="recallRecord_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="classes_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="stu_id"/>
+      <foreign-key name="student_ibfk_1" columns="recallRecord_id" ref-table="recallrecord" ref-schema="" ref-catalog="crm_system" ref-columns="recallRecord_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="student_ibfk_2" columns="classes_id" ref-table="classes" ref-schema="" ref-catalog="crm_system" ref-columns="class_id" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
   </data-source>
 </component>
