@@ -2,15 +2,20 @@ package com.lovo.netCRM.ui.school.frame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.*;
 
+import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoLabel;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxt;
 import com.lovo.netCRM.component.LovoTxtArea;
+import com.lovo.netCRM.dao.imp.AreaDaoImp;
+import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
+import com.lovo.netCRM.dao.imp.SchoolDaoImp;
+
 /**
  * 
  * 四川网脉CRM系统
@@ -108,7 +113,27 @@ public class SchoolUpdateDialog extends JDialog{
 	 * @param schoolId 学校ID
 	 */
 	private void initData(int schoolId){
-		
+		SchoolBean sch = (SchoolBean)new SchoolDaoImp().getObjectByID(schoolId);
+		nameLabel.setText(sch.getName());
+		cityLabel.setText(sch.getArea().getName());
+		addressLabel.setText(sch.getAddress());
+		masterTxt.setText(sch.getMaster());
+		titleLabel.setText(sch.getPhone());
+		studentNumberTxt.setText(sch.getStuNum()+"");
+		teacherNumberTxt.setText(sch.getTeaNum()+"");
+		ipTxt.setText(sch.getIPAddress());
+		netFluxTxt.setText(sch.getFlow());
+		stateLabel.setText(sch.getStatus());
+		deptLabel.setText(sch.getEmp().getDept());
+		employeeLabel.setText(sch.getEmp().getName());
+		enterTimeLabel.setText(sch.getFoundTime().toString());
+		descriptionTxt.setText(sch.getDescribe());
+		if(sch.getProposeTime() == null){
+			applyTimeLabel.setText("未申请立项");
+		}
+		if(sch.getPermitTime() == null){
+			passTimeLabel.setText("未处理");
+		}
 	}
 	/**
 	 * 修改学校
@@ -117,10 +142,36 @@ public class SchoolUpdateDialog extends JDialog{
 	 */
 	private boolean updateSchool(int schoolId){
 		//验证数据，验证失败返回false
-		
-		//封装实体
+		SchoolBean sch = new SchoolBean();
+		//验证数据,验证失败返回false
+		String error = "";
+		if(masterTxt.getText() == null || masterTxt.getText().equals("")){
+			error += "没校长,滚犊子\n";
+		}if(studentNumberTxt.getText() == null || studentNumberTxt.getText().equals("")){
+			error += "没学生,滚犊子\n";
+		}
+		if(teacherNumberTxt.getText() == null || teacherNumberTxt.getText().equals("")){
+			error += "没老师,滚犊子\n";
+		}if(ipTxt.getText() == null || ipTxt.getText().equals("")){
+			error += "没IP,滚犊子\n";
+		}
+		if(netFluxTxt.getText() == null || netFluxTxt.getText().equals("")) {
+			error += "没流量,滚犊子\n";
+		}
+		if(error.length() != 0) {
+			JOptionPane.showMessageDialog(null, error);
+			return false;
+		} else{
+			//封装实体
+			sch.setMaster(masterTxt.getText());
+			sch.setStuNum(Integer.parseInt(studentNumberTxt.getText()));
+			sch.setTeaNum(Integer.parseInt(teacherNumberTxt.getText()));
+			sch.setIPAddress(ipTxt.getText());
+			sch.setFlow(netFluxTxt.getText());
+		}
 		
 		//更新表格，显示修改结果
+		new SchoolDaoImp().alterSchoolByID(sch,schoolId);
 		this.schoolPanel.initData();
 		return true;
 	}

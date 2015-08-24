@@ -96,10 +96,10 @@ public class SchoolPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = schoolTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				new SchoolUpdateDialog(jf,key,SchoolPanel.this);
 			}});

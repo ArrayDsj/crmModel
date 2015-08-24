@@ -28,14 +28,16 @@ public class SchoolDaoImp implements CrmDao{
     }
 
     @Override
+    public ArrayList<Object> getObjectByCon(String item, String value) {
+        return null;
+    }
+
+
+    @Override
     public boolean alterObject(Object alterObj) {
         return false;
     }
 
-    @Override
-    public ArrayList<Object> getObjectByCon(String item, String value) {
-        return null;
-    }
 
 
     @Override
@@ -279,6 +281,44 @@ public class SchoolDaoImp implements CrmDao{
             PreparedStatement ps = con.prepareStatement(alterSQL);
             ps.setDate(1,inTime);
             ps.setInt(2,schID);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+    public boolean alterSchoolByID(SchoolBean sch,int schID){
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL =
+                "update school set school_master = ? ," +
+                "school_stuNum = ?," +
+                "school_teaNum = ?," +
+                "school_IPaddress = ?," +
+                "school_flow = ? " +
+                "where school_id = ?";
+
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setString(1,sch.getMaster());
+            ps.setInt(2,sch.getStuNum());
+            ps.setInt(3,sch.getTeaNum());
+            ps.setString(4,sch.getIPAddress());
+            ps.setString(5,sch.getFlow());
+            ps.setInt(6,schID);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
