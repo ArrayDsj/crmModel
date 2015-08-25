@@ -1,5 +1,6 @@
 package com.lovo.netCRM.dao.imp;
 
+import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.bean.RecallRecordBean;
 import com.lovo.netCRM.util.ConnectionSQL;
 
@@ -30,7 +31,7 @@ public class RecallRecordDaoImp {
                 recall.setRecallMan(rs.getString(4));
                 recall.setTitle(rs.getString(5));
                 //查出谁负责这个学生
-
+                recall.setEmp((EmployeeBean) new EmployeeDaoImp().getObjectByID(rs.getInt(6)));
                 allRecalls.add(recall);
             }
         } catch (SQLException e) {

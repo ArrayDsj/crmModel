@@ -136,10 +136,10 @@ public class StudentPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = studentTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				new StudentShowDialog(jf,key);
 			}});

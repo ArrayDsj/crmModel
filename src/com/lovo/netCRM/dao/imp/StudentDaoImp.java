@@ -30,7 +30,48 @@ public class StudentDaoImp implements CrmDao{
 
     @Override
     public Object getObjectByID(int ObjectID) {
-        return null;
+        //根据主键得对象
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String SQL = "select * from student";
+        StudentBean stu = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while(rs.next()){
+                stu = new StudentBean();
+                stu.setId(rs.getInt(1));
+                stu.setName(rs.getString(2));
+                stu.setSex(rs.getString(3));
+                stu.setAddress(rs.getString(4));
+                stu.setBirthday(rs.getDate(5));
+                stu.setDescribe(rs.getString(6));
+                stu.setStatus(rs.getBoolean(7));
+                stu.setVip(rs.getBoolean(8));
+                stu.setPhone(rs.getString(9));
+                stu.setFather(rs.getString(10));
+                stu.setFatherPhone(rs.getString(11));
+                stu.setMother(rs.getString(12));
+                stu.setMotherPhone(rs.getString(13));
+                //使用学生id查找学生回访记录,可以有多个
+                stu.setRecallRecord(new RecallRecordDaoImp().getAllReacllsByStuID(stu.getId()));
+                //使用班级ID查找班级,只有一个
+                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByStudentID(rs.getInt(15)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(stu != null){
+            return stu;
+        }else
+            return null;
     }
 
     @Override

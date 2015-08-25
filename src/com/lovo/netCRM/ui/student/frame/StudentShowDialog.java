@@ -1,21 +1,13 @@
 package com.lovo.netCRM.ui.student.frame;
 
-import java.awt.Color;
+import com.lovo.netCRM.bean.StudentBean;
+import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.RecallRecordDaoImp;
+import com.lovo.netCRM.dao.imp.StudentDaoImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
-import javax.swing.BorderFactory;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTitlePanel;
-import com.lovo.netCRM.component.LovoTxtArea;
 /**
  * 
  * 四川网脉CRM系统
@@ -96,21 +88,38 @@ public class StudentShowDialog extends JDialog{
 	 * 初始化信息
 	 * @param studentId 学生ID
 	 */
-	private void initData(int studentId){
-		
-	}
-	/**
+	private void initData(int studentId) {
+        StudentBean stu = (StudentBean) new StudentDaoImp().getObjectByID(studentId);
+        nameLabel.setText(stu.getName());
+        sexLabel.setText(stu.getSex());
+        birthdayLabel.setText(stu.getBirthday().toString());
+        classLabel.setText(stu.getClasses().getName());
+        addressLabel.setText(stu.getAddress());
+        phoneLabel.setText(stu.getPhone());
+        fatherLabel.setText(stu.getFather());
+        fatherPhoneLabel.setText(stu.getFatherPhone());
+        mumLabel.setText(stu.getMother());
+        mumPhoneLabel.setText(stu.getMotherPhone());
+        descriptionTxt.setText(stu.getDescribe());
+        if(stu.isVip()){
+            stateLabel.setText("会员");
+        }else
+            stateLabel.setText("非会员");
+    }
+
+    /**
 	 * 初始化表格
 	 * @param studentId 学生id
 	 */
 	private void initTable(int studentId,JPanel jp){
 		backTable = new LovoTable(jp,
 				new String[]{"回访时间","负责人","回访人","回访主题","回访内容"},
-				new String[]{},//学校实体属性名数组 new String[]{"time","man"}
+				new String[]{"time","emp.name","recallMan","title","describe"},//学校实体属性名数组 new String[]{"time","man"}
 				"");//主键属性名 backId
 		backTable.setSizeAndLocation(10, 20, 480, 170);
 		
 		//更新表格,插入List集合
+        new RecallRecordDaoImp().getAllReacllsByStuID(studentId);
 		backTable.updateLovoTable(null);
 	}
 	
