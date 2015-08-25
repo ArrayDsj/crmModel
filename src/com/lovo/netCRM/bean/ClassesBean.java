@@ -63,4 +63,8 @@ public class ClassesBean {
     public void setSchool(SchoolBean school) {
         this.school = school;
     }
+
+    public String toString(){
+        return name;
+    }
 }

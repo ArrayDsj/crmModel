@@ -29,8 +29,15 @@ public class SchoolBean {
     private AreaBean area;
     private ArrayList<ConnectRecordBean> connectRecord;
     private EmployeeBean emp;
+    private ArrayList<ClassesBean> classes;
 
+    public ArrayList<ClassesBean> getClasses() {
+        return classes;
+    }
 
+    public void setClasses(ArrayList<ClassesBean> classes) {
+        this.classes = classes;
+    }
 
     public SchoolBean() {
     }
@@ -192,5 +199,9 @@ public class SchoolBean {
 
     public void setEmp(EmployeeBean emp) {
         this.emp = emp;
+    }
+
+    public String toString(){
+        return name;
     }
 }

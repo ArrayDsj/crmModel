@@ -1,5 +1,6 @@
 package com.lovo.netCRM.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -19,7 +20,7 @@ public class StudentBean {
     private String fatherPhone;
     private String mother;
     private String motherPhone;
-    private RecallRecordBean recallRecord;
+    private ArrayList<RecallRecordBean> recallRecord;
     private ClassesBean classes;
 
     public StudentBean() {
@@ -129,11 +130,11 @@ public class StudentBean {
         this.motherPhone = motherPhone;
     }
 
-    public RecallRecordBean getRecallRecord() {
+    public ArrayList<RecallRecordBean> getRecallRecord() {
         return recallRecord;
     }
 
-    public void setRecallRecord(RecallRecordBean recallRecord) {
+    public void setRecallRecord(ArrayList<RecallRecordBean> recallRecord) {
         this.recallRecord = recallRecord;
     }
 

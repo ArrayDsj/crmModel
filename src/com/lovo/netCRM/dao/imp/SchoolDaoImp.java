@@ -436,6 +436,5 @@ public class SchoolDaoImp implements CrmDao{
     }
 
 
-    //按学校ID找出是哪个部门,然后返回这个部门的所有员工
-    //public ArrayList<EmployeeBean> getAllEmp
+
 }

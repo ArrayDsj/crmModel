@@ -1,23 +1,17 @@
 package com.lovo.netCRM.ui.student.frame;
 
-import java.awt.Color;
+import com.lovo.netCRM.bean.AreaBean;
+import com.lovo.netCRM.bean.SchoolBean;
+import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.AreaDaoImp;
+import com.lovo.netCRM.dao.imp.StudentDaoImp;
+import com.lovo.netCRM.service.imp.AreaServiceImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Area;
 import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
-
-import com.lovo.netCRM.component.LovoAccordion;
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTitleLabel;
-import com.lovo.netCRM.component.LovoTitlePanel;
 
 /**
  * 
@@ -129,10 +123,10 @@ public class StudentPanel extends JPanel{
 		lbadd.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-//				if(schoolId == 0){
-//					JOptionPane.showMessageDialog(null,"请选择学校");
-//					return;
-//				}
+				if(schoolId == 0){
+					JOptionPane.showMessageDialog(null, "请选择学校");
+					return;
+				}
 				
 				new StudentAddDialog(jf,schoolId,StudentPanel.this);
 			}});
@@ -208,16 +202,17 @@ public class StudentPanel extends JPanel{
 		LovoButton lb = new LovoButton("查找",180,100,jp);
 		lb.setSize(60, 20);
 		
-		lb.addActionListener(new ActionListener(){
+		lb.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
 //				if(schoolId == 0){
 //				JOptionPane.showMessageDialog(null,"请选择学校");
 //					return;
 //				}
-				findStudent(schoolId,1);
-				
-			}});
+                findStudent(schoolId, 1);
+
+            }
+        });
 		
 	}
 	/**
@@ -235,13 +230,18 @@ public class StudentPanel extends JPanel{
 	 * @return
 	 */
 	private int getSchoolId(Object schoolObj){
+        if(schoolObj instanceof SchoolBean){
+            SchoolBean schoolBean = (SchoolBean)schoolObj;
+            return schoolBean.getId();
+        }
 		return 0;
 	}
 	/**
 	 * 更新手风琴
 	 */
 	private void updateAccordion(){
-		this.cityAccordion.updateAccordion(new ArrayList());
+
+//		this.cityAccordion.updateAccordion(new ArrayList());
 	}
 	/**
 	 * 更新表格
@@ -249,9 +249,9 @@ public class StudentPanel extends JPanel{
 	 * @param int pageNO 页码
 	 */
 	private void updateStudentTable(int schoolId,int pageNO){
-		
+		//在学生表中,根据学校ID查找学生
 		//更新表格,插入List集合
-		studentTable.updateLovoTable(null);
+		studentTable.updateLovoTable(new StudentDaoImp().getStudentBySchlloID(schoolId));
 		//设置总页数
 		this.setTotalPage(0);
 	}
@@ -262,8 +262,8 @@ public class StudentPanel extends JPanel{
 	private void initTable() {
 		studentTable = new LovoTable(this,
 				new String[]{"学生姓名","性别","班级","状态","联系电话"},
-				new String[]{},//学生实体属性名数组 new String[]{"studentName","sex"}
-				"");//主键属性名 studentId
+				new String[]{"name","sex","classes.name","vip","phone"},//学生实体属性名数组 new String[]{"studentName","sex"}
+				"id");//主键属性名 studentId
 		studentTable.setSizeAndLocation(180, 90, 550, 300);
 		
 	}
@@ -294,7 +294,14 @@ public class StudentPanel extends JPanel{
 	 */
 	private void initAccordion() {
 		//第二个参数为城市集合cityList，第三个参数为城市类中学校集合的属性名schoolList
-		 cityAccordion = new LovoAccordion(this,new ArrayList(),""){
+        ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
+        ArrayList<AreaBean> a = new ArrayList<AreaBean>();
+        for(Object obj : allAreas){
+            AreaBean area = (AreaBean)obj;
+            a.add(area);
+        }
+        //JOptionPane.showMessageDialog(null,a.size());
+        cityAccordion = new LovoAccordion(this,a,"school"){
 				
 				/**
 				 * 学校列表框点击事件
@@ -309,6 +316,8 @@ public class StudentPanel extends JPanel{
 				 updateStudentTable(schoolId,1);
 				}
 			};
+        cityAccordion.updateAccordion(a);
+
 	}
 	
 	/**

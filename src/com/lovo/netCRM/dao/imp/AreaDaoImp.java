@@ -55,6 +55,8 @@ public class AreaDaoImp implements CrmDao{
                 AreaBean area = new AreaBean();
                 area.setId(rs.getInt(1));
                 area.setName(rs.getString(2));
+                //在学校表中根据城市ID找出所有学校结合
+                area.setSchool(new SchoolDaoImp().getSchoolByAreaID(rs.getInt(1)));
                 areas.add(area);
             }
         } catch (SQLException e) {

@@ -1,19 +1,12 @@
 package com.lovo.netCRM.ui.student.frame;
 
+import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.ClassesDaoImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoDate;
-import com.lovo.netCRM.component.LovoRadioButton;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTxt;
-import com.lovo.netCRM.component.LovoTxtArea;
 
 /**
  * 
@@ -98,7 +91,8 @@ public class StudentAddDialog extends JDialog{
 	 */
 	private void initComboBox(int schoolId){
 //		添加班级 集合
-		this.classTxt = new LovoComboBox("所属班级",new ArrayList(),320,100,this);
+        ArrayList<Object> allClassBySchool = new ClassesDaoImp().getObjectByschID(schoolId);
+		this.classTxt = new LovoComboBox("所属班级",allClassBySchool,320,100,this);
 	}
 	
 	/**
