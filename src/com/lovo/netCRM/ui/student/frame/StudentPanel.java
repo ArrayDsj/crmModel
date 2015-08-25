@@ -295,13 +295,13 @@ public class StudentPanel extends JPanel{
 	private void initAccordion() {
 		//第二个参数为城市集合cityList，第三个参数为城市类中学校集合的属性名schoolList
         ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
-        ArrayList<AreaBean> a = new ArrayList<AreaBean>();
+        ArrayList<AreaBean> areas = new ArrayList<AreaBean>();
         for(Object obj : allAreas){
             AreaBean area = (AreaBean)obj;
-            a.add(area);
+            areas.add(area);
         }
         //JOptionPane.showMessageDialog(null,a.size());
-        cityAccordion = new LovoAccordion(this,a,"school"){
+        cityAccordion = new LovoAccordion(this,areas,"school"){
 				
 				/**
 				 * 学校列表框点击事件
@@ -316,7 +316,7 @@ public class StudentPanel extends JPanel{
 				 updateStudentTable(schoolId,1);
 				}
 			};
-        cityAccordion.updateAccordion(a);
+        cityAccordion.updateAccordion(areas);
 
 	}
 	

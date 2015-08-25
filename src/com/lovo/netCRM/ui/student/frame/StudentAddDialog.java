@@ -1,7 +1,9 @@
 package com.lovo.netCRM.ui.student.frame;
 
+import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.ClassesDaoImp;
+import com.lovo.netCRM.dao.imp.StudentDaoImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -64,12 +66,11 @@ public class StudentAddDialog extends JDialog{
 	 */
 	private void init() {
 		this.initComboBox(schoolId);
-		
 		LovoButton lbadd = new LovoButton("添加",200,450,this);
 		lbadd.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-				boolean isOk = addStudent();
+				boolean isOk = addStudent(schoolId);
 				if(isOk){
 					StudentAddDialog.this.dispose();
 				}
@@ -93,16 +94,70 @@ public class StudentAddDialog extends JDialog{
 //		添加班级 集合
         ArrayList<Object> allClassBySchool = new ClassesDaoImp().getObjectByschID(schoolId);
 		this.classTxt = new LovoComboBox("所属班级",allClassBySchool,320,100,this);
+        classTxt.getItemAt(0);
 	}
 	
 	/**
 	 * 添加学生
 	 */
-	private boolean addStudent(){
+	private boolean addStudent(int schoolId){
 		//验证数据，验证失败返回false
-		
-		//封装实体
-		
+        StudentBean stu = new StudentBean();
+        //验证数据,验证失败返回false
+        String error = "";
+        if(nameTxt.getText() == null || nameTxt.getText().equals("")){
+            error += "姓名不能为空\n";
+        }
+        if(sexTxt.getItem() == null || sexTxt.getItem().equals("")){
+            error += "请选性别\n";
+        }
+        if(birthdayTxt.getDate() == null || birthdayTxt.getDate().equals("")){
+            error += "没校长,滚犊子\n";
+        }
+        if(phoneTxt.getText() == null || phoneTxt.getText().equals("")){
+            error += "没手机,滚犊子\n";
+        }
+        if(classTxt.getItem() == null || classTxt.getItem().equals("")){
+            error += "没班级,滚犊子\n";
+        }
+        if(addressTxt.getText() == null || addressTxt.getText().equals("")){
+            error += "没地址,滚犊子\n";
+        }
+        if(fatherTxt.getText() == null || fatherTxt.getText().equals("")){
+            error += "没老汉儿,滚犊子\n";
+        }
+        if(fatherPhoneTxt.getText() == null || fatherPhoneTxt.getText().equals("")){
+            error += "没老汉儿电话,滚犊子\n";
+        }
+        if(mumTxt.getText() == null || mumTxt.getText().equals("")){
+            error += "没老娘,滚犊子\n";
+        }if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+            error += "没说明,滚犊子\n";
+        }if(mumPhoneTxt.getText() == null || mumPhoneTxt.getText().equals("")){
+            error += "没老娘电话,滚犊子\n";
+        }
+        if(error.length() != 0) {
+            JOptionPane.showMessageDialog(null, error);
+            return false;
+        } else{
+            //封装实体
+            stu.setName(nameTxt.getText());
+            stu.setSex(sexTxt.getItem());
+            stu.setBirthday(birthdayTxt.getDate());
+            stu.setPhone(phoneTxt.getText());
+            stu.setClasses(new ClassesDaoImp().getClassesByName(classTxt.getItem().toString()));
+            stu.setAddress(addressTxt.getText());
+            stu.setFather(fatherTxt.getText());
+            stu.setFatherPhone(fatherPhoneTxt.getText());
+            stu.setMother(mumTxt.getText());
+            stu.setMotherPhone(mumPhoneTxt.getText());
+            stu.setDescribe(descriptionTxt.getText());
+            stu.setStatus(true);
+            stu.setVip(false);
+        }
+        //写入数据库
+        //封装实体
+		new StudentDaoImp().addObject(stu,schoolId);
 		//更新表格，显示添加结果
 		this.studentPanel.initData();
 		

@@ -131,8 +131,6 @@ public class DepartDaoImp implements CrmDao{
         String name = newDept.getDepartName();
         String describe = newDept.getDescribe();
         Date buildTime = newDept.getBuildTime();
-
-
         Connection con = ConnectionSQL.createConnectionSQL();
         int result = -1;
         String addSQL = "insert into depart(\n" +

@@ -1,13 +1,12 @@
 package com.lovo.netCRM.dao.imp;
 
-import com.lovo.netCRM.bean.*;
+import com.lovo.netCRM.bean.ClassesBean;
+import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -71,7 +70,40 @@ public class ClassesDaoImp implements CrmDao{
 
     @Override
     public boolean addObject(Object object) {
-        return false;
+        ClassesBean newClasses = (ClassesBean)object;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        int result = -1;
+        String addSQL = "insert into classes(\n" +
+                "class_name,\n" +
+                "class_buildTime,\n" +
+                "class_stuNum,\n" +
+                "class_teaName,\n" +
+                "school_id)\n" +
+                "values(\n" +
+                "?,\n" +
+                "?,\n" +
+                "?," +
+                "?," +
+                "?);";
+        try {
+            PreparedStatement ps = con.prepareStatement(addSQL);
+
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 
     @Override
@@ -136,6 +168,40 @@ public class ClassesDaoImp implements CrmDao{
         }
         if(clas.size() != 0){
             return clas;
+        }else
+            return null;
+    }
+
+
+    public ClassesBean getClassesByName(String  name){
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String getclassSQL = "select * from classes where class_name = '" + name + "'";
+        ClassesBean cla = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(getclassSQL);
+            while(rs.next()){
+                cla = new ClassesBean();
+                cla.setId(rs.getInt(1));
+                cla.setName(rs.getString(2));
+                cla.setBuildTime(rs.getDate(3));
+                cla.setStuNum(rs.getInt(4));
+                cla.setTeaName(rs.getString(5));
+                cla.setSchool((SchoolBean) new SchoolDaoImp().getObjectByID(rs.getInt(6)));
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(cla != null){
+            return cla;
         }else
             return null;
     }

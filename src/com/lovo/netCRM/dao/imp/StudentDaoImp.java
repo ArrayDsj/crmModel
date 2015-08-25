@@ -1,13 +1,12 @@
 package com.lovo.netCRM.dao.imp;
 
-import com.lovo.netCRM.bean.*;
+import com.lovo.netCRM.bean.ClassesBean;
+import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -42,6 +41,65 @@ public class StudentDaoImp implements CrmDao{
     @Override
     public boolean addObject(Object object) {
         return false;
+    }
+
+
+    public boolean addObject(Object object,int schoolID) {
+        StudentBean newStudent = (StudentBean)object;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        int result = -1;
+        String addSQL = "insert into student(\n" +
+                "stu_name,\n" +
+                "stu_sex,\n" +
+                "stu_address,\n" +
+                "stu_birthday,\n" +
+                "stu_describe,\n" +
+                "stu_status,\n" +
+                "stu_vip,\n" +
+                "stu_phone,\n" +
+                "stu_father,\n" +
+                "stu_fatherPhone,\n" +
+                "stu_mother,\n" +
+                "stu_motherPhone,\n" +
+                "classes_id,\n" +
+                "school_id)\n" +
+                "values(\n" +
+                "?,?,?,?,?,\n" +
+                "?,?,?,?,?,\n" +
+                "?,?,?,?);";
+        try {
+            PreparedStatement ps = con.prepareStatement(addSQL);
+            ps.setString(1, newStudent.getName());
+            ps.setString(2, newStudent.getSex());
+            ps.setString(3, newStudent.getAddress());
+            ps.setDate(4, new java.sql.Date(newStudent.getBirthday().getTime()));
+            ps.setString(5, newStudent.getDescribe());
+            ps.setBoolean(6, newStudent.isStatus());
+            ps.setBoolean(7, newStudent.isVip());
+            ps.setString(8, newStudent.getPhone());
+            ps.setString(9, newStudent.getFather());
+            ps.setString(10,newStudent.getFatherPhone());
+            ps.setString(11,newStudent.getMother());
+            ps.setString(12,newStudent.getMotherPhone());
+            ps.setInt(13, newStudent.getClasses().getId());
+            ps.setInt(14,schoolID);
+
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 
     @Override
