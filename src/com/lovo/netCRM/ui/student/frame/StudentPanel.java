@@ -3,14 +3,13 @@ package com.lovo.netCRM.ui.student.frame;
 import com.lovo.netCRM.bean.AreaBean;
 import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.*;
-import com.lovo.netCRM.dao.imp.AreaDaoImp;
 import com.lovo.netCRM.dao.imp.StudentDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Area;
 import java.util.ArrayList;
 
 /**
@@ -150,11 +149,10 @@ public class StudentPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = studentTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
-				
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				delEmployee(key);
 			}});
 		
@@ -300,7 +298,6 @@ public class StudentPanel extends JPanel{
             AreaBean area = (AreaBean)obj;
             areas.add(area);
         }
-        //JOptionPane.showMessageDialog(null,a.size());
         cityAccordion = new LovoAccordion(this,areas,"school"){
 				
 				/**
@@ -311,7 +308,6 @@ public class StudentPanel extends JPanel{
 				public void clickEvent(Object schoolObj) {
 				 //记录点中学校id
 				 schoolId = getSchoolId(schoolObj);
-
 					//显示点中学校学生
 				 updateStudentTable(schoolId,1);
 				}
@@ -325,10 +321,13 @@ public class StudentPanel extends JPanel{
 	 * @param studentId 学生ID
 	 */
 	private void delEmployee(int studentId){
-		
-		
+        //将学生的status设置为false
+        if((JOptionPane.showConfirmDialog(null,"是否删除选中学生信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
+            boolean dele = new StudentDaoImp().deleteObject(studentId);
+            updateStudentTable(schoolId, 1);
+        }
 //		显示删除结果
-		updateStudentTable(schoolId,1);
+
 	}
 	/**
 	 * 查找学生
@@ -340,9 +339,7 @@ public class StudentPanel extends JPanel{
 		String item = itemCombox.getItem();
 		//得到选项值
 		String value = valueTxt.getText();
-		
-		
-		
+
 //		更新表格,显示查询结果
 		studentTable.updateLovoTable(null);
 		//设置总页数

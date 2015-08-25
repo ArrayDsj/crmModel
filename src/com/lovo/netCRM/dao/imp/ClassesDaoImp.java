@@ -60,12 +60,62 @@ public class ClassesDaoImp implements CrmDao{
 
     @Override
     public Object getObjectByID(int ObjectID) {
-        return null;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String getSchoolSQL = "select * from classes where class_id = " + ObjectID;
+        ClassesBean cla = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(getSchoolSQL);
+            while(rs.next()){
+                cla = new ClassesBean();
+                cla.setId(rs.getInt(1));
+                cla.setName(rs.getString(2));
+                cla.setBuildTime(rs.getDate(3));
+                cla.setStuNum(rs.getInt(4));
+                cla.setTeaName(rs.getString(5));
+                cla.setSchool((SchoolBean) new SchoolDaoImp().getObjectByID(rs.getInt(6)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(cla != null){
+            return cla;
+        }else
+            return null;
     }
 
     @Override
     public boolean alterObject(Object alterObj) {
+
         return false;
+    }
+
+    public boolean alterObject(int ObjectID,Object object) {
+        ClassesBean alterclasses = (ClassesBean)object;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL = "update classes set class_teaName = ? " +
+                        "where class_id = ?";
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setString(1,alterclasses.getTeaName());
+            ps.setInt(2,ObjectID);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 
     @Override
@@ -88,6 +138,49 @@ public class ClassesDaoImp implements CrmDao{
         try {
             PreparedStatement ps = con.prepareStatement(addSQL);
 
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+
+    public boolean addObject(int ObjectID,Object object){
+        ClassesBean newClasses = (ClassesBean)object;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        int result = -1;
+        String addSQL = "insert into classes(\n" +
+                "class_name,\n" +
+                "class_buildTime,\n" +
+                "class_stuNum,\n" +
+                "class_teaName,\n" +
+                "school_id)\n" +
+                "values(\n" +
+                "?,\n" +
+                "?,\n" +
+                "?," +
+                "?," +
+                "?);";
+        try {
+            PreparedStatement ps = con.prepareStatement(addSQL);
+            ps.setString(1, newClasses.getName());
+            ps.setDate(2, new java.sql.Date(newClasses.getBuildTime().getTime()));
+            //初始化班级人数为0;
+            ps.setInt(3,0);
+            ps.setString(4, newClasses.getTeaName());
+            ps.setInt(5, ObjectID);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

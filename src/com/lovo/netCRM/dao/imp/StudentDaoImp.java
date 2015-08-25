@@ -25,7 +25,28 @@ public class StudentDaoImp implements CrmDao{
 
     @Override
     public boolean deleteObject(int ObjectID) {
-        return false;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        //修改用户状态信息
+        String deletSQL = "update student set stu_status = 0  where stu_id = " + ObjectID;
+        int result = 0;
+        try {
+            Statement st = con.createStatement();
+            result = st.executeUpdate(deletSQL);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 
     @Override
@@ -159,6 +180,9 @@ public class StudentDaoImp implements CrmDao{
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {
+                if(!rs.getBoolean(7)){
+                    continue;
+                }
                 stu = new StudentBean();
                 stu.setId(rs.getInt(1));
                 stu.setName(rs.getString(2));
@@ -177,9 +201,8 @@ public class StudentDaoImp implements CrmDao{
                 stu.setRecallRecord(new RecallRecordDaoImp().getAllReacllsByStuID(stu.getId()));
                 //使用班级ID查找班级,只有一个
                 stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByStudentID(rs.getInt(15)));
-                if(stu.isStatus()){
-                    allStus.add(stu);
-                }
+                allStus.add(stu);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -198,6 +221,8 @@ public class StudentDaoImp implements CrmDao{
         }else
             return null;
     }
+
+
 
 
 

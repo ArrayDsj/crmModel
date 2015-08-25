@@ -1,15 +1,14 @@
 package com.lovo.netCRM.ui.classManager.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxt;
+import com.lovo.netCRM.dao.imp.ClassesDaoImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * 
@@ -76,18 +75,30 @@ public class ClassUpdateDialog extends JDialog{
 	 * @param classId 班级ID
 	 */
 	private void initClassData(int classId){
-		
+        ClassesBean classes = (ClassesBean)new ClassesDaoImp().getObjectByID(classId);
+        nameLabel.setText(classes.getName());
+        teacherTxt.setText(classes.getTeaName());
 	}
 	/**
 	 * 修改班级
 	 * @param classId 班级ID
 	 */
 	private boolean updateClass(int classId){
-		//验证失败，返回false
-		
-//		更新表格，显示修改结果
+        ClassesBean cla = new ClassesBean();
+        //验证数据,验证失败返回false
+        String error = "";
+        if(teacherTxt.getText() == null || teacherTxt.getText().equals("")){
+            error += "没名字，滚犊子\n";
+        }
+        if(error.length() != 0) {
+            JOptionPane.showMessageDialog(null, error);
+            return false;
+        }
+        //封装实体
+        cla.setTeaName(teacherTxt.getText());
+        //更新表格，显示修改结果
+        new ClassesDaoImp().alterObject(classId,cla);
 		this.classManagerPanel.initData();
-		
 		return true;
 	}
 }

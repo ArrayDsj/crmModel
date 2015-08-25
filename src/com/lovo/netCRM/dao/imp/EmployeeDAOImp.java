@@ -130,11 +130,15 @@ public class EmployeeDaoImp implements CrmDao {
                 "on s.staff_department_id = d.depart_id\n" +
                 "join position p\n" +
                 "on s.staff_position_id = p.position_id\n";
-
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(allEmp);
             while(rs.next()){
+                //先判断这个员工的状态
+                //如果员工属于离职状态则不显示
+                if(!rs.getBoolean(13)){
+                    continue;
+                }
                 //组合员工信息
                 EmployeeBean emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
@@ -151,11 +155,7 @@ public class EmployeeDaoImp implements CrmDao {
                 emp.setHeadFile(rs.getString(16));
                 emp.setDept(rs.getString(18));
                 emp.setPosition(rs.getString(22));
-                //添加到集合中
-                //如果员工属于离职状态则不显示
-                if(emp.isStatus()){
-                    empList.add(emp);
-                }
+                empList.add(emp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -193,6 +193,9 @@ public class EmployeeDaoImp implements CrmDao {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(allEmp);
             while(rs.next()){
+                if(!rs.getBoolean(13)){
+                    continue;
+                }
                 //组合员工信息
                 EmployeeBean emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
@@ -209,11 +212,7 @@ public class EmployeeDaoImp implements CrmDao {
                 emp.setHeadFile(rs.getString(16));
                 emp.setDept(rs.getString(18));
                 emp.setPosition(rs.getString(22));
-                //添加到集合中
-                //如果员工属于离职状态则不显示
-                if(emp.isStatus()){
-                    empList.add(emp);
-                }
+                empList.add(emp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -287,6 +286,9 @@ public class EmployeeDaoImp implements CrmDao {
             Statement st  = con.createStatement();
             ResultSet rs = st.executeQuery(conSQL);
             while(rs.next()){
+                if(!rs.getBoolean(13)){
+                    continue;
+                }
                 //组合员工信息
                 EmployeeBean emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
@@ -302,11 +304,7 @@ public class EmployeeDaoImp implements CrmDao {
                 emp.setStatus(rs.getBoolean(13));
                 emp.setDept(rs.getString(18));
                 emp.setPosition(rs.getString(22));
-                //添加到集合中
-                //如果员工属于离职状态则不显示
-                if(emp.isStatus()){
-                    empListByCon.add(emp);
-                }
+                empListByCon.add(emp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -343,6 +341,9 @@ public class EmployeeDaoImp implements CrmDao {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(getObjectByIDSQL);
             while(rs.next()){
+                if(!rs.getBoolean(13)){
+                    continue;
+                }
                 //组合员工信息
                 emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
@@ -432,12 +433,11 @@ public class EmployeeDaoImp implements CrmDao {
         //不是物理删除,只是把stauts设置为1
         Connection con = ConnectionSQL.createConnectionSQL();
         //修改用户状态信息
-        String deletEmpSQL = "update staff set staff_status = 1  where staff_id = " + ObjectID;
+        String deletEmpSQL = "update staff set staff_status = 0  where staff_id = " + ObjectID;
         int result = 0;
         try {
             Statement st = con.createStatement();
             result = st.executeUpdate(deletEmpSQL);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }finally{
@@ -463,11 +463,14 @@ public class EmployeeDaoImp implements CrmDao {
     public ArrayList<EmployeeBean> getAllEmpByDeptID(int deptID){
         Connection con = ConnectionSQL.createConnectionSQL();
         ArrayList<EmployeeBean> emps = new ArrayList<EmployeeBean>();
-        String sql = "select staff_id ,staff_name from staff where staff_department_id= " + deptID;
+        String sql = "select staff_id ,staff_name ,staff_status from staff where staff_department_id= " + deptID;
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
+                if(!rs.getBoolean(3)){
+                    continue;
+                }
                 EmployeeBean emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
                 emp.setName(rs.getString(2));
@@ -522,7 +525,6 @@ public class EmployeeDaoImp implements CrmDao {
                 emp.setHeadFile(rs.getString(16));
                 emp.setDept(rs.getString(18));
                 emp.setPosition(rs.getString(22));
-
             }
         } catch (SQLException e) {
             e.printStackTrace();

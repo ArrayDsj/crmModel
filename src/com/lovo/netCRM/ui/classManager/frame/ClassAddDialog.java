@@ -1,14 +1,15 @@
 package com.lovo.netCRM.ui.classManager.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
+import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTxt;
+import com.lovo.netCRM.dao.imp.ClassesDaoImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
 
 /**
  * 
@@ -37,9 +38,7 @@ public class ClassAddDialog extends JDialog{
 		this.classManagerPanel = classManagerPanel;
 		this.setLayout(null);
 		this.setTitle("添加班级");
-		
 		this.init();
-		
 		this.setBounds(400, 200, 350, 300);
 		this.setVisible(true);
 	}
@@ -49,20 +48,17 @@ public class ClassAddDialog extends JDialog{
 	 *
 	 */
 	private void init() {
-		
 		LovoButton lbadd = new LovoButton("添加",60,220,this);
 		lbadd.addActionListener(new ActionListener(){
-
 			public void actionPerformed(ActionEvent e) {
 				boolean isOk = addClass(schoolId);
 				if(isOk){
-				ClassAddDialog.this.dispose();
+				    ClassAddDialog.this.dispose();
 				}
 			}});
 		
 		LovoButton lbcancel = new LovoButton("取消",200,220,this);
 		lbcancel.addActionListener(new ActionListener(){
-
 			public void actionPerformed(ActionEvent e) {
 				ClassAddDialog.this.dispose();
 			}});
@@ -74,12 +70,27 @@ public class ClassAddDialog extends JDialog{
 	 * @param schoolId 学校id
 	 */
 	private boolean addClass(int  schoolId){
-		
 		//验证数据，验证失败，返回false
-		
-//		更新表格，显示添加结果
-		this.classManagerPanel.initData();
-		
-		return true;
+        ClassesBean newClasses = new ClassesBean();
+        String error = "";
+        if(nameTxt.getText() == null || nameTxt.getText().trim().equals("")){
+           error += "名称不能为空";
+        }
+        if(teacherTxt.getText() == null || nameTxt.getText().trim().equals("")){
+            error += "老师名字不能为空";
+        }
+        if(error.length() != 0) {
+            JOptionPane.showMessageDialog(null, error);
+            return false;
+        }
+        newClasses.setName(nameTxt.getText());
+        newClasses.setTeaName(teacherTxt.getText());
+        newClasses.setBuildTime(new Date());
+        if(new ClassesDaoImp().addObject(schoolId,newClasses)){
+            //更新表格，显示添加结果
+            this.classManagerPanel.initData();
+            return true;
+        }
+        return false;
 	}
 }

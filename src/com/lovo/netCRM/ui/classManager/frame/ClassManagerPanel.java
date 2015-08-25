@@ -1,16 +1,18 @@
 package com.lovo.netCRM.ui.classManager.frame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
+import com.lovo.netCRM.bean.AreaBean;
+import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoAccordion;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+import com.lovo.netCRM.dao.imp.ClassesDaoImp;
+import com.lovo.netCRM.service.imp.AreaServiceImp;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * 
@@ -46,7 +48,7 @@ public class ClassManagerPanel extends JPanel{
 		this.initTable();
 		this.initButton();
 		this.initData();
-		cityAccordion.setBounds(20,90,150,300);
+		cityAccordion.setBounds(20, 90, 150, 300);
 	}
 	
 	/**
@@ -76,11 +78,10 @@ public class ClassManagerPanel extends JPanel{
 		lbadd.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-//				if(schoolId == 0){
-//					JOptionPane.showMessageDialog(null,"请选择学校");
-//					return;
-//				}
-				
+				if(schoolId == 0){
+					JOptionPane.showMessageDialog(null,"请选择学校");
+					return;
+				}
 				new ClassAddDialog(jf,schoolId,ClassManagerPanel.this);
 			}});
 		
@@ -90,11 +91,10 @@ public class ClassManagerPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = classTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
-				
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				new ClassUpdateDialog(jf,key,ClassManagerPanel.this);
 			}});
 	}
@@ -106,28 +106,35 @@ public class ClassManagerPanel extends JPanel{
 	 * @return
 	 */
 	private int getSchoolId(Object schoolObj){
+        if(schoolObj instanceof SchoolBean){
+            SchoolBean schoolBean = (SchoolBean)schoolObj;
+            return schoolBean.getId();
+        }
 		return 0;
 	}
-	
-	
 	/**
 	 * 初始化表格
 	 */
 	private void initTable() {
 		classTable = new LovoTable(this,
 				new String[]{"班级名称","开班时间","班级人数","带班老师"},
-				new String[]{},//班级实体属性名数组 new String[]{"className","time"}
-				"");//主键属性名 classId
+				new String[]{"name","buildTime","stuNum","teaName"},//班级实体属性名数组 new String[]{"className","time"}
+				"id");//主键属性名 classId
 		classTable.setSizeAndLocation(180, 90, 550, 300);
-		
 	}
 	/**
 	 * 初始化手风琴组件
 	 *
 	 */
 	private void initAccordion() {
-		//第二个参数为城市集合cityList，第三个参数为城市类中学校集合的属性名schoolList
-		 cityAccordion = new LovoAccordion(this,new ArrayList(),""){
+	//第二个参数为城市集合cityList，第三个参数为城市类中学校集合的属性名schoolList
+        ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
+        ArrayList<AreaBean> areas = new ArrayList<AreaBean>();
+        for(Object obj : allAreas){
+            AreaBean area = (AreaBean)obj;
+            areas.add(area);
+        }
+        cityAccordion = new LovoAccordion(this,areas,"school"){
 				
 				/**
 				 * 学校列表框点击事件
@@ -136,17 +143,18 @@ public class ClassManagerPanel extends JPanel{
 			 @Override
 				public void clickEvent(Object schoolObj) {
 				 	schoolId = getSchoolId(schoolObj);
-
+                    //显示点中学校班级
 				 	updateClassTable(schoolId);
 				}
 			};
+        cityAccordion.updateAccordion(areas);
 	}
 	
 	/**
 	 * 更新手风琴
 	 */
 	private void updateAccordion(){
-		this.cityAccordion.updateAccordion(new ArrayList());
+		//this.cityAccordion.updateAccordion(new ArrayList());
 	}
 	/**
 	 * 更新表格
@@ -154,7 +162,9 @@ public class ClassManagerPanel extends JPanel{
 	 */
 	private void updateClassTable(int schoolId){
 		//更新表格,插入List集合
-		classTable.updateLovoTable(null);
+        //根据学校ID查找班级,一个学校有多个班级
+        ArrayList<Object> allClasses = new ClassesDaoImp().getObjectByschID(schoolId);
+		classTable.updateLovoTable(allClasses);
 	}
 
 }
