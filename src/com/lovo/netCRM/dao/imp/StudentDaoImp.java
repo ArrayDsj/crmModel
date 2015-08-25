@@ -6,6 +6,7 @@ import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -122,7 +123,7 @@ public class StudentDaoImp implements CrmDao{
             ps.setString(4,stu.getDescribe());
             ps.setInt(5, stu.getClasses().getId());
             ps.setBoolean(6, stu.isVip());
-            ps.setInt(7,schID);
+            ps.setInt(7, schID);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -208,7 +209,88 @@ public class StudentDaoImp implements CrmDao{
 
     @Override
     public ArrayList<Object> getObjectByCon(String item, String value) {
-        return null;
+        ArrayList<Object> stuListByCon = new ArrayList<Object>();
+        StudentBean stu = null;
+        Connection con = ConnectionSQL.createConnectionSQL();
+
+        String conSQL = null;
+        //根据item来确认SQL语句
+        switch(item){
+            case "学生姓名" :
+                conSQL ="select stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "where stu_name like '%" + value + "%';";
+                break;
+
+            case "班级" :
+                conSQL ="select stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "where class_name =  like '%" + value + "%';";
+                break;
+
+            case "会员" :
+                conSQL = "select stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "where  stu_vip = 1";
+                break;
+
+            case "非会员" :
+                conSQL = "select stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "where  stu_vip = 0";
+                break;
+        }
+        try {
+            Statement st  = con.createStatement();
+            ResultSet rs = st.executeQuery(conSQL);
+            while(rs.next()){
+                if (!rs.getBoolean(4)){
+                    continue;
+                }
+                stu = new StudentBean();
+                stu.setId(rs.getInt(1));
+                stu.setName(rs.getString(2));
+                stu.setSex(rs.getString(3));
+                stu.setVip(rs.getBoolean(5));
+                stu.setPhone(rs.getString(6));
+                //使用班级ID查找班级,只有一个
+                stu.setClasses(new ClassesDaoImp().getClassesByName(rs.getString(7)));
+                stuListByCon.add(stu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(stuListByCon.size() != 0){
+            return stuListByCon;
+        }else {
+            JOptionPane.showMessageDialog(null, "无查询结果");
+            return null;
+        }
     }
 
 

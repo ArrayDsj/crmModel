@@ -347,9 +347,9 @@ public class StudentPanel extends JPanel{
 		String item = itemCombox.getItem();
 		//得到选项值
 		String value = valueTxt.getText();
-
+        ArrayList<Object> checkSuts = new StudentDaoImp().getObjectByCon(item, value);
 //		更新表格,显示查询结果
-		studentTable.updateLovoTable(null);
+		studentTable.updateLovoTable(checkSuts);
 		//设置总页数
 		this.setTotalPage(pageNO);
 	}
