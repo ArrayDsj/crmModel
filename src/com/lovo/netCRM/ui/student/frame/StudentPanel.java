@@ -178,10 +178,10 @@ public class StudentPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = studentTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				new StudentVisitAddialog(jf,key,schoolId);
 			}});
@@ -206,10 +206,10 @@ public class StudentPanel extends JPanel{
 		lb.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-//				if(schoolId == 0){
-//				JOptionPane.showMessageDialog(null,"请选择学校");
-//					return;
-//				}
+				if(schoolId == 0){
+				JOptionPane.showMessageDialog(null,"请选择学校");
+					return;
+				}
                 findStudent(schoolId, 1);
 
             }

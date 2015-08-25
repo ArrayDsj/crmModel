@@ -119,8 +119,7 @@ public class StudentShowDialog extends JDialog{
 		backTable.setSizeAndLocation(10, 20, 480, 170);
 		
 		//更新表格,插入List集合
-        new RecallRecordDaoImp().getAllReacllsByStuID(studentId);
-		backTable.updateLovoTable(null);
+		backTable.updateLovoTable(new RecallRecordDaoImp().getAllReacllsByStuID(studentId));
 	}
 	
 }

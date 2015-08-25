@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93b4ad0b-a076-44b6-a6bd-55e3653d8a3f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/ClassesDaoImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/ClassesDaoImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentAddDialog.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentAddDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/StudentDaoImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/StudentDaoImp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/RecallRecordDaoImp.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/RecallRecordDaoImp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentPanel.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentUpdateDialog.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentUpdateDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentShowDialog.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentShowDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentVisitAddialog.java" afterPath="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentVisitAddialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="crmModel.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,10 +41,6 @@
         <option name="myItemId" value="crm_system" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="student" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
     </PATH>
     <PATH>
       <PATH_ELEMENT>
@@ -59,34 +55,11 @@
         <option name="myItemId" value="crm_system" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="recallrecord" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
     </PATH>
-  </component>
-  <component name="DockManager">
-    <window id="3">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="StudentDaoImp.java" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/StudentDaoImp.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.3686007">
-                    <caret line="115" column="24" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
-                    <folding>
-                      <element signature="e#7104#7117#0" expanded="true" />
-                      <marker date="1440520763674" expanded="true" signature="741:791" placeholder="update stude..." />
-                      <marker date="1440520763674" expanded="true" signature="1499:1520" placeholder="select * fro..student..." />
-                      <marker date="1440520763674" expanded="true" signature="3345:3654" placeholder="update stude..." />
-                      <marker date="1440520763674" expanded="true" signature="4833:5461" placeholder="insert into ..." />
-                      <marker date="1440520763674" expanded="true" signature="7143:7183" placeholder="select * fro..student..." />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -94,73 +67,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StudentPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentPanel.java">
+      <file leaf-file-name="StudentVisitAddialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentVisitAddialog.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="172" column="31" selection-start-line="172" selection-start-column="31" selection-end-line="172" selection-end-column="31" />
-              <folding>
-                <element signature="e#1681#1682#0" expanded="true" />
-                <element signature="e#1712#1713#0" expanded="true" />
-                <element signature="e#6687#6697#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StudentUpdateDialog.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentUpdateDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.97979796">
-              <caret line="159" column="36" selection-start-line="159" selection-start-column="36" selection-end-line="159" selection-end-column="36" />
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SchoolDaoImp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/SchoolDaoImp.java">
+      <file leaf-file-name="StudentBean.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/bean/StudentBean.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="338" column="25" selection-start-line="304" selection-start-column="8" selection-end-line="338" selection-end-column="25" />
+              <caret line="23" column="31" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StudentShowDialog.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentShowDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5252525">
+              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecallRecordBean.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/bean/RecallRecordBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="27" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SchoolCommunicateAddDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/school/frame/SchoolCommunicateAddDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="122" column="22" selection-start-line="122" selection-start-column="22" selection-end-line="122" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecallRecordDaoImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/RecallRecordDaoImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="78" column="48" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4632#4644#0" expanded="true" />
-                <element signature="e#5987#6006#0" expanded="true" />
-                <element signature="e#7430#7442#0" expanded="true" />
+                <element signature="e#549#567#0" expanded="true" />
+                <marker date="1440522441961" expanded="true" signature="593:639" placeholder="select * fro..recallrecord..." />
+                <marker date="1440522441961" expanded="true" signature="1916:2361" placeholder="insert into ..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClassesDaoImp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/ClassesDaoImp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="302" column="39" selection-start-line="302" selection-start-column="23" selection-end-line="302" selection-end-column="39" />
-              <folding>
-                <element signature="e#591#599#0" expanded="true" />
-                <element signature="e#8131#8139#0" expanded="true" />
-                <marker date="1440514295195" expanded="true" signature="694:715" placeholder="select * fro..classes..." />
-                <marker date="1440514295195" expanded="true" signature="1944:1983" placeholder="select * fro..classes..." />
-                <marker date="1440514295195" expanded="true" signature="2940:3024" placeholder="update class..." />
-                <marker date="1440514295195" expanded="true" signature="3886:3961" placeholder="update class..." />
-                <marker date="1440514295195" expanded="true" signature="4834:5184" placeholder="insert into ..." />
-                <marker date="1440514295195" expanded="true" signature="5927:6277" placeholder="insert into ..." />
-                <marker date="1440514295195" expanded="true" signature="7333:7372" placeholder="select * fro..classes..." />
-                <marker date="1440514295195" expanded="true" signature="8236:8276" placeholder="select * fro..classes..." />
-                <marker date="1440514295195" expanded="true" signature="9334:9389" placeholder="select * fro..classes..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StudentAddDialog.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentAddDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="139" column="8" selection-start-line="139" selection-start-column="8" selection-end-line="142" selection-end-column="9" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -186,7 +153,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/lovo/test/Test.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/CrmDao.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/service/ClassesService.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/service/StudentService.java" />
@@ -226,17 +192,18 @@
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/bean/SchoolBean.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/bean/ClassesBean.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/DepartDaoImp.java" />
-        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/RecallRecordDaoImp.java" />
-        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentShowDialog.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/EmployeeDaoImp.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/classManager/frame/ClassAddDialog.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/classManager/frame/ClassUpdateDialog.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/ClassesDaoImp.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentAddDialog.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/classManager/frame/ClassManagerPanel.java" />
-        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentPanel.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentUpdateDialog.java" />
         <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/StudentDaoImp.java" />
+        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentPanel.java" />
+        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentVisitAddialog.java" />
+        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/RecallRecordDaoImp.java" />
+        <option value="$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentShowDialog.java" />
       </list>
     </option>
   </component>
@@ -685,40 +652,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="imp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SchoolDaoImp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ClassTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crmModel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crmModel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lovo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="netCRM" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="bean" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -997,7 +930,7 @@
       <workItem from="1440378626187" duration="19465000" />
       <workItem from="1440399846189" duration="9992000" />
       <workItem from="1440411658370" duration="29950000" />
-      <workItem from="1440464984599" duration="49877000" />
+      <workItem from="1440464984599" duration="51923000" />
     </task>
     <task id="LOCAL-00001" summary="修改用户管理卡片">
       <created>1440214795207</created>
@@ -1033,7 +966,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="208226000" />
+    <option name="totallyTimeSpent" value="210272000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1045,7 +978,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1055,11 +988,11 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39059967" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30794165" sideWeight="0.4848255" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30794165" sideWeight="0.4848255" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41350532" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21841705" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45295903" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3873582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17754173" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1130,25 +1063,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/ActiveDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30716723">
-          <caret line="60" column="22" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="22" />
-          <folding>
-            <marker date="1440420514513" expanded="true" signature="-1:-1" placeholder="insert into ..." />
-            <marker date="1440420514513" expanded="true" signature="-1:-1" placeholder="select * fro..active..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/util/ConnectionSQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3993174">
-          <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/lovoComponent.jar!/com/lovo/netCRM/component/LovoAccordion.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.28597122">
@@ -1169,14 +1083,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="27" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/bean/StudentBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66211605">
-          <caret line="23" column="31" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1250,26 +1156,6 @@
         <state vertical-scroll-proportion="0.33212996">
           <caret line="104" column="54" selection-start-line="104" selection-start-column="40" selection-end-line="104" selection-end-column="54" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/bean/RecallRecordBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="27" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/RecallRecordDaoImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="59" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#642#660#0" expanded="true" />
-            <marker date="1440496007771" expanded="true" signature="-1:-1" placeholder="select * fro..recallrecord..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1403,14 +1289,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentShowDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35494882">
-          <caret line="102" column="48" selection-start-line="102" selection-start-column="48" selection-end-line="102" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/count/frame/AddressCountPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3327645">
@@ -1509,22 +1387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/school/frame/SchoolCommunicateAddDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.005119454">
-          <caret line="82" column="79" selection-start-line="82" selection-start-column="79" selection-end-line="82" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/school/frame/SchoolPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="143" column="37" selection-start-line="143" selection-start-column="37" selection-end-line="143" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/school/frame/SchoolAddDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26279864">
@@ -1535,7 +1397,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentAddDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-0.2020202">
           <caret line="139" column="8" selection-start-line="139" selection-start-column="8" selection-end-line="142" selection-end-column="9" />
           <folding />
         </state>
@@ -1543,20 +1405,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/ClassesDaoImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.7373737">
           <caret line="302" column="39" selection-start-line="302" selection-start-column="23" selection-end-line="302" selection-end-column="39" />
           <folding>
             <element signature="e#591#599#0" expanded="true" />
             <element signature="e#8131#8139#0" expanded="true" />
-            <marker date="1440514295195" expanded="true" signature="694:715" placeholder="select * fro..classes..." />
-            <marker date="1440514295195" expanded="true" signature="1944:1983" placeholder="select * fro..classes..." />
-            <marker date="1440514295195" expanded="true" signature="2940:3024" placeholder="update class..." />
-            <marker date="1440514295195" expanded="true" signature="3886:3961" placeholder="update class..." />
-            <marker date="1440514295195" expanded="true" signature="4834:5184" placeholder="insert into ..." />
-            <marker date="1440514295195" expanded="true" signature="5927:6277" placeholder="insert into ..." />
-            <marker date="1440514295195" expanded="true" signature="7333:7372" placeholder="select * fro..classes..." />
-            <marker date="1440514295195" expanded="true" signature="8236:8276" placeholder="select * fro..classes..." />
-            <marker date="1440514295195" expanded="true" signature="9334:9389" placeholder="select * fro..classes..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="select * fro..classes..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="select * fro..classes..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="update class..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="update class..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="select * fro..classes..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="select * fro..classes..." />
+            <marker date="1440514295195" expanded="true" signature="-1:-1" placeholder="select * fro..classes..." />
           </folding>
         </state>
       </provider>
@@ -1571,7 +1433,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/SchoolDaoImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="1.2525252">
           <caret line="338" column="25" selection-start-line="304" selection-start-column="8" selection-end-line="338" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1582,14 +1444,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/StudentDaoImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="172" column="31" selection-start-line="172" selection-start-column="31" selection-end-line="172" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.3686007">
+          <caret line="115" column="24" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
           <folding>
-            <element signature="e#1681#1682#0" expanded="true" />
-            <element signature="e#1712#1713#0" expanded="true" />
-            <element signature="e#6687#6697#0" expanded="true" />
+            <element signature="e#7104#7117#0" expanded="true" />
+            <marker date="1440520763674" expanded="true" signature="-1:-1" placeholder="update stude..." />
+            <marker date="1440520763674" expanded="true" signature="-1:-1" placeholder="select * fro..student..." />
+            <marker date="1440520763674" expanded="true" signature="-1:-1" placeholder="update stude..." />
+            <marker date="1440520763674" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1440520763674" expanded="true" signature="-1:-1" placeholder="select * fro..student..." />
           </folding>
         </state>
       </provider>
@@ -1602,18 +1467,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/StudentDaoImp.java">
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3686007">
-          <caret line="115" column="24" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.017064847">
+          <caret line="185" column="29" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
           <folding>
-            <element signature="e#7104#7117#0" expanded="true" />
-            <marker date="1440520763674" expanded="true" signature="741:791" placeholder="update stude..." />
-            <marker date="1440520763674" expanded="true" signature="1499:1520" placeholder="select * fro..student..." />
-            <marker date="1440520763674" expanded="true" signature="3345:3654" placeholder="update stude..." />
-            <marker date="1440520763674" expanded="true" signature="4833:5461" placeholder="insert into ..." />
-            <marker date="1440520763674" expanded="true" signature="7143:7183" placeholder="select * fro..student..." />
+            <element signature="e#1681#1682#0" expanded="true" />
+            <element signature="e#1712#1713#0" expanded="true" />
+            <element signature="e#6671#6681#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/ConnectRecordDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1843003">
+          <caret line="97" column="5" selection-start-line="52" selection-start-column="4" selection-end-line="97" selection-end-column="5" />
+          <folding>
+            <marker date="1440471229731" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/school/frame/SchoolPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2730376">
+          <caret line="143" column="33" selection-start-line="143" selection-start-column="33" selection-end-line="143" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentVisitAddialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/bean/StudentBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/school/frame/SchoolCommunicateAddDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="122" column="22" selection-start-line="122" selection-start-column="22" selection-end-line="122" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/bean/RecallRecordBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/dao/imp/RecallRecordDaoImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="78" column="48" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#549#567#0" expanded="true" />
+            <marker date="1440522441961" expanded="true" signature="593:639" placeholder="select * fro..recallrecord..." />
+            <marker date="1440522441961" expanded="true" signature="1916:2361" placeholder="insert into ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lovo/netCRM/ui/student/frame/StudentShowDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5252525">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

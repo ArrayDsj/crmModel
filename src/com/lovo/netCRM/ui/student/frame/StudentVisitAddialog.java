@@ -1,18 +1,17 @@
 package com.lovo.netCRM.ui.student.frame;
 
+import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.bean.RecallRecordBean;
+import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
+import com.lovo.netCRM.dao.imp.RecallRecordDaoImp;
+import com.lovo.netCRM.service.imp.ConnectionServiceImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoDate;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTxt;
-import com.lovo.netCRM.component.LovoTxtArea;
+import java.util.Date;
 
 /**
  * 
@@ -81,7 +80,8 @@ public class StudentVisitAddialog extends JDialog{
 	private void initComboBox(int schoolId){
 
 		//添加负责人集合
-		this.employeeTxt = new LovoComboBox("负责人",new ArrayList(),50,100,this);
+        ArrayList<EmployeeBean> allEmp = new ConnectionServiceImp().getAllEmpBySchoolID(schoolId);
+		this.employeeTxt = new LovoComboBox("负责人",allEmp,50,100,this);
 		
 	}
 	/**
@@ -90,8 +90,31 @@ public class StudentVisitAddialog extends JDialog{
 	 */
 	private void addVisit(int studentId){
 		//验证数据
-		
-		//封装实体
-		
+        RecallRecordBean recall = new RecallRecordBean();
+        //验证数据,验证失败返回false
+        String error = "";
+        if(timeTxt.getText() == null || timeTxt.getText().equals("")){
+            error += "沟通时间不能为空\n";
+        }
+        if(connectorTxt.getText() == null || connectorTxt.getText().equals("")){
+            error += "回访人不能为空\n";
+        }
+        if(titleTxt.getText() == null || titleTxt.getText().equals("")){
+            error += "回访主题不能为空\n";
+        }
+        if(employeeTxt.getItem() == null || employeeTxt.getItem().equals("")){
+            error += "请选择负责人\n";
+        }if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+            error += "内容不能为空\n";
+        }
+        if(error.length() != 0) {
+            JOptionPane.showMessageDialog(null, error);
+        }
+        recall.setTime(timeTxt.getDate());
+        recall.setRecallMan(connectorTxt.getText());
+        recall.setTitle(titleTxt.getText());
+        recall.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+        recall.setDescribe(descriptionTxt.getText());
+        new RecallRecordDaoImp().addObject(studentId,recall);
 	}
 }
