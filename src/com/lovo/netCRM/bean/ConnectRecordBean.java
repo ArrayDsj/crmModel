@@ -12,8 +12,17 @@ public class ConnectRecordBean {
     private String pos;
     private String describe;
     private EmployeeBean emp;
+    private SchoolBean sch;
 
     public ConnectRecordBean() {
+    }
+
+    public SchoolBean getSch() {
+        return sch;
+    }
+
+    public void setSch(SchoolBean sch) {
+        this.sch = sch;
     }
 
     public int getId() {

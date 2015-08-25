@@ -1,6 +1,11 @@
 package com.lovo.netCRM.ui.school.frame;
 
+import com.lovo.netCRM.bean.ConnectRecordBean;
+import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.ConnectRecordDaoImp;
+import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
+import com.lovo.netCRM.service.imp.ConnectionServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -75,7 +80,8 @@ public class SchoolCommunicateAddDialog extends JDialog{
 
 		//添加负责人集合
 		//通过学校ID找员工
-		this.employeeTxt = new LovoComboBox("负责人",new ArrayList(),50,200,this);
+        ArrayList<EmployeeBean> allEmp = new ConnectionServiceImp().getAllEmpBySchoolID(schoolId);
+		this.employeeTxt = new LovoComboBox("负责人",allEmp,50,200,this);
 		
 	}
 	/**
@@ -83,10 +89,38 @@ public class SchoolCommunicateAddDialog extends JDialog{
 	 * @param schoolId 学校ID
 	 */
 	private boolean addCommunicate(int schoolId){
-		//验证数据，验证失败，返回false
-		
-		//封装实体
-		
+        //验证数据，验证失败返回false
+        ConnectRecordBean con = new ConnectRecordBean();
+        //验证数据,验证失败返回false
+        String error = "";
+        if(timeTxt.getText() == null || timeTxt.getText().equals("")){
+            error += "沟通时间不能为空\n";
+        }
+        if(connectorTxt.getText() == null || connectorTxt.getText().equals("")){
+            error += "联系人不能为空\n";
+        }if(jobTxt.getText() == null || jobTxt.getText().equals("")){
+            error += "校方联系人职务不能为空\n";
+        }if(employeeTxt.getItem() == null || employeeTxt.getItem().equals("")){
+            error += "请选择负责人\n";
+        }if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+            error += "沟通内容不能为空\n";
+        }
+        if(error.length() != 0) {
+            JOptionPane.showMessageDialog(null, error);
+            return false;
+        } else {
+            //封装实体
+            con.setTime(timeTxt.getDate());
+            con.setMan(connectorTxt.getText());
+            con.setPos(jobTxt.getText());
+            //根据选择的负责人的名字找出这个员工对象
+            con.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+            con.setDescribe(descriptionTxt.getText());
+
+        }
+
+		//添加沟通记录
+        new ConnectRecordDaoImp().addObject(con,schoolId);
 		return true;
 		
 	}

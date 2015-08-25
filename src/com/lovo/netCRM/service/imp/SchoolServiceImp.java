@@ -58,4 +58,6 @@ public class SchoolServiceImp implements SchoolService{
     public ArrayList<SchoolBean> getAllSchools() {
         return null;
     }
+
+
 }

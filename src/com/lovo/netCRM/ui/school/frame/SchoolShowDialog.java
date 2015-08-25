@@ -136,8 +136,8 @@ public class SchoolShowDialog extends JDialog{
 	private void initTable(int schoolId,JPanel jp){
 		communicateTable = new LovoTable(jp,
 				new String[]{"时间","校方联系人","职务","沟通人","沟通内容"},
-				new String[]{"time","man","pos","emp.name","describe"},//学校实体属性名数组 new String[]{"time","schoolConnector"}
-				"id");//主键属性名 schoolId
+				new String[]{"time","man","pos","emp.name","describe"},
+				"id");
 		communicateTable.setSizeAndLocation(10, 20, 480, 170);
 		
 		//更新表格,插入List集合
