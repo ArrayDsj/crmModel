@@ -1,19 +1,14 @@
 package com.lovo.netCRM.ui.student.frame;
 
+import com.lovo.netCRM.bean.StudentBean;
+import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.ClassesDaoImp;
+import com.lovo.netCRM.dao.imp.StudentDaoImp;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import com.lovo.netCRM.component.LovoButton;
-import com.lovo.netCRM.component.LovoComboBox;
-import com.lovo.netCRM.component.LovoLabel;
-import com.lovo.netCRM.component.LovoRadioButton;
-import com.lovo.netCRM.component.LovoTable;
-import com.lovo.netCRM.component.LovoTxt;
-import com.lovo.netCRM.component.LovoTxtArea;
 
 /**
  * 
@@ -104,27 +99,65 @@ public class StudentUpdateDialog extends JDialog{
 	 */
 	private void initComboBox(int schoolId){
 //		添加班级集合
-		this.classTxt = new LovoComboBox("所属班级",new ArrayList(),320,100,this);
+        ArrayList<Object> allClassBySchool = new ClassesDaoImp().getObjectByschID(schoolId);
+		this.classTxt = new LovoComboBox("所属班级",allClassBySchool,320,100,this);
 	}
 	
 	/**
 	 * 初始化数据
 	 * @param studentId 学生ID
 	 */
-	private void initData(int studentId){
-		
-	}
+	private void initData(int studentId) {
+        StudentBean stu = (StudentBean) new StudentDaoImp().getObjectByID(studentId);
+        nameLabel.setText(stu.getName());
+        sexLabel.setText(stu.getSex());
+        birthdayLabel.setText(stu.getBirthday().toString());
+        addressLabel.setText(stu.getAddress());
+        phoneTxt.setText(stu.getPhone());
+        fatherLabel.setText(stu.getFather());
+        fatherPhoneTxt.setText(stu.getFatherPhone());
+        mumLabel.setText(stu.getMother());
+        mumPhoneTxt.setText(stu.getMotherPhone());
+        descriptionTxt.setText(stu.getDescribe());
+    }
 
 	/**
 	 * 修改学生
 	 * @param studentId 学生ID
 	 */
 	private boolean updateStudent(int studentId){
+        StudentBean stu = new StudentBean();
 		//验证数据
-		
-		//封装实体
+        String error = "";
+        if(phoneTxt.getText() == null || phoneTxt.getText().equals("")){
+            error += "电话不能为空\n";
+        }
+        if(fatherPhoneTxt.getText() == null || fatherPhoneTxt.getText().equals("")){
+            error += "父亲电话不能为空\n";
+        }
+        if(mumPhoneTxt.getText() == null || mumPhoneTxt.getText().equals("")){
+            error += "母亲电话不能为空\n";
+        }
+        if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+            error += "描述不能为空\n";
+        }
+        if(error.length() != 0) {
+            JOptionPane.showMessageDialog(null, error);
+            return false;
+        }
+
+        stu.setPhone(phoneTxt.getText());
+        stu.setFatherPhone(fatherPhoneTxt.getText());
+        stu.setMotherPhone(mumPhoneTxt.getText());
+        stu.setDescribe(descriptionTxt.getText());
+        stu.setClasses(new ClassesDaoImp().getClassesByName(classTxt.getItem().toString()));
+        if(stateTxt.getItem().toString().equals("非会员")){
+            stu.setVip(false);
+        }else
+            stu.setVip(true);
 		
 		//更新表格，显示修改结果
+        new StudentDaoImp().alterObject(studentId,stu);
 		this.studentPanel.initData();
 		
 		return true;

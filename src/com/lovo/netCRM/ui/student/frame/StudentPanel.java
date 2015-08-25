@@ -1,8 +1,11 @@
 package com.lovo.netCRM.ui.student.frame;
 
 import com.lovo.netCRM.bean.AreaBean;
+import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.bean.SchoolBean;
+import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.component.*;
+import com.lovo.netCRM.dao.imp.ClassesDaoImp;
 import com.lovo.netCRM.dao.imp.StudentDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
 import com.lovo.netCRM.service.imp.EmployeeServiceImp;
@@ -162,10 +165,10 @@ public class StudentPanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				int key = studentTable.getKey();
-//				if(key == -1){
-//					JOptionPane.showMessageDialog(null,"请选择行");
-//					return;
-//				}
+				if(key == -1){
+					JOptionPane.showMessageDialog(null,"请选择行");
+					return;
+				}
 				
 				new StudentUpdateDialog(jf,schoolId,key,StudentPanel.this);
 			}});
@@ -323,7 +326,12 @@ public class StudentPanel extends JPanel{
 	private void delEmployee(int studentId){
         //将学生的status设置为false
         if((JOptionPane.showConfirmDialog(null,"是否删除选中学生信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
-            boolean dele = new StudentDaoImp().deleteObject(studentId);
+            new StudentDaoImp().deleteObject(studentId);
+            //对应的班级人数减1;
+            StudentBean stu = (StudentBean)new StudentDaoImp().getObjectByID(studentId);
+            ClassesBean cla = stu.getClasses();
+            cla.setStuNum(stu.getClasses().getStuNum() -1);
+            new ClassesDaoImp().alterObject(cla);
             updateStudentTable(schoolId, 1);
         }
 //		显示删除结果

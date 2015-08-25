@@ -76,7 +76,7 @@ public class StudentDaoImp implements CrmDao{
                 //使用学生id查找学生回访记录,可以有多个
                 stu.setRecallRecord(new RecallRecordDaoImp().getAllReacllsByStuID(stu.getId()));
                 //使用班级ID查找班级,只有一个
-                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByStudentID(rs.getInt(15)));
+                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByID(rs.getInt(15)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,6 +98,48 @@ public class StudentDaoImp implements CrmDao{
     @Override
     public boolean alterObject(Object alterObj) {
         return false;
+    }
+
+
+    public boolean alterObject(int schID,Object alterObj) {
+        StudentBean stu = (StudentBean)alterObj;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL =
+                "update student set stu_phone = ? ," +
+                        "stu_fatherPhone = ?," +
+                        "stu_motherPhone = ?," +
+                        "stu_describe = ?," +
+                        "classes_id = ?, " +
+                        "stu_vip = ? " +
+                        "where stu_id = ?";
+
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setString(1,stu.getPhone());
+            ps.setString(2,stu.getFatherPhone());
+            ps.setString(3, stu.getMotherPhone());
+            ps.setString(4,stu.getDescribe());
+            ps.setInt(5, stu.getClasses().getId());
+            ps.setBoolean(6, stu.isVip());
+            ps.setInt(7,schID);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
     }
 
     @Override
@@ -200,7 +242,7 @@ public class StudentDaoImp implements CrmDao{
                 //使用学生id查找学生回访记录,可以有多个
                 stu.setRecallRecord(new RecallRecordDaoImp().getAllReacllsByStuID(stu.getId()));
                 //使用班级ID查找班级,只有一个
-                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByStudentID(rs.getInt(15)));
+                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByID(rs.getInt(15)));
                 allStus.add(stu);
 
             }

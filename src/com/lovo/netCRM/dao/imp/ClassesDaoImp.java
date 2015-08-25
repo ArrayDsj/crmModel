@@ -84,11 +84,8 @@ public class ClassesDaoImp implements CrmDao{
             return null;
     }
 
-    @Override
-    public boolean alterObject(Object alterObj) {
 
-        return false;
-    }
+
 
     public boolean alterObject(int ObjectID,Object object) {
         ClassesBean alterclasses = (ClassesBean)object;
@@ -117,6 +114,43 @@ public class ClassesDaoImp implements CrmDao{
         }else
             return false;
     }
+
+    //添加学生时,对应的班级人数加1
+    @Override
+    public boolean alterObject(Object object){
+        ClassesBean alterclasses = (ClassesBean)object;
+
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String alterSQL = "update classes set class_stuNum = ? " +
+                "where class_id = ?";
+        int result = -1;
+        try {
+            PreparedStatement ps = con.prepareStatement(alterSQL);
+            ps.setInt(1,alterclasses.getStuNum());
+            ps.setInt(2,alterclasses.getId());
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+
+
+
+
+
 
     @Override
     public boolean addObject(Object object) {
@@ -298,6 +332,8 @@ public class ClassesDaoImp implements CrmDao{
         }else
             return null;
     }
+
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.lovo.netCRM.ui.student.frame;
 
+import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.ClassesDaoImp;
@@ -139,25 +140,28 @@ public class StudentAddDialog extends JDialog{
         if(error.length() != 0) {
             JOptionPane.showMessageDialog(null, error);
             return false;
-        } else{
-            //封装实体
-            stu.setName(nameTxt.getText());
-            stu.setSex(sexTxt.getItem());
-            stu.setBirthday(birthdayTxt.getDate());
-            stu.setPhone(phoneTxt.getText());
-            stu.setClasses(new ClassesDaoImp().getClassesByName(classTxt.getItem().toString()));
-            stu.setAddress(addressTxt.getText());
-            stu.setFather(fatherTxt.getText());
-            stu.setFatherPhone(fatherPhoneTxt.getText());
-            stu.setMother(mumTxt.getText());
-            stu.setMotherPhone(mumPhoneTxt.getText());
-            stu.setDescribe(descriptionTxt.getText());
-            stu.setStatus(true);
-            stu.setVip(false);
         }
-        //写入数据库
         //封装实体
-		new StudentDaoImp().addObject(stu,schoolId);
+        stu.setName(nameTxt.getText());
+        stu.setSex(sexTxt.getItem());
+        stu.setBirthday(birthdayTxt.getDate());
+        stu.setPhone(phoneTxt.getText());
+        ClassesBean cla = new ClassesDaoImp().getClassesByName(classTxt.getItem().toString());
+        stu.setClasses(cla);
+        stu.setAddress(addressTxt.getText());
+        stu.setFather(fatherTxt.getText());
+        stu.setFatherPhone(fatherPhoneTxt.getText());
+        stu.setMother(mumTxt.getText());
+        stu.setMotherPhone(mumPhoneTxt.getText());
+        stu.setDescribe(descriptionTxt.getText());
+        stu.setStatus(true);
+        stu.setVip(false);
+
+        //写入数据库
+		new StudentDaoImp().addObject(stu, schoolId);
+        //这个班级的人数加一
+        cla.setStuNum(cla.getStuNum()+1);
+        new ClassesDaoImp().alterObject(cla);
 		//更新表格，显示添加结果
 		this.studentPanel.initData();
 		
