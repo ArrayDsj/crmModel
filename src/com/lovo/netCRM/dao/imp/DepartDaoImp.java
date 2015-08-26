@@ -167,4 +167,41 @@ public class DepartDaoImp implements CrmDao{
     public ArrayList<Object> getObjectByCon(String item, String value) {
         return null;
     }
+
+
+    @Override
+    //根据名字查找对象
+    public Object getObjectByName(String name) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        //查找当前用户信息
+        String getSQL = "select * from depart where depart_name = '" + name + "'";
+        DepartBean dept = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(getSQL);
+            while(rs.next()){
+                //组合员工信息
+                dept = new DepartBean();
+                dept.setDepartID(rs.getInt(1));
+                dept.setDepartName(rs.getString(2));
+                dept.setBuildTime(rs.getDate(3));
+                dept.setDescribe(rs.getString(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(dept != null){
+            return dept;
+        }else {
+            return null;
+        }
+    }
 }

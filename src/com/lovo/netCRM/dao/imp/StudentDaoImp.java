@@ -14,10 +14,6 @@ import java.util.ArrayList;
  */
 public class StudentDaoImp implements CrmDao{
 
-    @Override
-    public ArrayList<Object> getAllObjects() {
-        return null;
-    }
 
     @Override
     public boolean deleteObject(int ObjectID) {
@@ -45,51 +41,7 @@ public class StudentDaoImp implements CrmDao{
             return false;
     }
 
-    @Override
-    public Object getObjectByID(int ObjectID) {
-        //根据主键得对象
-        Connection con = ConnectionSQL.createConnectionSQL();
-        String SQL = "select * from student";
-        StudentBean stu = null;
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            while(rs.next()){
-                stu = new StudentBean();
-                stu.setId(rs.getInt(1));
-                stu.setName(rs.getString(2));
-                stu.setSex(rs.getString(3));
-                stu.setAddress(rs.getString(4));
-                stu.setBirthday(rs.getDate(5));
-                stu.setDescribe(rs.getString(6));
-                stu.setStatus(rs.getBoolean(7));
-                stu.setVip(rs.getBoolean(8));
-                stu.setPhone(rs.getString(9));
-                stu.setFather(rs.getString(10));
-                stu.setFatherPhone(rs.getString(11));
-                stu.setMother(rs.getString(12));
-                stu.setMotherPhone(rs.getString(13));
-                //使用学生id查找学生回访记录,可以有多个
-                stu.setRecallRecord(new RecallRecordDaoImp().getAllReacllsByStuID(stu.getId()));
-                //使用班级ID查找班级,只有一个
-                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByID(rs.getInt(15)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            if(con != null){
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if(stu != null){
-            return stu;
-        }else
-            return null;
-    }
+
 
 
     @Override
@@ -172,7 +124,7 @@ public class StudentDaoImp implements CrmDao{
             ps.setString(9, newStudent.getFather());
             ps.setString(10,newStudent.getFatherPhone());
             ps.setString(11,newStudent.getMother());
-            ps.setString(12,newStudent.getMotherPhone());
+            ps.setString(12, newStudent.getMotherPhone());
             ps.setInt(13, newStudent.getClasses().getId());
             ps.setInt(14,schoolID);
 
@@ -280,6 +232,11 @@ public class StudentDaoImp implements CrmDao{
         }
     }
 
+    @Override
+    public Object getObjectByName(String name) {
+        return null;
+    }
+
 
     //查找所有满足在同一个学校的学生,返回这个集合
     public ArrayList<StudentBean> getStudentsBySchoolID(int schID){
@@ -332,4 +289,113 @@ public class StudentDaoImp implements CrmDao{
         }else
             return null;
     }
+
+
+    //根据城市ID分页查找
+    public ArrayList<Object> getAllObjects(int schoolId,int pageNow,int pageSize) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        StudentBean stu = null;
+        ArrayList<Object> allStus = new ArrayList<Object>();
+        String sql = "select * from student " +
+                    "\n where school_id = " + schoolId +
+                    "limit " + (pageNow - 1) * pageSize + "," + pageSize +";";
+
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()) {
+                if(!rs.getBoolean(7)){
+                    continue;
+                }
+                stu = new StudentBean();
+                stu.setId(rs.getInt(1));
+                stu.setName(rs.getString(2));
+                stu.setSex(rs.getString(3));
+                stu.setAddress(rs.getString(4));
+                stu.setBirthday(rs.getDate(5));
+                stu.setDescribe(rs.getString(6));
+                stu.setStatus(rs.getBoolean(7));
+                stu.setVip(rs.getBoolean(8));
+                stu.setPhone(rs.getString(9));
+                stu.setFather(rs.getString(10));
+                stu.setFatherPhone(rs.getString(11));
+                stu.setMother(rs.getString(12));
+                stu.setMotherPhone(rs.getString(13));
+                //使用学生id查找学生回访记录,可以有多个
+                stu.setRecallRecord(new RecallRecordDaoImp().getAllReacllsByStuID(stu.getId()));
+                //使用班级ID查找班级,只有一个
+                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByID(rs.getInt(15)));
+                allStus.add(stu);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(allStus.size() != 0){
+            return allStus;
+        }else
+            return null;
+    }
+
+
+    @Override
+    public Object getObjectByID(int ObjectID) {
+        //根据主键得对象
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String SQL = "select * from student";
+        StudentBean stu = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while(rs.next()){
+                stu = new StudentBean();
+                stu.setId(rs.getInt(1));
+                stu.setName(rs.getString(2));
+                stu.setSex(rs.getString(3));
+                stu.setAddress(rs.getString(4));
+                stu.setBirthday(rs.getDate(5));
+                stu.setDescribe(rs.getString(6));
+                stu.setStatus(rs.getBoolean(7));
+                stu.setVip(rs.getBoolean(8));
+                stu.setPhone(rs.getString(9));
+                stu.setFather(rs.getString(10));
+                stu.setFatherPhone(rs.getString(11));
+                stu.setMother(rs.getString(12));
+                stu.setMotherPhone(rs.getString(13));
+                //使用学生id查找学生回访记录,可以有多个
+                stu.setRecallRecord(new RecallRecordDaoImp().getAllReacllsByStuID(stu.getId()));
+                //使用班级ID查找班级,只有一个
+                stu.setClasses((ClassesBean) new ClassesDaoImp().getObjectByID(rs.getInt(15)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(stu != null){
+            return stu;
+        }else
+            return null;
+    }
+
+    @Override
+    public ArrayList<Object> getAllObjects() {
+        return null;
+    }
+
 }

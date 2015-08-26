@@ -18,4 +18,9 @@ public class AreaServiceImp implements AreaService{
     public Object getArea(int areaID) {
         return new AreaDaoImp().getObjectByID(areaID);
     }
+
+    @Override
+    public Object getAreaByName(String name) {
+        return new AreaDaoImp().getObjectByName(name);
+    }
 }

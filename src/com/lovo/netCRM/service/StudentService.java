@@ -19,7 +19,10 @@ public interface StudentService {
 
     public ArrayList<StudentBean> getAllStudents();
 
+    public ArrayList<StudentBean> getAllStudents(int schoolId,int pageNow,int pageSize);
+
     public StudentBean getStudentByID(int stuID);
 
     public StudentBean getStudentByCon(String item,String value);
+
 }

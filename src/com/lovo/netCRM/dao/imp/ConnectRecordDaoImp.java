@@ -36,9 +36,6 @@ public class ConnectRecordDaoImp implements CrmDao {
     }
 
 
-
-
-
     public boolean alterObject(Object alterObj) {
         return false;
     }
@@ -50,6 +47,11 @@ public class ConnectRecordDaoImp implements CrmDao {
 
     @Override
     public ArrayList<Object> getObjectByCon(String item, String value) {
+        return null;
+    }
+
+    @Override
+    public Object getObjectByName(String name) {
         return null;
     }
 

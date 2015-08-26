@@ -2,6 +2,7 @@ package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.bean.RecallRecordBean;
+import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by CodeA on 2015/8/25.
  */
-public class RecallRecordDaoImp {
+public class RecallRecordDaoImp implements CrmDao {
     //根据学生ID返回所有回访记录集合
     public ArrayList<RecallRecordBean> getAllReacllsByStuID(int stuID){
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -49,6 +50,26 @@ public class RecallRecordDaoImp {
             return null;
     }
 
+
+    @Override
+    public ArrayList<Object> getAllObjects() {
+        return null;
+    }
+
+    @Override
+    public boolean deleteObject(int objectID) {
+        return false;
+    }
+
+    @Override
+    public Object getObjectByID(int objectID) {
+        return null;
+    }
+
+    @Override
+    public boolean alterObject(int objectID, Object object) {
+        return false;
+    }
 
     //添加回访记录
     public boolean addObject(int stuID,Object obj){
@@ -95,6 +116,16 @@ public class RecallRecordDaoImp {
             return true;
         }else
             return false;
+    }
+
+    @Override
+    public ArrayList<Object> getObjectByCon(String item, String value) {
+        return null;
+    }
+
+    @Override
+    public Object getObjectByName(String name) {
+        return null;
     }
 
 }

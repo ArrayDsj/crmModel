@@ -6,6 +6,7 @@ import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
 import com.lovo.netCRM.dao.imp.RecallRecordDaoImp;
 import com.lovo.netCRM.service.imp.ConnectionServiceImp;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -78,9 +79,8 @@ public class StudentVisitAddialog extends JDialog{
 	 * @param schoolObj 学校对象
 	 */
 	private void initComboBox(int schoolId){
-
 		//添加负责人集合
-        ArrayList<EmployeeBean> allEmp = new ConnectionServiceImp().getAllEmpBySchoolID(schoolId);
+        ArrayList<Object> allEmp = new ConnectionServiceImp().getAllEmpBySchoolID(schoolId);
 		this.employeeTxt = new LovoComboBox("负责人",allEmp,50,100,this);
 		
 	}
@@ -113,7 +113,7 @@ public class StudentVisitAddialog extends JDialog{
         recall.setTime(timeTxt.getDate());
         recall.setRecallMan(connectorTxt.getText());
         recall.setTitle(titleTxt.getText());
-        recall.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+        recall.setEmp(new EmployeeServiceImp().getEmpByName(employeeTxt.getItem().toString()));
         recall.setDescribe(descriptionTxt.getText());
         new RecallRecordDaoImp().addObject(studentId,recall);
 	}

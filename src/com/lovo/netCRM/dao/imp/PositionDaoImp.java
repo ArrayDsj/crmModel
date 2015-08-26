@@ -24,6 +24,11 @@ public class PositionDaoImp implements CrmDao {
     }
 
     @Override
+    public Object getObjectByName(String name) {
+        return null;
+    }
+
+    @Override
     public Object getObjectByID(int ObjectID) {
         Connection con = ConnectionSQL.createConnectionSQL();
         //按ID查找指定职位信息

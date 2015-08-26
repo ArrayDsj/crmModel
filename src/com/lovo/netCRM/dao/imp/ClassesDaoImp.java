@@ -16,6 +16,12 @@ public class ClassesDaoImp implements CrmDao{
     public ArrayList<Object> getObjectByCon(String item, String value) {
         return null;
     }
+
+    @Override
+    public Object getObjectByName(String name) {
+        return null;
+    }
+
     @Override
     public boolean deleteObject(int ObjectID) {
         return false;

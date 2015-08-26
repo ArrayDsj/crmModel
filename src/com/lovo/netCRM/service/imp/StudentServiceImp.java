@@ -2,6 +2,7 @@ package com.lovo.netCRM.service.imp;
 
 import com.lovo.netCRM.bean.RecallRecordBean;
 import com.lovo.netCRM.bean.StudentBean;
+import com.lovo.netCRM.dao.imp.StudentDaoImp;
 import com.lovo.netCRM.service.StudentService;
 
 import java.util.ArrayList;
@@ -33,6 +34,21 @@ public class StudentServiceImp implements StudentService{
     @Override
     public ArrayList<StudentBean> getAllStudents() {
         return null;
+    }
+
+    @Override
+    public ArrayList<StudentBean> getAllStudents(int schoolId,int pageNow, int pageSize) {
+        //∑÷“≥≤È’“
+        StudentDaoImp crm = new StudentDaoImp();
+        ArrayList<Object> objStus = crm.getAllObjects(schoolId,pageNow,pageSize);
+        ArrayList<StudentBean>  students = new ArrayList<StudentBean>();
+        for(Object obj : objStus){
+            if(obj instanceof StudentBean){
+                StudentBean stu = (StudentBean)obj;
+                students.add(stu);
+            }
+        }
+        return students;
     }
 
     @Override

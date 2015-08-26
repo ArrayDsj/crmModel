@@ -279,8 +279,6 @@ public class EmployeeDaoImp implements CrmDao {
                         "where p.position_name like '%" + value + "%';";
                 break;
         }
-
-
         try {
             Statement st  = con.createStatement();
             ResultSet rs = st.executeQuery(conSQL);
@@ -321,6 +319,57 @@ public class EmployeeDaoImp implements CrmDao {
             return empListByCon;
         }else {
             JOptionPane.showMessageDialog(null,"无查询结果");
+            return null;
+        }
+    }
+
+    @Override
+    public Object getObjectByName(String name) {
+        Connection con = ConnectionSQL.createConnectionSQL();
+        //查找当前用户信息
+        String allEmp = "select * from staff s\n" +
+                "join depart d \n" +
+                "on s.staff_department_id = d.depart_id\n" +
+                "join position p\n" +
+                "on s.staff_position_id = p.position_id\n" +
+                "and staff_name = '" + name + "'";
+        EmployeeBean emp = null;
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(allEmp);
+            while(rs.next()){
+                //组合员工信息
+                emp = new EmployeeBean();
+                emp.setID(rs.getInt(1));
+                emp.setName(rs.getString(4));
+                emp.setSex(rs.getString(5));
+                emp.setBirthday(rs.getDate(6));
+                emp.setEdu(rs.getString(7));
+                emp.setSpeciality(rs.getString(8));
+                emp.setPhone(rs.getString(9));
+                emp.setAddress(rs.getString(10));
+                emp.setPolity(rs.getString(11));
+                emp.setHireDay(rs.getDate(12));
+                emp.setStatus(rs.getBoolean(13));
+                emp.setHeadFile(rs.getString(16));
+                emp.setDept(rs.getString(18));
+                emp.setPosition(rs.getString(22));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(emp != null){
+            return emp;
+        }else {
+            //JOptionPane.showMessageDialog(null,"集合中没有员工");
             return null;
         }
     }
@@ -564,54 +613,4 @@ public class EmployeeDaoImp implements CrmDao {
             return null;
     }
 
-    //根据员工姓名查找
-    public EmployeeBean getEmpByName(String name) {
-        Connection con = ConnectionSQL.createConnectionSQL();
-        //查找当前用户信息
-        String allEmp = "select * from staff s\n" +
-                "join depart d \n" +
-                "on s.staff_department_id = d.depart_id\n" +
-                "join position p\n" +
-                "on s.staff_position_id = p.position_id\n" +
-                "and staff_name = '" + name + "'";
-        EmployeeBean emp = null;
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(allEmp);
-            while(rs.next()){
-                //组合员工信息
-                emp = new EmployeeBean();
-                emp.setID(rs.getInt(1));
-                emp.setName(rs.getString(4));
-                emp.setSex(rs.getString(5));
-                emp.setBirthday(rs.getDate(6));
-                emp.setEdu(rs.getString(7));
-                emp.setSpeciality(rs.getString(8));
-                emp.setPhone(rs.getString(9));
-                emp.setAddress(rs.getString(10));
-                emp.setPolity(rs.getString(11));
-                emp.setHireDay(rs.getDate(12));
-                emp.setStatus(rs.getBoolean(13));
-                emp.setHeadFile(rs.getString(16));
-                emp.setDept(rs.getString(18));
-                emp.setPosition(rs.getString(22));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            if(con != null){
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if(emp != null){
-            return emp;
-        }else {
-            JOptionPane.showMessageDialog(null,"集合中没有员工");
-            return null;
-        }
-    }
 }

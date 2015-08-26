@@ -15,7 +15,7 @@ public interface SchoolService {
 
     public boolean addConnectRecord(ConnectRecordBean con);
 
-    public boolean addSchool(SchoolBean school);
+    public boolean addSchool(int id,SchoolBean school);
 
     public boolean alterSchoolByID(int schID);
 

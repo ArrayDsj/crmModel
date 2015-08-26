@@ -16,19 +16,6 @@ import java.util.ArrayList;
  */
 public class AreaDaoImp implements CrmDao{
 
-    @Override
-    public boolean deleteObject(int ObjectID) {
-        return false;
-    }
-
-    @Override
-    public ArrayList<Object> getObjectByCon(String item, String value) {
-        return null;
-    }
-
-
-
-
 
 
     @Override
@@ -96,19 +83,8 @@ public class AreaDaoImp implements CrmDao{
             return null;
     }
 
-    @Override
-    public boolean alterObject(int objectID, Object object) {
-        return false;
-    }
-
-    @Override
-    public boolean addObject(int objectID, Object object) {
-        return false;
-    }
-
-
     //根据名字查找对象
-    public AreaBean getAreaByName(String name) {
+    public Object getObjectByName(String name) {
         Connection con = ConnectionSQL.createConnectionSQL();
         //查找当前用户信息
         String getAreaSQL = "select * from area where area_name = '" + name + "'";
@@ -141,42 +117,38 @@ public class AreaDaoImp implements CrmDao{
         }
     }
 
-    //根据学校id查找地区信息,这个地区对象中只有一个学校
-//    public Object getObjectBySchoolID(int schID) {
-//        Connection con = ConnectionSQL.createConnectionSQL();
-//        AreaBean area = null;
-//        String getAreaSQL = "select * from area where school_id = " + schID;
-//        try {
-//            Statement st = con.createStatement();
-//            ResultSet rs = st.executeQuery(getAreaSQL);
-//            while(rs.next()){
-//                area = new AreaBean();
-//                area.setId(rs.getInt(1));
-//                area.setName(rs.getString(2));
-//                SchoolBean sch = new SchoolBean();
-//                sch = (SchoolBean)new SchoolDaoImp().getObjectByID(schID);
-//                ArrayList<SchoolBean> oneSchool = new ArrayList<SchoolBean>();
-//                oneSchool.add(sch);
-//                area.setSchool(oneSchool);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }finally{
-//            if(con != null){
-//                try {
-//                    con.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        if(area != null){
-//            return area;
-//        }else
-//            return null;
-//    }
 
 
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public boolean deleteObject(int ObjectID) {
+        return false;
+    }
+
+    @Override
+    public ArrayList<Object> getObjectByCon(String item, String value) {
+        return null;
+    }
+
+    @Override
+    public boolean alterObject(int objectID, Object object) {
+        return false;
+    }
+
+    @Override
+    public boolean addObject(int objectID, Object object) {
+        return false;
+    }
 
 
 }

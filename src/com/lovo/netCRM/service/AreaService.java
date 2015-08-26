@@ -9,4 +9,6 @@ public interface AreaService {
     public ArrayList<Object> getAllAreas();
 
     public Object getArea(int areaID);
+
+    public Object getAreaByName(String name);
 }

@@ -56,8 +56,24 @@ public class EmployeeServiceImp implements EmployeeService{
 
     @Override
     public ArrayList<Object> getStaffByCon(String item, String value) {
+        if(item.equals("≤ø√≈")){
+            int deptID = Integer.parseInt(value);
+            ArrayList<Object> objs = new ArrayList<Object>();
+            ArrayList<EmployeeBean> emps = new EmployeeDaoImp().getAllEmpByDeptID(deptID);
+            for(EmployeeBean emp : emps){
+                objs.add(emp);
+            }
+            return objs;
+        }
         CrmDao emp = new EmployeeDaoImp();
         return emp.getObjectByCon(item, value);
+    }
+
+    @Override
+    public EmployeeBean getEmpByName(String name) {
+        CrmDao emp = new EmployeeDaoImp();
+        EmployeeBean thisEmp = (EmployeeBean)emp.getObjectByName(name);
+        return thisEmp;
     }
 
     @Override

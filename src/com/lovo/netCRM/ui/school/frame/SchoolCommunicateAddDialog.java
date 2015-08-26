@@ -1,11 +1,10 @@
 package com.lovo.netCRM.ui.school.frame;
 
 import com.lovo.netCRM.bean.ConnectRecordBean;
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.ConnectRecordDaoImp;
-import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
 import com.lovo.netCRM.service.imp.ConnectionServiceImp;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -80,7 +79,7 @@ public class SchoolCommunicateAddDialog extends JDialog{
 
 		//添加负责人集合
 		//通过学校ID找员工
-        ArrayList<EmployeeBean> allEmp = new ConnectionServiceImp().getAllEmpBySchoolID(schoolId);
+        ArrayList<Object> allEmp = new ConnectionServiceImp().getAllEmpBySchoolID(schoolId);
 		this.employeeTxt = new LovoComboBox("负责人",allEmp,50,200,this);
 		
 	}
@@ -114,7 +113,7 @@ public class SchoolCommunicateAddDialog extends JDialog{
             con.setMan(connectorTxt.getText());
             con.setPos(jobTxt.getText());
             //根据选择的负责人的名字找出这个员工对象
-            con.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+            con.setEmp(new EmployeeServiceImp().getEmpByName(employeeTxt.getItem().toString()));
             con.setDescribe(descriptionTxt.getText());
 
         }

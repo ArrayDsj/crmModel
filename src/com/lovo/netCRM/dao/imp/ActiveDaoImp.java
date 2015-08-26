@@ -54,28 +54,6 @@ public class ActiveDaoImp implements CrmDao{
     }
 
     @Override
-    public ArrayList<Object> getAllObjects() {
-        return null;
-    }
-
-    @Override
-    public boolean deleteObject(int objectID) {
-        return false;
-    }
-
-    @Override
-    public Object getObjectByID(int objectID) {
-        return null;
-    }
-
-    @Override
-    public boolean alterObject(int objectID, Object object) {
-        return false;
-    }
-
-
-
-    @Override
     //根据学校ID取得所有活动记录
     public ArrayList<Object> getObjectByCon(String item, String value) {
         int schID = Integer.parseInt(value);
@@ -110,5 +88,44 @@ public class ActiveDaoImp implements CrmDao{
             return allActives;
         }else
             return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public ArrayList<Object> getAllObjects() {
+        return null;
+    }
+    @Override
+    public boolean deleteObject(int objectID) {
+        return false;
+    }
+    @Override
+    public Object getObjectByID(int objectID) {
+        return null;
+    }
+    @Override
+    public boolean alterObject(int objectID, Object object) {
+        return false;
+    }
+    @Override
+    public Object getObjectByName(String name) {
+        return null;
     }
 }

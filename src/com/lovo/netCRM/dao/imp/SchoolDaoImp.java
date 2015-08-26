@@ -28,9 +28,10 @@ public class SchoolDaoImp implements CrmDao{
         return null;
     }
 
-
-
-
+    @Override
+    public Object getObjectByName(String name) {
+        return null;
+    }
 
 
     @Override

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class AddressCountBean {
     private int id;
     private ArrayList<AreaBean> cityName;
+
     //录入的学校总数
     private int schoolNum;
     //接洽中的学校数
@@ -18,7 +19,6 @@ public class AddressCountBean {
     private int passSchoolNum;
     //允许的学校,推广状态
     private int permitSchoolNum;
-
     public int getId() {
         return id;
     }

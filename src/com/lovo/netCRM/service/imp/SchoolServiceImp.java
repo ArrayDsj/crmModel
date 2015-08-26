@@ -4,6 +4,7 @@ import com.lovo.netCRM.bean.ActiveBean;
 import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.bean.ConnectRecordBean;
 import com.lovo.netCRM.bean.SchoolBean;
+import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.dao.imp.SchoolDaoImp;
 import com.lovo.netCRM.service.SchoolService;
 
@@ -24,8 +25,9 @@ public class SchoolServiceImp implements SchoolService{
     }
 
     @Override
-    public boolean addSchool(SchoolBean school) {
-        return false;
+    public boolean addSchool(int id,SchoolBean school) {
+        CrmDao crm = new SchoolDaoImp();
+        return crm.addObject(0,school);
     }
 
     @Override
@@ -44,10 +46,21 @@ public class SchoolServiceImp implements SchoolService{
         return null;
     }
 
+
+
+
     @Override
     public SchoolBean getSchoolByID(int schID) {
+        CrmDao crm = new SchoolDaoImp();
+        SchoolBean sch =(SchoolBean)crm.getObjectByID(schID);
+        if(sch != null){
+            return sch;
+        }
         return null;
     }
+
+
+
 
     @Override
     public SchoolBean getSchoolByArea(int areaID) {

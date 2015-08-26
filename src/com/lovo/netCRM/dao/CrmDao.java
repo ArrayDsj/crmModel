@@ -24,4 +24,7 @@ public interface CrmDao {
 
     //按条件查找数据
     public ArrayList<Object> getObjectByCon(String item,String value);
+
+    //根据名字查找对象
+    public Object getObjectByName(String name);
 }

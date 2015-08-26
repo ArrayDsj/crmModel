@@ -9,6 +9,7 @@ import com.lovo.netCRM.component.LovoTxt;
 import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
 import com.lovo.netCRM.service.imp.ActiveServiceImp;
 import com.lovo.netCRM.service.imp.DepartServiceImp;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -139,7 +140,7 @@ public class SchoolActiveAddDialog extends JDialog{
 			active.setAddress(addressTxt.getText());
 			active.setTime(timeTxt.getDate());
 			active.setTitle(titleTxt.getText());
-			active.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+			active.setEmp(new EmployeeServiceImp().getEmpByName(employeeTxt.getItem().toString()));
 		}
 
 		//Ð´ÈëÊý¾Ý¿â

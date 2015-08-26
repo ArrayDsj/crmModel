@@ -1,16 +1,17 @@
 package com.lovo.netCRM.ui.school.frame;
 
+import com.lovo.netCRM.bean.AreaBean;
 import com.lovo.netCRM.bean.DepartBean;
 import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoComboBox;
 import com.lovo.netCRM.component.LovoTxt;
 import com.lovo.netCRM.component.LovoTxtArea;
-import com.lovo.netCRM.dao.imp.AreaDaoImp;
 import com.lovo.netCRM.dao.imp.EmployeeDaoImp;
-import com.lovo.netCRM.dao.imp.SchoolDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
 import com.lovo.netCRM.service.imp.DepartServiceImp;
+import com.lovo.netCRM.service.imp.EmployeeServiceImp;
+import com.lovo.netCRM.service.imp.SchoolServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -76,7 +77,10 @@ public class SchoolAddDialog extends JDialog{
 	 */
 	private void init() {
 		this.initComboBox();
-		
+        //初始化默认选中第几项
+        cityTxt.setSelectedIndex(0);
+        deptTxt.setSelectedIndex(1);
+
 		LovoButton lbadd = new LovoButton("添加",200,400,this);
 		lbadd.addActionListener(new ActionListener(){
 
@@ -105,7 +109,7 @@ public class SchoolAddDialog extends JDialog{
 //		添加城市集合
 		ArrayList<Object> areas = new AreaServiceImp().getAllAreas();
 		this.cityTxt = new LovoComboBox("所属城市",areas,320,50,this);
-		
+
 		//添加部门List集合
 		ArrayList<Object> departs = new DepartServiceImp().getAllDepts();
 		this.deptTxt = new LovoComboBox("负责部门",departs,50,300,this){
@@ -119,7 +123,6 @@ public class SchoolAddDialog extends JDialog{
 				employeeTxt.setList(new EmployeeDaoImp().getAllEmpByDeptID(dept.getDepartID()));
 			}
 		};
-		
 	}
 	
 	/**
@@ -171,16 +174,15 @@ public class SchoolAddDialog extends JDialog{
 			sch.setIPAddress(ipTxt.getText());
 			sch.setFlow(netFluxTxt.getText());
 			sch.setDescribe(descriptionTxt.getText());
-			sch.setArea(new AreaDaoImp().getAreaByName(cityTxt.getItem().toString()));
-			sch.setEmp(new EmployeeDaoImp().getEmpByName(employeeTxt.getItem().toString()));
+			sch.setArea((AreaBean)new AreaServiceImp().getAreaByName(cityTxt.getItem().toString()));
+			sch.setEmp(new EmployeeServiceImp().getEmpByName(employeeTxt.getItem().toString()));
 			sch.setStatus("接洽中");
 			sch.setFoundTime(new Date());
 		}
 		//写入数据库
-		new SchoolDaoImp().addObject(0,sch);
+		new SchoolServiceImp().addSchool(0,sch);
 		//更新表格，显示添加结果
 		this.schoolPanel.initData();
-		
 		return true;
 	}
 }

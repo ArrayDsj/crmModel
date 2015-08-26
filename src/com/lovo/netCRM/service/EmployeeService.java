@@ -31,4 +31,8 @@ public interface EmployeeService {
 
     //按条件查找
     public ArrayList<Object> getStaffByCon(String item,String value);
+
+    //根据名字得到对象
+    public EmployeeBean getEmpByName(String name);
+
 }
