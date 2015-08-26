@@ -143,7 +143,7 @@ public class SchoolActiveAddDialog extends JDialog{
 		}
 
 		//写入数据库
-		new ActiveServiceImp().addActive(active,schoolId);
+		new ActiveServiceImp().addActive(schoolId,active);
 		//更新数据
 		//activePanel.showSchool();
 		return true;

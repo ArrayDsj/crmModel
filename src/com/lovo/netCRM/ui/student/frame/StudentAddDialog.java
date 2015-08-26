@@ -158,10 +158,10 @@ public class StudentAddDialog extends JDialog{
         stu.setVip(false);
 
         //写入数据库
-		new StudentDaoImp().addObject(stu, schoolId);
+		new StudentDaoImp().addObject(schoolId,stu);
         //这个班级的人数加一
         cla.setStuNum(cla.getStuNum()+1);
-        new ClassesDaoImp().alterObject(cla);
+        new ClassesDaoImp().alterObject(0,cla);
 		//更新表格，显示添加结果
 		this.studentPanel.initData();
 		

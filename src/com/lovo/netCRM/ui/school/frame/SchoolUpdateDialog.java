@@ -169,7 +169,7 @@ public class SchoolUpdateDialog extends JDialog{
 		}
 		
 		//更新表格，显示修改结果
-		new SchoolDaoImp().alterSchoolByID(sch, schoolId);
+		new SchoolDaoImp().alterObject(schoolId,sch);
 		this.schoolPanel.initData();
 		return true;
 	}

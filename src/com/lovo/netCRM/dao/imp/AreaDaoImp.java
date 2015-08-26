@@ -1,7 +1,6 @@
 package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.AreaBean;
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
@@ -16,22 +15,12 @@ import java.util.ArrayList;
  * Created by CodeA on 2015/8/24.
  */
 public class AreaDaoImp implements CrmDao{
-    @Override
-    public EmployeeBean login(String loginName, String passWord) {
-        return null;
-    }
+
     @Override
     public boolean deleteObject(int ObjectID) {
         return false;
     }
-    @Override
-    public boolean alterObject(Object alterObj) {
-        return false;
-    }
-    @Override
-    public boolean addObject(Object object) {
-        return false;
-    }
+
     @Override
     public ArrayList<Object> getObjectByCon(String item, String value) {
         return null;
@@ -107,6 +96,15 @@ public class AreaDaoImp implements CrmDao{
             return null;
     }
 
+    @Override
+    public boolean alterObject(int objectID, Object object) {
+        return false;
+    }
+
+    @Override
+    public boolean addObject(int objectID, Object object) {
+        return false;
+    }
 
 
     //根据名字查找对象

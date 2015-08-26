@@ -1,7 +1,6 @@
 package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.ClassesBean;
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
@@ -14,10 +13,6 @@ import java.util.ArrayList;
  * Created by CodeA on 2015/8/24.
  */
 public class StudentDaoImp implements CrmDao{
-    @Override
-    public EmployeeBean login(String loginName, String passWord) {
-        return null;
-    }
 
     @Override
     public ArrayList<Object> getAllObjects() {
@@ -96,12 +91,8 @@ public class StudentDaoImp implements CrmDao{
             return null;
     }
 
+
     @Override
-    public boolean alterObject(Object alterObj) {
-        return false;
-    }
-
-
     public boolean alterObject(int schID,Object alterObj) {
         StudentBean stu = (StudentBean)alterObj;
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -143,13 +134,9 @@ public class StudentDaoImp implements CrmDao{
             return false;
     }
 
+
     @Override
-    public boolean addObject(Object object) {
-        return false;
-    }
-
-
-    public boolean addObject(Object object,int schoolID) {
+    public boolean addObject(int schoolID,Object object) {
         StudentBean newStudent = (StudentBean)object;
         Connection con = ConnectionSQL.createConnectionSQL();
         int result = -1;
@@ -295,7 +282,7 @@ public class StudentDaoImp implements CrmDao{
 
 
     //查找所有满足在同一个学校的学生,返回这个集合
-    public ArrayList<StudentBean> getStudentBySchlloID(int schID){
+    public ArrayList<StudentBean> getStudentsBySchoolID(int schID){
         Connection con = ConnectionSQL.createConnectionSQL();
         StudentBean stu = null;
         ArrayList<StudentBean> allStus = new ArrayList<StudentBean>();
@@ -345,9 +332,4 @@ public class StudentDaoImp implements CrmDao{
         }else
             return null;
     }
-
-
-
-
-
 }

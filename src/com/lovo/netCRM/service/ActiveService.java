@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public interface ActiveService {
     //添加活动
-    public boolean addActive(ActiveBean active, int schoolID);
+    public boolean addActive( int schoolID, ActiveBean active);
 
     //取得所有的活动信息
-    public ArrayList<ActiveBean> getAllActives(int schoolId);
+    public ArrayList<ActiveBean> getAllActivesByCon(int schoolId);
 }

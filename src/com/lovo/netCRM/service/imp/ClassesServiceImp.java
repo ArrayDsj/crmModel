@@ -1,6 +1,7 @@
 package com.lovo.netCRM.service.imp;
 
 import com.lovo.netCRM.bean.ClassesBean;
+import com.lovo.netCRM.dao.imp.ClassesDaoImp;
 import com.lovo.netCRM.service.ClassesService;
 
 /**
@@ -8,8 +9,9 @@ import com.lovo.netCRM.service.ClassesService;
  */
 public class ClassesServiceImp implements ClassesService{
     @Override
-    public boolean addClass(ClassesBean cla) {
-        return false;
+    public boolean addClasses(int id,ClassesBean cla) {
+        //添加新班级信息
+        return new ClassesDaoImp().addObject(id,cla);
     }
 
     @Override

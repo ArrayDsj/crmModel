@@ -14,7 +14,7 @@ import java.util.Date;
  * Created by CodeA on 2015/8/21.
  */
 public class EmployeeDaoImp implements CrmDao {
-    @Override
+    //员工的登录操作
     public EmployeeBean login(String loginName, String passWord) {
         Connection con = ConnectionSQL.createConnectionSQL();
         //查找当前用户信息
@@ -46,7 +46,7 @@ public class EmployeeDaoImp implements CrmDao {
             return null;
     }
 
-    @Override
+
     //新增员工
     public boolean addObject(Object object) {
         EmployeeBean newEmp = (EmployeeBean)object;
@@ -100,7 +100,6 @@ public class EmployeeDaoImp implements CrmDao {
             ps.setInt(11, deptID);
             ps.setInt(12, posID);
             ps.setString(13, staff_headFile);
-
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -380,12 +379,11 @@ public class EmployeeDaoImp implements CrmDao {
 
     @Override
     //修改员工信息
-    public boolean alterObject(Object alterObj) {
+    public boolean alterObject(int objID,Object alterObj) {
         EmployeeBean alterEmp = (EmployeeBean)alterObj;
         Connection con = ConnectionSQL.createConnectionSQL();
         int id = alterEmp.getID();
         //传进来的员工是已经修改过后的员工信息
-
         //根据员工Bean中的信息,找出部门和职位所代表的数字
         String dept = alterEmp.getDept();
         String pos = alterEmp.getPosition();
@@ -408,6 +406,78 @@ public class EmployeeDaoImp implements CrmDao {
             ps.setInt(3,deptID);
             ps.setInt(4, posID);
             ps.setInt(5, id);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+    @Override
+    public boolean addObject(int objectID, Object object) {
+        EmployeeBean newEmp = (EmployeeBean)object;
+        //根据新员工的信息向数据库中添加员工
+        Connection con = ConnectionSQL.createConnectionSQL();
+        //分解员工信息 12个属性,只有id,登录账号和密码没有记录
+        String staff_name = newEmp.getName();
+        String staff_sex = newEmp.getSex();
+        Date staff_birthday = newEmp.getBirthday();
+        String staff_speciality = newEmp.getSpeciality();
+        String staff_edu = newEmp.getEdu();
+        String staff_phone = newEmp.getPhone();
+        Date staff_hireday = newEmp.getHireDay();
+        String staff_polity = newEmp.getPolity();
+        String staff_address = newEmp.getAddress();
+        boolean staff_status = newEmp.isStatus();
+        String staff_headFile = newEmp.getHeadFile();
+        int deptID = String2Int.string2Int(newEmp, newEmp.getDept());
+        int posID = String2Int.string2Int(newEmp,newEmp.getPosition());
+
+        int result = -1;
+        String addSQL = "insert into staff(\n" +
+                "staff_name,\n" +//姓名
+                "staff_sex,\n" + //性别
+                "staff_birthday,\n" + //生日
+                "staff_edu,\n" + //学历
+                "staff_speciality,\n" + //专业
+                "staff_phone,\n" +  //电话
+                "staff_address,\n" + //地址
+                "staff_polity,\n" + //政治面貌
+                "staff_hireday,\n" + //入职时间
+                "staff_status,\n" + //状态
+                "staff_department_id,\n" + //部门
+                "staff_position_id,staff_headFile) values(\n" + //职位
+                "?,?,\n" +
+                "?,?,?,\n" +
+                "?,?,?,\n" +
+                "?,?,?,?,?);";
+        try {
+            PreparedStatement ps = con.prepareStatement(addSQL);
+            ps.setString(1, staff_name);
+            ps.setString(2, staff_sex);
+            ps.setDate(3, new java.sql.Date(staff_birthday.getTime()));
+            ps.setString(4, staff_edu);
+            ps.setString(5, staff_speciality);
+            ps.setString(6,staff_phone);
+            ps.setString(7,staff_address);
+            ps.setString(8, staff_polity);
+            ps.setDate(9, new java.sql.Date(staff_hireday.getTime()));
+            ps.setBoolean(10, staff_status);//状态
+            ps.setInt(11, deptID);
+            ps.setInt(12, posID);
+            ps.setString(13, staff_headFile);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

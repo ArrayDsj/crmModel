@@ -1,6 +1,5 @@
 package com.lovo.netCRM.dao.imp;
 
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.bean.PositionBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
@@ -13,10 +12,7 @@ import java.util.ArrayList;
  * Created by CodeA on 2015/8/22.
  */
 public class PositionDaoImp implements CrmDao {
-    @Override
-    public EmployeeBean login(String loginName, String passWord) {
-        return null;
-    }
+
 
     @Override
     public boolean deleteObject(int ObjectID) {
@@ -71,6 +67,7 @@ public class PositionDaoImp implements CrmDao {
 
 
 
+
     @Override
     public ArrayList<Object> getAllObjects() {
         ArrayList<Object> positions = new ArrayList<Object>();
@@ -113,7 +110,7 @@ public class PositionDaoImp implements CrmDao {
 
 
     @Override
-    public boolean alterObject(Object alterObj) {
+    public boolean alterObject(int objectID,Object alterObj) {
         PositionBean alterPos = (PositionBean)alterObj;
         int departID = alterPos.getPositionID();
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -158,7 +155,7 @@ public class PositionDaoImp implements CrmDao {
     }
 
     @Override
-    public boolean addObject(Object object) {
+    public boolean addObject(int objectID,Object object) {
         PositionBean newPos = (PositionBean)object;
         String name = newPos.getName();
 

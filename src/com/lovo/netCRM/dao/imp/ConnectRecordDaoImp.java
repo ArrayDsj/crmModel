@@ -1,7 +1,6 @@
 package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.ConnectRecordBean;
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
@@ -15,10 +14,6 @@ import java.util.ArrayList;
  * Created by CodeA on 2015/8/25.
  */
 public class ConnectRecordDaoImp implements CrmDao {
-    @Override
-    public EmployeeBean login(String loginName, String passWord) {
-        return null;
-    }
 
     @Override
     public ArrayList<Object> getAllObjects() {
@@ -36,11 +31,19 @@ public class ConnectRecordDaoImp implements CrmDao {
     }
 
     @Override
+    public boolean alterObject(int objectID, Object object) {
+        return false;
+    }
+
+
+
+
+
     public boolean alterObject(Object alterObj) {
         return false;
     }
 
-    @Override
+
     public boolean addObject(Object object) {
         return false;
     }
@@ -50,7 +53,8 @@ public class ConnectRecordDaoImp implements CrmDao {
         return null;
     }
 
-    public boolean addObject(Object obj,int schID){
+    @Override
+    public boolean addObject(int schID,Object obj){
         ConnectRecordBean connectRecordBean = (ConnectRecordBean)obj;
         Connection con = ConnectionSQL.createConnectionSQL();
 

@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class EmployeeServiceImp implements EmployeeService{
     @Override
     public EmployeeBean login(String loginName, String passWord) {
-        CrmDao emp = new EmployeeDaoImp();
-        return emp.login(loginName,passWord);
+        EmployeeDaoImp emp = new EmployeeDaoImp();
+        return emp.login(loginName, passWord);
     }
 
     @Override
@@ -25,10 +25,11 @@ public class EmployeeServiceImp implements EmployeeService{
 
     public ArrayList<Object> getAllStaffs(int pageNow,int pageSize) {
         EmployeeDaoImp emp = new EmployeeDaoImp();
-        return emp.getAllObjects(pageNow,pageSize);
+        return emp.getAllObjects(pageNow, pageSize);
     }
 
     @Override
+    //更改状态值
     public boolean deleteStaff(int EmployeeID) {
         CrmDao emp = new EmployeeDaoImp();
         return emp.deleteObject(EmployeeID);
@@ -43,19 +44,30 @@ public class EmployeeServiceImp implements EmployeeService{
 
     @Override
     public boolean alterStaff(EmployeeBean alterEmp) {
-        CrmDao emp = new EmployeeDaoImp();
-        return emp.alterObject(alterEmp);
+        return false;
     }
 
-    @Override
-    public boolean addStaff(EmployeeBean newEmp) {
+
+    //添加员工信息
+    public boolean addStaff(int empID,EmployeeBean newEmp) {
         CrmDao emp = new EmployeeDaoImp();
-        return emp.addObject(newEmp);
+        return emp.addObject(empID,newEmp);
     }
 
     @Override
     public ArrayList<Object> getStaffByCon(String item, String value) {
         CrmDao emp = new EmployeeDaoImp();
-        return emp.getObjectByCon(item,value);
+        return emp.getObjectByCon(item, value);
+    }
+
+    @Override
+    public boolean alterStaff(int objID,EmployeeBean alterEmp) {
+        CrmDao emp = new EmployeeDaoImp();
+        return emp.alterObject(objID,alterEmp);
+    }
+
+    @Override
+    public boolean addStaff(EmployeeBean newEmp) {
+        return false;
     }
 }

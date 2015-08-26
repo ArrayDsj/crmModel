@@ -120,7 +120,7 @@ public class SchoolCommunicateAddDialog extends JDialog{
         }
 
 		//Ìí¼Ó¹µÍ¨¼ÇÂ¼
-        new ConnectRecordDaoImp().addObject(con,schoolId);
+        new ConnectRecordDaoImp().addObject(schoolId,con);
 		return true;
 		
 	}

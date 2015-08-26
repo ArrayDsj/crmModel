@@ -68,7 +68,10 @@ public class SchoolActiveShowDialog  extends JDialog {
 				"id");//主键属性名 activeId
 		activeTable.setSizeAndLocation(20, 90, 600, 300);
 		//更新表格,插入学校活动List集合
-		ArrayList<ActiveBean> allActives = new ActiveServiceImp().getAllActives(schoolId);
-		activeTable.updateLovoTable(allActives);
+		ArrayList<ActiveBean> allActives = new ActiveServiceImp().getAllActivesByCon(schoolId);
+        if(allActives != null){
+            activeTable.updateLovoTable(allActives);
+        }
+
 	}
 }

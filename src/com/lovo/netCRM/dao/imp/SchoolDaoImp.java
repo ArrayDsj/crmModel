@@ -12,10 +12,6 @@ import java.util.Date;
  * Created by CodeA on 2015/8/24.
  */
 public class SchoolDaoImp implements CrmDao{
-    @Override
-    public EmployeeBean login(String loginName, String passWord) {
-        return null;
-    }
 
     @Override
     public ArrayList<Object> getAllObjects() {
@@ -33,15 +29,12 @@ public class SchoolDaoImp implements CrmDao{
     }
 
 
-    @Override
-    public boolean alterObject(Object alterObj) {
-        return false;
-    }
+
 
 
 
     @Override
-    public boolean addObject(Object object) {
+    public boolean addObject(int ID,Object object) {
         Connection con = ConnectionSQL.createConnectionSQL();
         SchoolBean newsch = (SchoolBean)object;
         String SQL = "insert into school(\n" +
@@ -130,6 +123,7 @@ public class SchoolDaoImp implements CrmDao{
         }else
             return null;
     }
+
 
 
     /**
@@ -271,6 +265,10 @@ public class SchoolDaoImp implements CrmDao{
             return null;
     }
 
+
+
+
+
     //根据学校id修改信息
     public boolean alterSchoolByID(int schID){
         java.sql.Date inTime = new java.sql.Date(new Date().getTime());
@@ -301,7 +299,11 @@ public class SchoolDaoImp implements CrmDao{
             return false;
     }
 
-    public boolean alterSchoolByID(SchoolBean sch,int schID){
+
+
+    @Override
+    public boolean alterObject(int objectID,Object object){
+        SchoolBean sch = (SchoolBean)object;
         Connection con = ConnectionSQL.createConnectionSQL();
         String alterSQL =
                 "update school set school_master = ? ," +
@@ -319,7 +321,7 @@ public class SchoolDaoImp implements CrmDao{
             ps.setInt(3, sch.getTeaNum());
             ps.setString(4, sch.getIPAddress());
             ps.setString(5, sch.getFlow());
-            ps.setInt(6, schID);
+            ps.setInt(6, objectID);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

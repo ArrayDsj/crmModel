@@ -1,7 +1,6 @@
 package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.DepartBean;
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
@@ -13,10 +12,6 @@ import java.util.Date;
  * Created by CodeA on 2015/8/22.
  */
 public class DepartDaoImp implements CrmDao{
-    @Override
-    public EmployeeBean login(String loginName, String passWord) {
-        return null;
-    }
 
     @Override
     public ArrayList<Object> getAllObjects() {
@@ -92,8 +87,10 @@ public class DepartDaoImp implements CrmDao{
             return null;
     }
 
+
+
     @Override
-    public boolean alterObject(Object alterObj) {
+    public boolean alterObject(int objectID,Object alterObj) {
         DepartBean alterDept = (DepartBean)alterObj;
         int departID = alterDept.getDepartID();
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -126,7 +123,7 @@ public class DepartDaoImp implements CrmDao{
     }
 
     @Override
-    public boolean addObject(Object object) {
+    public boolean addObject(int objectID, Object object) {
         DepartBean newDept = (DepartBean)object;
         String name = newDept.getDepartName();
         String describe = newDept.getDescribe();

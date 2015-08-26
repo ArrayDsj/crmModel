@@ -20,14 +20,14 @@ public class DepartServiceImp implements DepartService{
     @Override
     public boolean addDept(Object newDept) {
         CrmDao departs = new DepartDaoImp();
-        return departs.addObject(newDept);
+        return departs.addObject(0,newDept);
     }
 
 
     @Override
     public boolean alterDept(Object willUpdateDept) {
         CrmDao departs = new DepartDaoImp();
-        return departs.alterObject(willUpdateDept);
+        return departs.alterObject(0,willUpdateDept);
     }
 
     @Override

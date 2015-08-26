@@ -177,7 +177,7 @@ public class SchoolAddDialog extends JDialog{
 			sch.setFoundTime(new Date());
 		}
 		//写入数据库
-		new SchoolDaoImp().addObject(sch);
+		new SchoolDaoImp().addObject(0,sch);
 		//更新表格，显示添加结果
 		this.schoolPanel.initData();
 		

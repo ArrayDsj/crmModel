@@ -1,7 +1,6 @@
 package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.ClassesBean;
-import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
@@ -14,8 +13,12 @@ import java.util.ArrayList;
  */
 public class ClassesDaoImp implements CrmDao{
     @Override
-    public EmployeeBean login(String loginName, String passWord) {
+    public ArrayList<Object> getObjectByCon(String item, String value) {
         return null;
+    }
+    @Override
+    public boolean deleteObject(int ObjectID) {
+        return false;
     }
 
     @Override
@@ -53,10 +56,6 @@ public class ClassesDaoImp implements CrmDao{
             return null;
     }
 
-    @Override
-    public boolean deleteObject(int ObjectID) {
-        return false;
-    }
 
     @Override
     public Object getObjectByID(int ObjectID) {
@@ -85,8 +84,6 @@ public class ClassesDaoImp implements CrmDao{
     }
 
 
-
-
     public boolean alterObject(int ObjectID,Object object) {
         ClassesBean alterclasses = (ClassesBean)object;
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -95,7 +92,7 @@ public class ClassesDaoImp implements CrmDao{
         int result = -1;
         try {
             PreparedStatement ps = con.prepareStatement(alterSQL);
-            ps.setString(1,alterclasses.getTeaName());
+            ps.setString(1, alterclasses.getTeaName());
             ps.setInt(2,ObjectID);
             result = ps.executeUpdate();
         } catch (SQLException e) {
@@ -116,7 +113,7 @@ public class ClassesDaoImp implements CrmDao{
     }
 
     //添加学生时,对应的班级人数加1
-    @Override
+    //@Override
     public boolean alterObject(Object object){
         ClassesBean alterclasses = (ClassesBean)object;
 
@@ -126,7 +123,7 @@ public class ClassesDaoImp implements CrmDao{
         int result = -1;
         try {
             PreparedStatement ps = con.prepareStatement(alterSQL);
-            ps.setInt(1,alterclasses.getStuNum());
+            ps.setInt(1, alterclasses.getStuNum());
             ps.setInt(2,alterclasses.getId());
             result = ps.executeUpdate();
         } catch (SQLException e) {
@@ -147,50 +144,7 @@ public class ClassesDaoImp implements CrmDao{
     }
 
 
-
-
-
-
-
     @Override
-    public boolean addObject(Object object) {
-        ClassesBean newClasses = (ClassesBean)object;
-        Connection con = ConnectionSQL.createConnectionSQL();
-        int result = -1;
-        String addSQL = "insert into classes(\n" +
-                "class_name,\n" +
-                "class_buildTime,\n" +
-                "class_stuNum,\n" +
-                "class_teaName,\n" +
-                "school_id)\n" +
-                "values(\n" +
-                "?,\n" +
-                "?,\n" +
-                "?," +
-                "?," +
-                "?);";
-        try {
-            PreparedStatement ps = con.prepareStatement(addSQL);
-
-            result = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            if(con != null){
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if(result == 1){
-            return true;
-        }else
-            return false;
-    }
-
-
     public boolean addObject(int ObjectID,Object object){
         ClassesBean newClasses = (ClassesBean)object;
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -233,10 +187,7 @@ public class ClassesDaoImp implements CrmDao{
             return false;
     }
 
-    @Override
-    public ArrayList<Object> getObjectByCon(String item, String value) {
-        return null;
-    }
+
 
 
 

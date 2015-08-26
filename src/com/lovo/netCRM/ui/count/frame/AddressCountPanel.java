@@ -1,10 +1,10 @@
 package com.lovo.netCRM.ui.count.frame;
 
 
-import javax.swing.JPanel;
-
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+
+import javax.swing.*;
 
 /**
  * 
@@ -47,8 +47,8 @@ public class AddressCountPanel extends JPanel{
 	private void initTable() {
 		addressCountTable = new LovoTable(this,
 				new String[]{"城市名称","录入学校","接洽中学校","待审学校","审核未通过学校","推广开展学校"},
-				new String[]{},//统计实体属性名数组 new String[]{"cityName","schoolNumber"}
-				"");//主键属性名 countId
+				new String[]{"cityName","schoolNum","receivesSchoolNum","proposeSchoolNum","passSchoolNum","permitSchoolNum"},//统计实体属性名数组 new String[]{"cityName","schoolNumber"}
+				"id");//主键属性名 countId
 		addressCountTable.setSizeAndLocation(20, 90, 700, 300);
 		
 	}
@@ -57,6 +57,7 @@ public class AddressCountPanel extends JPanel{
 	 */
 	private void updateAddressCountTable(){
 		//更新表格,插入地区统计List集合
+
 		addressCountTable.updateLovoTable(null);
 	}
 }

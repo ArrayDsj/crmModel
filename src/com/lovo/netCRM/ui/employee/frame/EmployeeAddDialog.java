@@ -164,7 +164,7 @@ public class EmployeeAddDialog extends JDialog{
 			newEmp.setHireDay(new Date());
 		}
 		//完成添加操作
-		new EmployeeServiceImp().addStaff(newEmp);
+		new EmployeeServiceImp().addStaff(0,newEmp);
 		
 //		更新数据,显示添加结果
 		this.emPanel.initData();

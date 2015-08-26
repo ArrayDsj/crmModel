@@ -2,6 +2,7 @@ package com.lovo.netCRM.dao.imp;
 
 import com.lovo.netCRM.bean.ActiveBean;
 import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
 import java.sql.*;
@@ -11,9 +12,14 @@ import java.util.ArrayList;
 /**
  * Created by CodeA on 2015/8/24.
  */
-public class ActiveDaoImp {
+public class ActiveDaoImp implements CrmDao{
+
     //添加活动记录
-    public boolean addActive(ActiveBean active,int schoolId) {
+    public boolean addObject(int objectId,Object object) {
+        if(!(object instanceof ActiveBean)){
+            return false;
+        }
+        ActiveBean active = (ActiveBean)object;
         Connection con = ConnectionSQL.createConnectionSQL();
         String sql =
                 "insert into active(active_name,active_address,\n" +
@@ -27,7 +33,7 @@ public class ActiveDaoImp {
             ps.setString(3, active.getTitle());
             ps.setDate(4, new java.sql.Date(active.getTime().getTime()));
             ps.setInt(5, active.getEmp().getID());
-            ps.setInt(6, schoolId);
+            ps.setInt(6, objectId);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,11 +53,35 @@ public class ActiveDaoImp {
         return false;
     }
 
-    //取得所有的活动记录
-    public ArrayList<ActiveBean> getAllActives(int schoolId){
+    @Override
+    public ArrayList<Object> getAllObjects() {
+        return null;
+    }
+
+    @Override
+    public boolean deleteObject(int objectID) {
+        return false;
+    }
+
+    @Override
+    public Object getObjectByID(int objectID) {
+        return null;
+    }
+
+    @Override
+    public boolean alterObject(int objectID, Object object) {
+        return false;
+    }
+
+
+
+    @Override
+    //根据学校ID取得所有活动记录
+    public ArrayList<Object> getObjectByCon(String item, String value) {
+        int schID = Integer.parseInt(value);
         Connection con = ConnectionSQL.createConnectionSQL();
-        ArrayList<ActiveBean> allActives = new ArrayList<ActiveBean>();
-        String getAllSQL = "select * from active where school_id = " + schoolId;
+        ArrayList<Object> allActives = new ArrayList<Object>();
+        String getAllSQL = "select * from active where school_id = " + schID;
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(getAllSQL);

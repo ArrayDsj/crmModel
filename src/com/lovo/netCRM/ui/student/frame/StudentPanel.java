@@ -252,7 +252,7 @@ public class StudentPanel extends JPanel{
 	private void updateStudentTable(int schoolId,int pageNO){
 		//在学生表中,根据学校ID查找学生
 		//更新表格,插入List集合
-		studentTable.updateLovoTable(new StudentDaoImp().getStudentBySchlloID(schoolId));
+		studentTable.updateLovoTable(new StudentDaoImp().getStudentsBySchoolID(schoolId));
 		//设置总页数
 		this.setTotalPage(0);
 	}
@@ -316,7 +316,6 @@ public class StudentPanel extends JPanel{
 				}
 			};
         cityAccordion.updateAccordion(areas);
-
 	}
 	
 	/**

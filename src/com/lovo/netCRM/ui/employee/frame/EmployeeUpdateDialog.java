@@ -173,7 +173,7 @@ public class EmployeeUpdateDialog extends JDialog{
 			//修改政治面貌
 			willUpdateEmp.setPolity(polityFaceTxt.getItem().toString());
 			//修改数据库
-			new EmployeeServiceImp().alterStaff(willUpdateEmp);
+			new EmployeeServiceImp().alterStaff(employeeId,willUpdateEmp);
 			//更新数据，显示修改结果
 			this.emPanel.initData();
 			return true;
