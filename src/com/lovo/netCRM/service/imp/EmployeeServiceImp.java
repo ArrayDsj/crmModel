@@ -42,12 +42,6 @@ public class EmployeeServiceImp implements EmployeeService{
         return thisEmp;
     }
 
-    @Override
-    public boolean alterStaff(EmployeeBean alterEmp) {
-        return false;
-    }
-
-
     //添加员工信息
     public boolean addStaff(int empID,EmployeeBean newEmp) {
         CrmDao emp = new EmployeeDaoImp();
@@ -82,8 +76,4 @@ public class EmployeeServiceImp implements EmployeeService{
         return emp.alterObject(objID,alterEmp);
     }
 
-    @Override
-    public boolean addStaff(EmployeeBean newEmp) {
-        return false;
-    }
 }

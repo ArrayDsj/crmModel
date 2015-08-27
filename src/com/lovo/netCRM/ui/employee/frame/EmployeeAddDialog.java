@@ -136,7 +136,9 @@ public class EmployeeAddDialog extends JDialog{
 		if(!addressTxt.getText().matches("[a-zA-Z0-9\\u4e00-\\u9fa5]{2,20}")){
 			str += "地址格式不正确\n";
 		}
-
+		if(birthdayTxt.getText() == null){
+			str += "出生日期不能为空\n";
+		}
 		if(str.length() != 0){
 			JOptionPane.showMessageDialog(null, str);
 			return false;
@@ -156,7 +158,7 @@ public class EmployeeAddDialog extends JDialog{
 			if(faceTxt.getFilePath() == null){
 				newEmp.setHeadFile("face/4.jpg");
 			}else
-				newEmp.setHeadFile(faceTxt.getFilePath());
+				newEmp.setHeadFile("face/"+faceTxt.getFilePath());
 
 			//状态status  1位true 在职
 			newEmp.setStatus(true);

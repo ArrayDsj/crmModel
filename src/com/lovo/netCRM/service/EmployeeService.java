@@ -21,13 +21,10 @@ public interface EmployeeService {
     public EmployeeBean getStaffByID(int EmployeeID);
 
     //修改员工数据
-    public boolean alterStaff(EmployeeBean alterEmp);
-
-    //修改员工数据
     public boolean alterStaff(int empID,EmployeeBean alterEmp);
 
     //添加新员工
-    public boolean addStaff(EmployeeBean newEmp);
+    public boolean addStaff(int id,EmployeeBean newEmp);
 
     //按条件查找
     public ArrayList<Object> getStaffByCon(String item,String value);

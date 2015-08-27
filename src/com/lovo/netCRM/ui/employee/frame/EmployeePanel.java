@@ -37,11 +37,14 @@ public class EmployeePanel extends JPanel{
 	private final int pageSize = 17;
 	//总记录数
 	private static int counts;
+	//总页数
+	private static int pageNum;
 	public EmployeePanel(JFrame jf){
 		this.jf = jf;
 		this.setLayout(null);
 		ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
 		counts = allEmps.size();
+		pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
 		this.init();
 	}
 	/**
@@ -164,18 +167,16 @@ public class EmployeePanel extends JPanel{
 		this.itemCombox = new LovoComboBox<String>(
 				new String[]{"所有员工","员工姓名","所属部门",
 						"文化程度","工作职位"},30,50,jp);
-		itemCombox.setSelectedIndex(0);
+
 		valueTxt.setBounds(160, 50, 120, 20);
 		jp.add(valueTxt);
-        if(itemCombox.getSelectedIndex() == 0){
-            valueTxt.setEditable(false);
-        }
 		LovoButton lb = new LovoButton("查找",180,100,jp);
 		lb.setSize(60, 20);
 		
 		lb.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+
 				findEmployee(pageNow);
 			}
 		});
@@ -210,15 +211,13 @@ public class EmployeePanel extends JPanel{
 	 * 更新表格数据
 	 */
 	private void updateEmployeeTable(int pageNow){
-		//更新表格,插入所有员工List集合
-		//从数据库中取出数据
-		//分页,每一页17个
 		ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
-		//JOptionPane.showMessageDialog(null,"一共"+allEmps.size()+"条记录");
 		employeeTable.updateLovoTable(limitEmps);
 		//设置总页数
 		this.setTotalPage((int) Math.ceil(counts / (pageSize * 1.0)));
-		//JOptionPane.showMessageDialog(null, (int) Math.ceil(counts / (pageSize*1.0)));
+
+
+
 	}
 	
 	/**
@@ -226,30 +225,41 @@ public class EmployeePanel extends JPanel{
 	 */
 	private void prevClick(){
 		if(pageNow == 1){
-			JOptionPane.showMessageDialog(null,"已经是第一页了" + pageNow);
+			//JOptionPane.showMessageDialog(null,"已经是第一页了" + pageNow);
 		}else {
 			pageNow -= 1;
 			ArrayList<Object> limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize);
 			employeeTable.updateLovoTable(limitEmps);
-			//JOptionPane.showMessageDialog(null, pageNow);
 		}
 	}
 	/**
 	 * 下一页点击事件
 	 */
 	private void nextClick(){
-		pageNow += 1;
-		ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
-		employeeTable.updateLovoTable(limitEmps);
-		//JOptionPane.showMessageDialog(null,pageNow);
+		//得到总页数
+		if(pageNow == pageNum) {
+		}else{
+			pageNow += 1;
+			ArrayList<Object> limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize);
+			employeeTable.updateLovoTable(limitEmps);
+		}
 	}
 	/**
 	 * 转向指定页码
 	 */
 	private void goClick(String pageNO){
-		pageNow = Integer.parseInt(pageNO);
-		ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
-		employeeTable.updateLovoTable(limitEmps);
+		int page = -1;
+		try{
+			page = Integer.parseInt(pageNO);
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null,"输入错误");
+		}
+		if(page <= pageNum){
+			pageNow = Integer.parseInt(pageNO);
+			ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
+			pageNow = page;
+			employeeTable.updateLovoTable(limitEmps);
+		}
 	}
 	
 	/**
@@ -273,9 +283,6 @@ public class EmployeePanel extends JPanel{
 	private void findEmployee(int pageNow){
 		//得到选项(条件)
 		String item = itemCombox.getItem();
-        if(!item.equals("所有员工")){
-            valueTxt.setEditable(true);
-        }
 		//得到选项值(模糊查询条件)
 		String value = valueTxt.getText();
 		ArrayList<Object> checkEmps = new EmployeeServiceImp().getStaffByCon(item,value);

@@ -120,6 +120,7 @@ public class EmployeeDaoImp implements CrmDao {
     }
 
     @Override
+    //查询全部员工
     public ArrayList<Object> getAllObjects() {
         ArrayList<Object> empList = new ArrayList<Object>();
         Connection con = ConnectionSQL.createConnectionSQL();
@@ -227,12 +228,12 @@ public class EmployeeDaoImp implements CrmDao {
         if(empList.size() != 0){
             return empList;
         }else {
-            JOptionPane.showMessageDialog(null,"集合中没有员工");
             return null;
         }
     }
 
     @Override
+    //按条件查询用户信息
     public ArrayList<Object> getObjectByCon(String item, String value) {
         ArrayList<Object> empListByCon = new ArrayList<Object>();
         Connection con = ConnectionSQL.createConnectionSQL();
