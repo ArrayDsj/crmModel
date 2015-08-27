@@ -1,13 +1,11 @@
 package com.lovo.netCRM.bean;
 
-import java.util.ArrayList;
-
 /**
  * Created by CodeA on 2015/8/26.
  */
 public class AddressCountBean {
     private int id;
-    private ArrayList<AreaBean> cityName;
+    private String cityName;
 
     //录入的学校总数
     private int schoolNum;
@@ -19,6 +17,7 @@ public class AddressCountBean {
     private int passSchoolNum;
     //允许的学校,推广状态
     private int permitSchoolNum;
+
     public int getId() {
         return id;
     }
@@ -27,11 +26,11 @@ public class AddressCountBean {
         this.id = id;
     }
 
-    public ArrayList<AreaBean> getCityName() {
+    public String getCityName() {
         return cityName;
     }
 
-    public void setCityName(ArrayList<AreaBean> cityName) {
+    public void setCityName(String cityName) {
         this.cityName = cityName;
     }
 

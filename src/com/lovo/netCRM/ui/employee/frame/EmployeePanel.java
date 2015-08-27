@@ -164,11 +164,12 @@ public class EmployeePanel extends JPanel{
 		this.itemCombox = new LovoComboBox<String>(
 				new String[]{"所有员工","员工姓名","所属部门",
 						"文化程度","工作职位"},30,50,jp);
-		
-		
+		itemCombox.setSelectedIndex(0);
 		valueTxt.setBounds(160, 50, 120, 20);
 		jp.add(valueTxt);
-		
+        if(itemCombox.getSelectedIndex() == 0){
+            valueTxt.setEditable(false);
+        }
 		LovoButton lb = new LovoButton("查找",180,100,jp);
 		lb.setSize(60, 20);
 		
@@ -204,7 +205,6 @@ public class EmployeePanel extends JPanel{
 		//调用一次数据库数据
 		updateEmployeeTable(pageNow);
 		employeeTable.setSizeAndLocation(20, 90, 700, 300);
-		
 	}
 	/**
 	 * 更新表格数据
@@ -273,6 +273,9 @@ public class EmployeePanel extends JPanel{
 	private void findEmployee(int pageNow){
 		//得到选项(条件)
 		String item = itemCombox.getItem();
+        if(!item.equals("所有员工")){
+            valueTxt.setEditable(true);
+        }
 		//得到选项值(模糊查询条件)
 		String value = valueTxt.getText();
 		ArrayList<Object> checkEmps = new EmployeeServiceImp().getStaffByCon(item,value);

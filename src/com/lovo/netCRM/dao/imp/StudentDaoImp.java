@@ -156,13 +156,17 @@ public class StudentDaoImp implements CrmDao{
         //根据item来确认SQL语句
         switch(item){
             case "学生姓名" :
+                if(value == null || value.trim().equals("")){
+                    value = "";
+                }
                 conSQL ="select stu_id,stu_name, \n" +
                         "stu_sex,stu_status, \n" +
                         "stu_vip,stu_phone,class_name\n" +
                         "from student s\n" +
                         "join classes c\n" +
                         "on s.classes_id = c.class_id\n"+
-                        "where stu_name like '%" + value + "%';";
+                        "where stu_name like '%" + value + "%'" ;
+                        //"or stu_sex like '% '";
                 break;
 
             case "班级" :

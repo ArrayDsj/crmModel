@@ -3,8 +3,10 @@ package com.lovo.netCRM.ui.count.frame;
 
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
+import com.lovo.netCRM.service.imp.AddressCountServiceImp;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * 
@@ -57,7 +59,7 @@ public class AddressCountPanel extends JPanel{
 	 */
 	private void updateAddressCountTable(){
 		//更新表格,插入地区统计List集合
-
-		addressCountTable.updateLovoTable(null);
+		ArrayList<Object> addressCount = new AddressCountServiceImp().getCounts();
+		addressCountTable.updateLovoTable(addressCount);
 	}
 }

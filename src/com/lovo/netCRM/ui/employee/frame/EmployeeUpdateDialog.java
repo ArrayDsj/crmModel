@@ -62,7 +62,7 @@ public class EmployeeUpdateDialog extends JDialog{
 		this.setLayout(null);
 		this.setTitle("修改员工信息");
 		
-		this.init();
+		this.init(employeeId);
 		
 		this.setBounds(300, 100, 700, 450);
 		this.setVisible(true);
@@ -71,8 +71,8 @@ public class EmployeeUpdateDialog extends JDialog{
 	 * 初始化
 	 *
 	 */
-	private void init(){
-		this.initComboBox();
+	private void init(int employeeId){
+		this.initComboBox(employeeId);
 		this.initEmployeeData(this.employeeId);
 		
 		LovoButton lbupdate = new LovoButton("修改",150,350,this);
@@ -102,7 +102,7 @@ public class EmployeeUpdateDialog extends JDialog{
 	 * 初始化部门和职位下拉框
 	 *
 	 */
-	private void initComboBox(){
+	private void initComboBox(int employeeId){
 		//添加部门List集合
 		//从数据库中找出所有部门名称
 		ArrayList<Object> departs = new DepartServiceImp().getAllDepts();
@@ -113,7 +113,19 @@ public class EmployeeUpdateDialog extends JDialog{
 			departNames.add(deptName);
 		}
 		this.deptTxt = new LovoComboBox("所在部门",departNames,40,250,this);
+
 		//默认选择员工所在的部门
+		//按员工id查找部门
+		EmployeeBean emp = new EmployeeServiceImp().getStaffByID(employeeId);
+		//得到这个员工所在部门的名字
+		String deptName = emp.getDept();
+		//DepartBean dept = new DepartServiceImp().getDeptByName(deptName);
+		//根据员工部门的名字在下拉列表里面设置为默认值
+		for(int i = 0 ; i < departs.size() ; i++){
+			if(deptTxt.getItemAt(i).toString().equals(deptName)){
+				deptTxt.setSelectedIndex(i);
+			}
+		}
 
 
 		//添加职位List集合
@@ -127,9 +139,14 @@ public class EmployeeUpdateDialog extends JDialog{
 		}
 		this.workTxt = new LovoComboBox("工作职位",positionNames,320,250,this);
 		//默认选择员工所处的职业
-
-
-	
+		//按员工ID查找职位
+		//workTxt.setSelectedIndex();
+		String posName = emp.getPosition();
+		for(int i = 0 ; i < positions.size() ; i++){
+			if(workTxt.getItemAt(i).toString().equals(posName)){
+				workTxt.setSelectedIndex(i);
+			}
+		}
 	}
 	
 	/**
