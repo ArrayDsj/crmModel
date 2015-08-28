@@ -44,7 +44,7 @@ public class MainFrame extends JFrame{
 	/**学校活动主面板*/
 	private SchoolActivePanel schoolActivePanel =  new SchoolActivePanel(this);
 	/**学校管理主面板*/
-	private SchoolPanel schoolPanel = new SchoolPanel(this);
+	private SchoolPanel schoolPanel ;
 	/**班级管理主面板*/
 	private ClassManagerPanel classManagerPanel = new ClassManagerPanel(this);
 	/**学生主面板*/
@@ -55,19 +55,19 @@ public class MainFrame extends JFrame{
 	/**学校统计主面板*/
 	private SchoolCountPanel schoolCountPanel = new SchoolCountPanel();
 
-	public StudentPanel getStudentPanel() {
-		return studentPanel;
+	public EmployeeBean getUserObj() {
+		return userObj;
 	}
 
-	public void setStudentPanel(StudentPanel studentPanel) {
-		this.studentPanel = studentPanel;
+	public void setUserObj(EmployeeBean userObj) {
+		this.userObj = userObj;
 	}
 
 	public MainFrame(Object userObj){
 		super("四川网脉CRM系统");
 		this.userObj = (EmployeeBean) userObj;
 
-
+		setTitle(((EmployeeBean) userObj).getName());
 		this.initTree();
 		this.initPanel();
 		
@@ -86,7 +86,8 @@ public class MainFrame extends JFrame{
 		System.out.println(userObj.getName()+"登录了");
 		mainPanel.setLayout(this.card);
 		this.add(mainPanel);
-		
+
+		schoolPanel = new SchoolPanel(this);
 		//给卡布局的容器添加面板，每加上一个面板，由第二个参数给面板取名
 		mainPanel.add(new InitPanel(),"init");//给主面板添加一张图片
 		mainPanel.add(emPanel,"employee");
@@ -190,11 +191,20 @@ public class MainFrame extends JFrame{
 			}
 		};
 		
-		//将叶节点加入枝节点
-		//资料管理
-		sorceNode.add(employeeNode);
-		sorceNode.add(deptNode);
-		sorceNode.add(workNode);
+		//将枝节点加入根节点。其中添加的节点要根据登陆用户的等级决定
+		/**
+		 * 根据权限显示节点
+		 */
+		//查询权限
+		boolean checkRight = userObj.getPos().isCheckRight();
+		//考核权限
+		boolean queryRight = userObj.getPos().isQueryRight();
+		//销售统计权限
+		boolean saleRight = userObj.getPos().isSaleRight();
+		//权限管理权限
+		boolean managerRight = userObj.getPos().isManagerRight();
+		//后台管理权限
+		boolean backRight = userObj.getPos().isBackRight();
 
 		//学校管理
 		schoolNode.add(activeNode);
@@ -207,31 +217,23 @@ public class MainFrame extends JFrame{
 		//统计信息
 		countNode.add(areaNode);
 		countNode.add(scNode);
-		
-		//将枝节点加入根节点。其中添加的节点要根据登陆用户的等级决定
-//		int grade = 9;
-//
-//		//-------------------------------
-//		if(grade == 0){
-//			rootNode.add(sorceNode);
-//		}else{
-//			rootNode.add(sorceNode);
-//			rootNode.add(schoolNode);
-//			rootNode.add(userNode);
-//			rootNode.add(countNode);
-//		}
 
-		//根据权限显示子节点
-		if(userObj.getPos().isCheckRight()){
+		if(managerRight){
+			sorceNode.add(employeeNode);
+			sorceNode.add(deptNode);
+			if(backRight){
+				sorceNode.add(workNode);
+			}
+			rootNode.add(sorceNode);
+		}
+		if(checkRight){
 			rootNode.add(schoolNode);
 			rootNode.add(userNode);
-			
+		}
+		if(saleRight){
+			rootNode.add(countNode);
 		}
 
-
-
-
-		
 		//创建树形菜单
 		this.tree = new LovoTree(rootNode);
 		//设置树形菜单的字体

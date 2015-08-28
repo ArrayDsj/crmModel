@@ -120,6 +120,7 @@ public class SchoolPanel extends JPanel{
 			}});
 		
 		LovoButton lbcheck = new LovoButton("审核",300,580,this);
+
 		lbcheck.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
@@ -144,6 +145,17 @@ public class SchoolPanel extends JPanel{
 				
 				new SchoolCommunicateAddDialog(jf,key);
 			}});
+
+
+		//设置按钮属性
+		lbcheck.setVisible(false);
+		//按钮初始化完毕
+		MainFrame mainFrame = (MainFrame)jf;
+		//如果有审核权限,则显示
+		if(mainFrame.getUserObj().getPos().isQueryRight()){
+			lbcheck.setVisible(true);
+		}
+
 	}
 	
 	//--------------------------

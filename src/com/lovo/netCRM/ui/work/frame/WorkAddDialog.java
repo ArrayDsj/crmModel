@@ -83,8 +83,8 @@ public class WorkAddDialog extends JDialog {
 		//验证数据，数据验证失败返回false
 		PositionBean newPos = new PositionBean();
 		String errorStr = "";
-		if (!this.nameTxt.getText().matches("[\\u4e00-\\u9fa5]{2,10}")) {
-			errorStr += "职位名称格式错误(2到10个汉字)\n";
+		if (nameTxt.getText() == null || nameTxt.getText().trim().equals("")) {
+			errorStr += "职位名称不能为空\n";
 		}
 		if (!this.descriptionTxt.getText().matches("[a-zA-Z0-9\\u4e00-\\u9fa5]{3,50}")) {
 			errorStr += "描述格式错误\n";
@@ -124,11 +124,6 @@ public class WorkAddDialog extends JDialog {
 				}
 			}
 		}
-		JOptionPane.showMessageDialog(null, newPos.isCheckRight());
-		JOptionPane.showMessageDialog(null, newPos.isQueryRight());
-		JOptionPane.showMessageDialog(null, newPos.isSaleRight());
-		JOptionPane.showMessageDialog(null, newPos.isManagerRight());
-		JOptionPane.showMessageDialog(null, newPos.isBackRight());
 		new PositionServiceImp().addPosition(newPos);
 		//更新表格，显示添加职位结果
 		workPanel.initData();

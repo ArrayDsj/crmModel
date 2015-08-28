@@ -79,7 +79,6 @@ public class StudentAddDialog extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				boolean isOk = addStudent(schoolId);
 				if(isOk){
-					mainFrame.getStudentPanel().initAccordion();
 					StudentAddDialog.this.dispose();
 				}
 			}});
