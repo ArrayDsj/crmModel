@@ -110,7 +110,7 @@ public class WorkPanel  extends JPanel{
 			switchs.add(s);
 		}
 		if(switchs != null){
-			//workTable.updateLovoTable(switchs);
+			workTable.updateLovoTable(switchs);
 		}
 
 	}

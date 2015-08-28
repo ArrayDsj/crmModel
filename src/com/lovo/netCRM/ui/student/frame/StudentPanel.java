@@ -128,6 +128,15 @@ public class StudentPanel extends JPanel{
 				if(schoolId == 0){
 					JOptionPane.showMessageDialog(null, "请选择学校");
 					return;
+
+				}else{
+					//统计此学校的班级总数,如果等于0 ,则提示新建班级
+					ArrayList<Object> classes = new ClassesDaoImp().getObjectByschID(schoolId);
+					//int counts = classes.size();
+					if(classes == null){
+						JOptionPane.showMessageDialog(null,"此学校还没有班级,请新建班级");
+						return;
+					}
 				}
 				
 				new StudentAddDialog(jf,schoolId,StudentPanel.this);
@@ -293,7 +302,7 @@ public class StudentPanel extends JPanel{
 	 * 初始化手风琴组件
 	 *
 	 */
-	private void initAccordion() {
+	public void initAccordion() {
 		//第二个参数为城市集合cityList，第三个参数为城市类中学校集合的属性名schoolList
         ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
         ArrayList<AreaBean> areas = new ArrayList<AreaBean>();
@@ -329,8 +338,8 @@ public class StudentPanel extends JPanel{
             //对应的班级人数减1;
             StudentBean stu = (StudentBean)new StudentDaoImp().getObjectByID(studentId);
             ClassesBean cla = stu.getClasses();
-            cla.setStuNum(stu.getClasses().getStuNum() -1);
-            new ClassesDaoImp().alterObject(cla);
+            cla.setStuNum(cla.getStuNum() -1);
+            new ClassesDaoImp().alterObject(cla.getId(),cla);
             updateStudentTable(schoolId, 1);
         }
 //		显示删除结果

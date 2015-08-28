@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="lib">
+    <archive path="D:/Workspace_IDEA/crmModel/lib/Mysql_Driver.jar" />
+    <archive path="D:/Workspace_IDEA/crmModel/lib/lovoComponent.jar" />
+    <archive path="D:/Workspace_IDEA/crmModel/lib/swingx-core-1.6.2.jar" />
+  </library>
+</eclipse-userlibraries>
+

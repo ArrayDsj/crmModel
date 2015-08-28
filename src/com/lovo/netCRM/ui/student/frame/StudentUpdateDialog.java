@@ -109,6 +109,19 @@ public class StudentUpdateDialog extends JDialog{
 	 */
 	private void initData(int studentId) {
         StudentBean stu = (StudentBean) new StudentDaoImp().getObjectByID(studentId);
+		ArrayList<Object> allClassBySchool = new ClassesDaoImp().getObjectByschID(schoolId);
+//		for(int i = 0 ; i < allClassBySchool.size() ; i++){
+//			if(classTxt.getItemAt(i).equals(stu.getClasses().getName())){
+//				classTxt.setSelectedIndex(i);
+//			}
+//		}
+		boolean vip = stu.isVip();
+		if(vip){
+			stateTxt.setSelectedIndex(0);
+		}else
+			stateTxt.setSelectedIndex(1);
+
+
         nameLabel.setText(stu.getName());
         sexLabel.setText(stu.getSex());
         birthdayLabel.setText(stu.getBirthday().toString());

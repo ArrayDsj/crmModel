@@ -43,7 +43,7 @@ public class String2Int {
             else if(emp.getPosition().equals(str)){
                 int posID = -1;
                 //到数据库中查找
-                String sql = "select position_id from position where position_name = '" + str + "'";
+                String sql = "select position_id from t_position where position_name = '" + str + "'";
                 Connection con = ConnectionSQL.createConnectionSQL();
                 try {
                     Statement st = con.createStatement();

@@ -31,7 +31,7 @@ public class PositionDaoImp implements CrmDao {
     public Object getObjectByID(int ObjectID) {
         Connection con = ConnectionSQL.createConnectionSQL();
         //按ID查找指定职位信息
-        String getObjectByIDSQL = "select * from position\n" +
+        String getObjectByIDSQL = "select * from t_position\n" +
                 "where position_id = " + ObjectID;
         PositionBean pos = null;
         try {
@@ -77,7 +77,7 @@ public class PositionDaoImp implements CrmDao {
         ArrayList<Object> positions = new ArrayList<Object>();
         Connection con = ConnectionSQL.createConnectionSQL();
 
-        String allPositionsName = "select * from position";
+        String allPositionsName = "select * from t_position";
 
         try {
             Statement st = con.createStatement();
@@ -124,7 +124,7 @@ public class PositionDaoImp implements CrmDao {
         boolean sale = alterPos.isSaleRight();
         boolean manager = alterPos.isManagerRight();
         boolean back = alterPos.isManagerRight();
-        String alterSQL = "update position set \n" +
+        String alterSQL = "update t_position set \n" +
                 "checkRight = ? ,\n"+
                 "queryRight = ? ,\n"+
                 "saleRight = ? ,\n"+
@@ -162,9 +162,7 @@ public class PositionDaoImp implements CrmDao {
     public boolean addObject(int objectID,Object object) {
         PositionBean newPos = (PositionBean)object;
         String name = newPos.getName();
-
         String describe = newPos.getDescribe();
-
         boolean check = newPos.isCheckRight();
         boolean query = newPos.isQueryRight();
         boolean sale = newPos.isSaleRight();
@@ -172,38 +170,33 @@ public class PositionDaoImp implements CrmDao {
         boolean back = newPos.isManagerRight();
         Connection con = ConnectionSQL.createConnectionSQL();
         int result = -1;
-//        String addSQL = "insert into 'position'(\n" +
-//                "position_name,\n" +
-//                "position_describe,\n" +
-//                "checkRight,\n" +
-//                "queryRight,\n" +
-//                "saleRight,\n" +
-//                "managerRight,\n" +
-//                "backRight)\n" +
-//                "values(\n" +
-//                "?,\n" +
-//                "?,\n" +
-//                "?,\n" +
-//                "?,\n" +
-//                "?,\n" +
-//                "?,\n" +
-//                "?);";
-
-
-
-        String addSQL= "INSERT INTO position(position_id) VALUES (8);";
+        String addSQL = "insert into t_position(\n" +
+                "position_name,\n" +
+                "position_describe,\n" +
+                "checkRight,\n" +
+                "queryRight,\n" +
+                "saleRight,\n" +
+                "managerRight,\n" +
+                "backRight)\n" +
+                "values(\n" +
+                "?,\n" +
+                "?,\n" +
+                "?,\n" +
+                "?,\n" +
+                "?,\n" +
+                "?,\n" +
+                "?\n" +
+                ");";
         try {
-//            PreparedStatement ps = con.prepareStatement(addSQL);
-//            ps.setString(1,name);
-//            ps.setString(2,describe);
-//            ps.setBoolean(3, true);
-//            ps.setBoolean(4, true);
-//            ps.setBoolean(5, true);
-//            ps.setBoolean(6, true);
-//            ps.setBoolean(7,true);
-            Statement st = con.createStatement();
-            result = st.executeUpdate(addSQL);
-            //result = ps.executeUpdate();
+            PreparedStatement ps = con.prepareStatement(addSQL);
+            ps.setString(1,name);
+            ps.setString(2,describe);
+            ps.setBoolean(3, check);
+            ps.setBoolean(4, query);
+            ps.setBoolean(5, sale);
+            ps.setBoolean(6, manager);
+            ps.setBoolean(7,back);
+            result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally{

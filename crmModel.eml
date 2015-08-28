@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="swingx-core-1.6.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/swingx-core-1.6.2.jar!/"/>
+	</lib>
+	<lib name="lovoComponent.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/lovoComponent.jar!/"/>
+	</lib>
+	<levels>
+		<level name="lib" value="project"/>
+	</levels>
+</component>

@@ -8,6 +8,7 @@ import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
 import com.lovo.netCRM.dao.imp.SchoolDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
+import com.lovo.netCRM.ui.frame.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

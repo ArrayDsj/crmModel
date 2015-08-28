@@ -5,6 +5,7 @@ import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.ClassesDaoImp;
 import com.lovo.netCRM.dao.imp.StudentDaoImp;
+import com.lovo.netCRM.ui.frame.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -48,10 +49,15 @@ public class StudentAddDialog extends JDialog{
 	
 	/**备注文本域*/
 	private LovoTxtArea descriptionTxt = new LovoTxtArea("备    注",50,300,400,120,this);
-	
+
+	MainFrame mainFrame ;
 	public StudentAddDialog(JFrame jf,int schoolId,StudentPanel studentPanel){
 		super(jf,true);
+
+		this.mainFrame = (MainFrame)jf;
+
 		this.studentPanel = studentPanel;
+
 		this.schoolId = schoolId;
 		this.setLayout(null);
 		this.setTitle("添加学生信息");
@@ -73,6 +79,7 @@ public class StudentAddDialog extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				boolean isOk = addStudent(schoolId);
 				if(isOk){
+					mainFrame.getStudentPanel().initAccordion();
 					StudentAddDialog.this.dispose();
 				}
 			}});
@@ -158,10 +165,12 @@ public class StudentAddDialog extends JDialog{
         stu.setVip(false);
 
         //写入数据库
-		new StudentDaoImp().addObject(schoolId,stu);
+		new StudentDaoImp().addObject(schoolId, stu);
         //这个班级的人数加一
+
         cla.setStuNum(cla.getStuNum()+1);
-        new ClassesDaoImp().alterObject(0,cla);
+		JOptionPane.showMessageDialog(null,cla.getStuNum());
+        new ClassesDaoImp().alterObject(cla.getId(), cla);
 		//更新表格，显示添加结果
 		this.studentPanel.initData();
 		

@@ -56,18 +56,6 @@
       <primary-key name="PRIMARY" columns="depart_id"/>
       <exported-key name="staff_ibfk_1" table="staff" schema="" catalog="crm_system" columns="staff_department_id"/>
     </table>
-    <table name="position" schema="" catalog="crm_system" type="TABLE">
-      <column name="position_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="position_name" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
-      <column name="position_describe" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
-      <column name="checkRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7" def="YicwJw=="/>
-      <column name="queryRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7" def="YicwJw=="/>
-      <column name="saleRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7" def="YicwJw=="/>
-      <column name="managerRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7" def="YicwJw=="/>
-      <column name="backRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7" def="YicwJw=="/>
-      <primary-key name="PRIMARY" columns="position_id"/>
-      <exported-key name="staff_ibfk_2" table="staff" schema="" catalog="crm_system" columns="staff_position_id"/>
-    </table>
     <table name="recallrecord" schema="" catalog="crm_system" type="TABLE">
       <column name="recallRecord_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="recallRecord_time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
@@ -131,7 +119,7 @@
       <column name="staff_headFile" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="staff_id"/>
       <foreign-key name="staff_ibfk_1" columns="staff_department_id" ref-table="depart" ref-schema="" ref-catalog="crm_system" ref-columns="depart_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="staff_ibfk_2" columns="staff_position_id" ref-table="position" ref-schema="" ref-catalog="crm_system" ref-columns="position_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="staff_ibfk_2" columns="staff_position_id" ref-table="t_position" ref-schema="" ref-catalog="crm_system" ref-columns="position_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="active_ibfk_1" table="active" schema="" catalog="crm_system" columns="staff_id"/>
       <exported-key name="connectrecord_ibfk_1" table="connectrecord" schema="" catalog="crm_system" columns="staff_id"/>
       <exported-key name="recallrecord_ibfk_1" table="recallrecord" schema="" catalog="crm_system" columns="staff_id"/>
@@ -159,6 +147,18 @@
       <foreign-key name="student_ibfk_2" columns="classes_id" ref-table="classes" ref-schema="" ref-catalog="crm_system" ref-columns="class_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="student_ibfk_3" columns="school_id" ref-table="school" ref-schema="" ref-catalog="crm_system" ref-columns="school_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="recallrecord_ibfk_2" table="recallrecord" schema="" catalog="crm_system" columns="student_id"/>
+    </table>
+    <table name="t_position" schema="" catalog="crm_system" type="TABLE">
+      <column name="position_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="position_name" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="position_describe" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="checkRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="queryRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="saleRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="managerRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="backRight" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <primary-key name="PRIMARY" columns="position_id"/>
+      <exported-key name="staff_ibfk_2" table="staff" schema="" catalog="crm_system" columns="staff_position_id"/>
     </table>
   </data-source>
 </component>

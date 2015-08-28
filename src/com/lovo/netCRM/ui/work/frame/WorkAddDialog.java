@@ -97,35 +97,38 @@ public class WorkAddDialog extends JDialog {
 		else {
 			newPos.setName(nameTxt.getText());
 			newPos.setDescribe(descriptionTxt.getText());
+			//默认为false
+			newPos.setCheckRight(false);
+			newPos.setQueryRight(false);
+			newPos.setSaleRight(false);
+			newPos.setManagerRight(false);
+			newPos.setBackRight(false);
 			//得到选中项数组
 			String[] items = gradeTxt.getItem();
-			if (items.length != 0) {
-				for (int i = 0; i < items.length; i++) {
-					if(items[i].equals("查询权限")){
-						newPos.setCheckRight(true);
-					}else
-						newPos.setCheckRight(false);
-					if(items[i].equals("考核权限")){
-						newPos.setCheckRight(true);
-					}else
-						newPos.setCheckRight(false);
-					if(items[i].equals("销售统计分析")){
-						newPos.setCheckRight(true);
-					}else
-						newPos.setCheckRight(false);
-					if(items[i].equals("权限管理")){
-						newPos.setCheckRight(true);
-					}else
-						newPos.setCheckRight(false);
-					if(items[i].equals("后台管理")){
-						newPos.setCheckRight(true);
-					}else
-						newPos.setCheckRight(false);
+			for (int i = 0; i < items.length; i++) {
+				if (items[i].toString().equals("查询权限")) {
+					newPos.setCheckRight(true);
+				}
+				if (items[i].toString().equals("考核权限")) {
+					newPos.setQueryRight(true);
+				}
+				if (items[i].toString().equals("销售统计分析")) {
+					newPos.setSaleRight(true);
+				}
+
+				if (items[i].toString().equals("权限管理")) {
+					newPos.setManagerRight(true);
+				}
+				if (items[i].toString().equals("后台管理")) {
+					newPos.setBackRight(true);
 				}
 			}
 		}
-
-		JOptionPane.showMessageDialog(null,gradeTxt.getItem());
+		JOptionPane.showMessageDialog(null, newPos.isCheckRight());
+		JOptionPane.showMessageDialog(null, newPos.isQueryRight());
+		JOptionPane.showMessageDialog(null, newPos.isSaleRight());
+		JOptionPane.showMessageDialog(null, newPos.isManagerRight());
+		JOptionPane.showMessageDialog(null, newPos.isBackRight());
 		new PositionServiceImp().addPosition(newPos);
 		//更新表格，显示添加职位结果
 		workPanel.initData();

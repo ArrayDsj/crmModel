@@ -25,7 +25,12 @@ public class EmployeeServiceImp implements EmployeeService{
 
     public ArrayList<Object> getAllStaffs(int pageNow,int pageSize,String item, String value) {
         EmployeeDaoImp emp = new EmployeeDaoImp();
-        return emp.getObjectByCon(pageNow, pageSize,item,value);
+        return emp.getObjectByCon(pageNow, pageSize, item, value);
+    }
+
+    public ArrayList<Object> getAllStaffs(String item, String value) {
+        EmployeeDaoImp emp = new EmployeeDaoImp();
+        return emp.getObjectByCon(item,value);
     }
 
     @Override

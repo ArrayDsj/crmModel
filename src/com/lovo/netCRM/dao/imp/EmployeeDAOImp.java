@@ -128,7 +128,7 @@ public class EmployeeDaoImp implements CrmDao {
         String allEmp = "select * from staff s\n" +
                 "join depart d \n" +
                 "on s.staff_department_id = d.depart_id\n" +
-                "join position p\n" +
+                "join t_position p\n" +
                 "on s.staff_position_id = p.position_id\n";
         try {
             Statement st = con.createStatement();
@@ -235,94 +235,88 @@ public class EmployeeDaoImp implements CrmDao {
     @Override
     //按条件查询用户信息
     public ArrayList<Object> getObjectByCon(String item, String value) {
-//        ArrayList<Object> empListByCon = new ArrayList<Object>();
-//        Connection con = ConnectionSQL.createConnectionSQL();
-//        String conSQL = null;
-//        //根据item来确认SQL语句
-//        switch(item){
-//            case "所有员工" :
-//                conSQL ="select * from staff s\n" +
-//                        "join depart d \n" +
-//                        "on s.staff_department_id = d.depart_id\n" +
-//                        "join position p\n" +
-//                        "on s.staff_position_id = p.position_id;";
-//                break;
-//            case "员工姓名" :
-//                conSQL ="select * from staff s\n" +
-//                        "join depart d \n" +
-//                        "on s.staff_department_id = d.depart_id\n" +
-//                        "join position p\n" +
-//                        "on s.staff_position_id = p.position_id\n" +
-//                        "where s.staff_name like '%" + value + "%';";
-//                break;
-//            case "所属部门" :
-//                conSQL =  "select * from staff s\n" +
-//                        "join depart d \n" +
-//                        "on s.staff_department_id = d.depart_id\n" +
-//                        "join position p\n" +
-//                        "on s.staff_position_id = p.position_id\n" +
-//                        "where d.depart_name like '%" + value + "%';";
-//                break;
-//            case "文化程度" :
-//                conSQL =  "select * from staff s\n" +
-//                        "join depart d \n" +
-//                        "on s.staff_department_id = d.depart_id\n" +
-//                        "join position p\n" +
-//                        "on s.staff_position_id = p.position_id\n" +
-//                        "where s.staff_edu like '%" + value + "%';";
-//                break;
-//            case "工作职位" :
-//                conSQL =  "select * from staff s\n" +
-//                        "join depart d \n" +
-//                        "on s.staff_department_id = d.depart_id\n" +
-//                        "join position p\n" +
-//                        "on s.staff_position_id = p.position_id\n" +
-//                        "where p.position_name like '%" + value + "%';";
-//                break;
-//        }
-//        try {
-//            Statement st  = con.createStatement();
-//            ResultSet rs = st.executeQuery(conSQL);
-//            while(rs.next()){
-//                if(!rs.getBoolean(13)){
-//                    continue;
-//                }
-//                //组合员工信息
-//                EmployeeBean emp = new EmployeeBean();
-//                emp.setID(rs.getInt(1));
-//                emp.setName(rs.getString(4));
-//                emp.setSex(rs.getString(5));
-//                emp.setBirthday(rs.getDate(6));
-//                emp.setEdu(rs.getString(7));
-//                emp.setSpeciality(rs.getString(8));
-//                emp.setPhone(rs.getString(9));
-//                emp.setAddress(rs.getString(10));
-//                emp.setPolity(rs.getString(11));
-//                emp.setHireDay(rs.getDate(12));
-//                emp.setStatus(rs.getBoolean(13));
-//                emp.setDept(rs.getString(18));
-//                emp.setPosition(rs.getString(22));
-//                empListByCon.add(emp);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }finally{
-//            if(con != null){
-//                try {
-//                    con.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        if(empListByCon.size() != 0){
-//            return empListByCon;
-//        }else {
-//            JOptionPane.showMessageDialog(null,"无查询结果");
-//            return null;
-//        }
-        return null;
+        ArrayList<Object> result = new  ArrayList<Object>();
+        Connection con = ConnectionSQL.createConnectionSQL();
+        EmployeeBean emocounts = new  EmployeeBean();
+        String conSQL = null;
+        //记录满足条件的记录的条数;
+        int counts = 0;
+        //根据item来确认SQL语句
+        switch(item){
+            case "所有员工" :
+                conSQL ="select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join t_position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        "order by staff_id\n" ;
+                break;
+
+            case "员工姓名" :
+                conSQL ="select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join t_position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        "where s.staff_name like '%" + value + "% '\n" +
+                        "order by staff_id\n" ;
+                break;
+
+            case "所属部门" :
+                conSQL =  "select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join t_position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        " where d.depart_name like '%" + value + "%'\n" +
+                        "order by staff_id\n" ;
+                break;
+
+            case "文化程度" :
+                conSQL =  "select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join t_position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        "where s.staff_edu like '%" + value + "%'\n" +
+                        "order by staff_id\n" ;
+
+                break;
+
+            case "工作职位" :
+                conSQL =  "select * from staff s\n" +
+                        "join depart d \n" +
+                        "on s.staff_department_id = d.depart_id\n" +
+                        "join t_position p\n" +
+                        "on s.staff_position_id = p.position_id\n" +
+                        " where p.position_name like '%" + value + "%'\n" +
+                        "order by staff_id\n" ;
+                break;
+        }
+        try {
+            Statement st  = con.createStatement();
+            ResultSet rs = st.executeQuery(conSQL);
+
+            while(rs.next()){
+                if(!rs.getBoolean(13)){
+                    continue;
+                }
+                counts++;
+            }
+            emocounts.setID(counts);
+            result.add(emocounts);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
     }
 
     public ArrayList<Object> getObjectByCon(int pageNow,int pageSize,String item, String value) {
@@ -335,45 +329,55 @@ public class EmployeeDaoImp implements CrmDao {
                 conSQL ="select * from staff s\n" +
                         "join depart d \n" +
                         "on s.staff_department_id = d.depart_id\n" +
-                        "join position p\n" +
+                        "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
                 break;
+
             case "员工姓名" :
                 conSQL ="select * from staff s\n" +
                         "join depart d \n" +
                         "on s.staff_department_id = d.depart_id\n" +
-                        "join position p\n" +
+                        "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
-                        "limit " + (pageNow - 1) * pageSize + "," + pageSize +
-                        " where s.staff_name like '%" + value + "%';";
+                        "where s.staff_name like '%" + value + "% '\n" +
+                        "order by staff_id\n" +
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize +";";
                 break;
+
             case "所属部门" :
                 conSQL =  "select * from staff s\n" +
                         "join depart d \n" +
                         "on s.staff_department_id = d.depart_id\n" +
-                        "join position p\n" +
+                        "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
-                        "limit " + (pageNow - 1) * pageSize + "," + pageSize +
-                        " where d.depart_name like '%" + value + "%';";
+                        " where d.depart_name like '%" + value + "%'\n" +
+                        "order by staff_id\n" +
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
                 break;
+
             case "文化程度" :
                 conSQL =  "select * from staff s\n" +
                         "join depart d \n" +
                         "on s.staff_department_id = d.depart_id\n" +
-                        "join position p\n" +
+                        "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
-                        "limit " + (pageNow - 1) * pageSize + "," + pageSize +
-                        " where s.staff_edu like '%" + value + "%';";
+                        "where s.staff_edu like '%" + value + "%'\n" +
+                        "order by staff_id\n" +
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
+
                 break;
+
             case "工作职位" :
                 conSQL =  "select * from staff s\n" +
                         "join depart d \n" +
                         "on s.staff_department_id = d.depart_id\n" +
-                        "join position p\n" +
+                        "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
-                        "limit " + (pageNow - 1) * pageSize + "," + pageSize +
-                        " where p.position_name like '%" + value + "%';";
+                        " where p.position_name like '%" + value + "%'\n" +
+                        "order by staff_id\n" +
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
                 break;
         }
         try {
@@ -428,7 +432,7 @@ public class EmployeeDaoImp implements CrmDao {
         String allEmp = "select * from staff s\n" +
                 "join depart d \n" +
                 "on s.staff_department_id = d.depart_id\n" +
-                "join position p\n" +
+                "join t_position p\n" +
                 "on s.staff_position_id = p.position_id\n" +
                 "and staff_name = '" + name + "'";
         EmployeeBean emp = null;
@@ -479,7 +483,7 @@ public class EmployeeDaoImp implements CrmDao {
         String getObjectByIDSQL = "select * from staff s\n" +
                 "join depart d \n" +
                 "on s.staff_department_id = d.depart_id\n" +
-                "join position p\n" +
+                "join t_position p\n" +
                 "on s.staff_position_id = p.position_id\n" +
                 "where staff_id =" + ObjectID;
         EmployeeBean emp = null;

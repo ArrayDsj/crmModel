@@ -2,6 +2,9 @@ package com.lovo.test;
 
 import com.lovo.netCRM.ui.frame.LoginFrame;
 
+import javax.swing.*;
+import java.awt.*;
+
 
 public class Test{
 	
@@ -11,8 +14,23 @@ public class Test{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new LoginFrame();
+		//new LoginFrame();
 		//new MainFrame(new EmployeeBean());
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					// JFrame.setDefaultLookAndFeelDecorated(true);
+					UIManager
+							.setLookAndFeel(
+									"ch.randelshofer.quaqua.QuaquaLookAndFeel");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				JFrame w = new LoginFrame();
+				w.setBackground(Color.BLACK);
+				// AWTUtilities.setWindowOpacity(w, 0.9f);
+			}
+		});
 	}
 
 }

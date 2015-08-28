@@ -47,12 +47,21 @@ public class MainFrame extends JFrame{
 	/**班级管理主面板*/
 	private ClassManagerPanel classManagerPanel = new ClassManagerPanel(this);
 	/**学生主面板*/
-	private StudentPanel studentPanel = new StudentPanel(this);
+	 StudentPanel studentPanel = new StudentPanel(this);
 	
 	/**地区统计主面板*/
 	private AddressCountPanel addressCountPanel = new AddressCountPanel();
 	/**学校统计主面板*/
 	private SchoolCountPanel schoolCountPanel = new SchoolCountPanel();
+
+	public StudentPanel getStudentPanel() {
+		return studentPanel;
+	}
+
+	public void setStudentPanel(StudentPanel studentPanel) {
+		this.studentPanel = studentPanel;
+	}
+
 	public MainFrame(Object userObj){
 		super("四川网脉CRM系统");
 		this.userObj = userObj;
