@@ -35,7 +35,6 @@ public class WorkUpdateDialog extends JDialog{
 		super(jf,true);
 		this.workPanel = workPanel;
 		this.workId = workId;
-		
 		this.setLayout(null);
 		this.setTitle("修改职位");
 		
@@ -50,7 +49,9 @@ public class WorkUpdateDialog extends JDialog{
 	 */
 	private void init() {
 		descriptionTxt.setEditable(false);
+
 		this.initData(workId);
+
 		LovoButton lbupdate = new LovoButton("修改",150,300,this);
 		lbupdate.addActionListener(new ActionListener(){
 
@@ -77,12 +78,38 @@ public class WorkUpdateDialog extends JDialog{
 	private void initData(int workId) {
 		PositionBean thePos = new PositionServiceImp().getPosByID(workId);
 
-		if (thePos != null) {
-			nameLabel.setText(thePos.getName());
-			descriptionTxt.setText(thePos.getDescribe());
-		}
+		nameLabel.setText(thePos.getName());
+		descriptionTxt.setText(thePos.getDescribe());
+		//权限
+		boolean checkRight = thePos.isCheckRight();
+		boolean queryRight = thePos.isQueryRight();
+		boolean saleRight = thePos.isSaleRight();
+		boolean managerRight = thePos.isManagerRight();
+		boolean backRight = thePos.isBackRight();
+
+		String[] rights = new String[5];
+		if(checkRight){
+			rights[0] = "查询权限";
+		}else
+			rights[0] = "";
+		if(queryRight){
+			rights[1] = "考核权限";
+		}else
+			rights[1] = "";
+		if(saleRight){
+			rights[2] = "销售统计分析";
+		}else
+			rights[2] = "";
+		if(managerRight){
+			rights[3] = "权限管理";
+		}else
+			rights[3] = "";
+		if(backRight){
+			rights[4] = "后台管理";
+		}else
+			rights[4] = "";
 		//设置选中项
-		gradeTxt.setItem(new String[]{});
+		gradeTxt.setItem(rights);
 		
 	}
 	/**
@@ -90,8 +117,34 @@ public class WorkUpdateDialog extends JDialog{
 	 * @param workId 工作职位id
 	 */
 	private void updateWork(int workId){
-		
-		
+		PositionBean newPos = new PositionBean();
+
+		newPos.setCheckRight(false);
+		newPos.setQueryRight(false);
+		newPos.setSaleRight(false);
+		newPos.setManagerRight(false);
+		newPos.setBackRight(false);
+		//得到选中项数组
+		String[] items = gradeTxt.getItem();
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].toString().equals("查询权限")) {
+				newPos.setCheckRight(true);
+			}
+			if (items[i].toString().equals("考核权限")) {
+				newPos.setQueryRight(true);
+			}
+			if (items[i].toString().equals("销售统计分析")) {
+				newPos.setSaleRight(true);
+			}
+
+			if (items[i].toString().equals("权限管理")) {
+				newPos.setManagerRight(true);
+			}
+			if (items[i].toString().equals("后台管理")) {
+				newPos.setBackRight(true);
+			}
+		}
+		new PositionServiceImp().alterPosition(workId,newPos);
 		//更新表格，显示修改职位结果
 		this.workPanel.initData();
 	}

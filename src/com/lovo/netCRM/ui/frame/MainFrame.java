@@ -1,5 +1,6 @@
 package com.lovo.netCRM.ui.frame;
 
+import com.lovo.netCRM.bean.EmployeeBean;
 import com.lovo.netCRM.component.LovoTree;
 import com.lovo.netCRM.component.LovoTreeNode;
 import com.lovo.netCRM.ui.classManager.frame.ClassManagerPanel;
@@ -33,7 +34,7 @@ public class MainFrame extends JFrame{
 	/**卡片布局*/
 	private CardLayout card = new CardLayout();
 	/**登陆用户实体*/
-	private Object userObj;
+	private EmployeeBean userObj;
 	/**员工主面板*/
 	private EmployeePanel emPanel = new EmployeePanel(this);
 	/**部门主面板*/
@@ -64,7 +65,9 @@ public class MainFrame extends JFrame{
 
 	public MainFrame(Object userObj){
 		super("四川网脉CRM系统");
-		this.userObj = userObj;
+		this.userObj = (EmployeeBean) userObj;
+
+
 		this.initTree();
 		this.initPanel();
 		
@@ -80,6 +83,7 @@ public class MainFrame extends JFrame{
 	 */
 	private void initPanel() {
 		//设置容器的布局管理器为卡片布局
+		System.out.println(userObj.getName()+"登录了");
 		mainPanel.setLayout(this.card);
 		this.add(mainPanel);
 		
@@ -205,23 +209,33 @@ public class MainFrame extends JFrame{
 		countNode.add(scNode);
 		
 		//将枝节点加入根节点。其中添加的节点要根据登陆用户的等级决定
-		int grade = 9;
-		
-		//-------------------------------
-		if(grade == 0){
-			rootNode.add(sorceNode);
-		}else{
-			rootNode.add(sorceNode);
+//		int grade = 9;
+//
+//		//-------------------------------
+//		if(grade == 0){
+//			rootNode.add(sorceNode);
+//		}else{
+//			rootNode.add(sorceNode);
+//			rootNode.add(schoolNode);
+//			rootNode.add(userNode);
+//			rootNode.add(countNode);
+//		}
+
+		//根据权限显示子节点
+		if(userObj.getPos().isCheckRight()){
 			rootNode.add(schoolNode);
 			rootNode.add(userNode);
-			rootNode.add(countNode);
+			
 		}
-		
+
+
+
+
 		
 		//创建树形菜单
 		this.tree = new LovoTree(rootNode);
 		//设置树形菜单的字体
-		this.tree.setFont(new Font("微软雅黑",Font.BOLD,25));
+		this.tree.setFont(new Font("微软雅黑",Font.BOLD,20));
 		
 		//将树形菜单加入窗体
 		this.add(this.tree,BorderLayout.WEST);

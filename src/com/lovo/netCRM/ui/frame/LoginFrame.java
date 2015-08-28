@@ -52,9 +52,7 @@ public class LoginFrame extends JFrame{
 	private void login(){
 		//视图层调用业务层login()方法当前登录用户;
 		EmployeeBean loginEmp = new EmployeeServiceImp().login(userTxt.getText(), pwdTxt.getText());
-		if(loginEmp == null){
-			//JOptionPane.showMessageDialog(null,"登录失败");
-		}else {
+		if(loginEmp != null) {
 			//Window的dispose方法 释放由此 Window、其子组件及其拥有的所有子组件所使用的所有本机屏幕资源
 			//就是销毁login窗口
 			this.dispose();

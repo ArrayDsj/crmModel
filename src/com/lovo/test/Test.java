@@ -19,7 +19,6 @@ public class Test{
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// JFrame.setDefaultLookAndFeelDecorated(true);
 					UIManager
 							.setLookAndFeel(
 									"ch.randelshofer.quaqua.QuaquaLookAndFeel");
@@ -28,7 +27,6 @@ public class Test{
 				}
 				JFrame w = new LoginFrame();
 				w.setBackground(Color.BLACK);
-				// AWTUtilities.setWindowOpacity(w, 0.9f);
 			}
 		});
 	}

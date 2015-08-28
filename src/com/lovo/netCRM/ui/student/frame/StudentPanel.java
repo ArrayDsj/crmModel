@@ -8,7 +8,7 @@ import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.ClassesDaoImp;
 import com.lovo.netCRM.dao.imp.StudentDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
-import com.lovo.netCRM.service.imp.EmployeeServiceImp;
+import com.lovo.netCRM.util.Switch;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -261,9 +261,29 @@ public class StudentPanel extends JPanel{
 	private void updateStudentTable(int schoolId,int pageNO){
 		//在学生表中,根据学校ID查找学生
 		//更新表格,插入List集合
-		studentTable.updateLovoTable(new StudentDaoImp().getStudentsBySchoolID(schoolId));
-		//设置总页数
-		this.setTotalPage(0);
+		ArrayList<StudentBean> stus = new StudentDaoImp().getStudentsBySchoolID(schoolId);
+		JOptionPane.showMessageDialog(null,stus.size());
+		if(stus != null){
+			JOptionPane.showMessageDialog(null,stus.size());
+			Switch change = null;
+			ArrayList<Object> changes = new ArrayList<Object>();
+			for(StudentBean stu : stus){
+				change = new Switch();
+				change.setStuId(stu.getId());
+				change.setPhone(stu.getPhone());
+				change.setClasses(stu.getClasses());
+				change.setSex(stu.getSex());
+				if(stu.isVip()){
+					change.setVip("会员");
+				}else
+					change.setVip("非会员");
+				change.setStuName(stu.getName());
+				changes.add(change);
+			}
+			studentTable.updateLovoTable(changes);
+			//设置总页数
+			this.setTotalPage(0);
+		}
 	}
 	
 	/**
@@ -272,8 +292,8 @@ public class StudentPanel extends JPanel{
 	private void initTable() {
 		studentTable = new LovoTable(this,
 				new String[]{"学生姓名","性别","班级","状态","联系电话"},
-				new String[]{"name","sex","classes.name","vip","phone"},//学生实体属性名数组 new String[]{"studentName","sex"}
-				"id");//主键属性名 studentId
+				new String[]{"stuName","sex","classes.className","vip","phone"},//学生实体属性名数组 new String[]{"studentName","sex"}
+				"stuId");//主键属性名 studentId
 		studentTable.setSizeAndLocation(180, 90, 550, 300);
 		
 	}

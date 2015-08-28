@@ -37,9 +37,7 @@ public class PositionDaoImp implements CrmDao {
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(getObjectByIDSQL);
-
             while(rs.next()){
-
                 //组合员工信息
                 pos = new PositionBean();
                 pos.setPositionID(rs.getInt(1));
@@ -50,7 +48,6 @@ public class PositionDaoImp implements CrmDao {
                 pos.setSaleRight(rs.getBoolean(6));
                 pos.setManagerRight(rs.getBoolean(7));
                 pos.setBackRight(rs.getBoolean(8));
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,6 +136,7 @@ public class PositionDaoImp implements CrmDao {
             ps.setBoolean(3,sale);
             ps.setBoolean(4,manager);
             ps.setBoolean(5,back);
+            ps.setInt(6, objectID);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

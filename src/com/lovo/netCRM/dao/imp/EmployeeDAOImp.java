@@ -1,6 +1,8 @@
 package com.lovo.netCRM.dao.imp;
 
+import com.lovo.netCRM.bean.DepartBean;
 import com.lovo.netCRM.bean.EmployeeBean;
+import com.lovo.netCRM.bean.PositionBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 import com.lovo.netCRM.util.String2Int;
@@ -27,6 +29,26 @@ public class EmployeeDaoImp implements CrmDao {
             ResultSet rs = ps.executeQuery();
              while(rs.next()){
                  loginEmp = new EmployeeBean();
+                 loginEmp.setID(rs.getInt(1));
+                 loginEmp.setName(rs.getString(4));
+                 //loginEmp.setSex(rs.getString(5));
+                 //loginEmp.setBirthday(rs.getDate(6));
+                 //loginEmp.setEdu(rs.getString(7));
+                 //loginEmp.setSpeciality(rs.getString(8));
+                 //loginEmp.setPhone(rs.getString(9));
+                 //loginEmp.setAddress(rs.getString(10));
+                 //loginEmp.setPolity(rs.getString(11));
+                 //loginEmp.setHireDay(rs.getDate(12));
+                 //loginEmp.setStatus(rs.getBoolean(13));
+                 loginEmp.setDept(rs.getString(14));
+                 loginEmp.setPosition(rs.getString(15));
+                 //loginEmp.setHeadFile(rs.getString(16));
+                 DepartBean dept = new DepartBean();
+                 dept = (DepartBean)new DepartDaoImp().getObjectByID(Integer.parseInt(rs.getString(14)));
+                 loginEmp.setDepart(dept);
+                 PositionBean pos = new PositionBean();
+                 pos = (PositionBean)new PositionDaoImp().getObjectByID(Integer.parseInt(rs.getString(15)));
+                 loginEmp.setPos(pos);
              }
         } catch (SQLException e) {
             e.printStackTrace();

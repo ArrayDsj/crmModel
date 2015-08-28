@@ -93,13 +93,12 @@ public class WorkPanel  extends JPanel{
 	 * 更新表格数据
 	 */
 	private void updateWorkTable(){
-		
 		ArrayList<Object> allPos = new PositionServiceImp().getAllPositions();
 		ArrayList<Object> switchs = new ArrayList<Object>();
-		int id = 0;
 		for(Object pos : allPos) {
 			PositionBean p = (PositionBean)pos;
 			Switch s = new Switch();
+			s.setId(p.getPositionID());
 			s.setName(p.getName());
 			s.setDescribe(p.getDescribe());
 			s.setCheckRight(Switch.boolean2String(p.isCheckRight()));

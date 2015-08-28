@@ -20,12 +20,17 @@ public class PositionServiceImp implements PositionService {
     @Override
     public boolean addPosition(Object pos) {
         CrmDao positions = new PositionDaoImp();
-        return positions.addObject(0,pos);
+        return positions.addObject(0, pos);
     }
 
     @Override
     public boolean alterPosition(Object pos) {
         return false;
+    }
+
+    public boolean alterPosition(int id,Object pos) {
+        CrmDao crm = new PositionDaoImp();
+        return crm.alterObject(id,pos);
     }
 
     @Override

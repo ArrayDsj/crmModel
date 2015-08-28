@@ -182,7 +182,7 @@ public class SchoolAddDialog extends JDialog{
 		//写入数据库
 		new SchoolServiceImp().addSchool(0,sch);
 		//更新表格，显示添加结果
-		this.schoolPanel.initData();
+		//this.schoolPanel.initData();
 		return true;
 	}
 }

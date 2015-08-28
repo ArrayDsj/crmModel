@@ -1,11 +1,12 @@
 package com.lovo.netCRM.util;
 
-import com.lovo.netCRM.bean.PositionBean;
+import com.lovo.netCRM.bean.ClassesBean;
 
 /**
  * Created by CodeA on 2015/8/23.
  */
 public class Switch {
+    //权限管理列表
     private int id;
     private String name;
     private String describe;
@@ -14,6 +15,62 @@ public class Switch {
     private String saleRight;
     private String managerRight ;
     private String backRight;
+
+    //学生列表信息
+    private int stuId;
+    private String stuName;
+    private String sex;
+    private String vip;
+    private String phone;
+    private ClassesBean classes;
+
+    public int getStuId() {
+        return stuId;
+    }
+
+    public void setStuId(int stuId) {
+        this.stuId = stuId;
+    }
+
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
+        this.vip = vip;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public ClassesBean getClasses() {
+        return classes;
+    }
+
+    public void setClasses(ClassesBean classes) {
+        this.classes = classes;
+    }
 
     public int getId() {
         return id;
@@ -87,53 +144,4 @@ public class Switch {
             return "否";
     }
 
-
-
-
-
-
-
-
-
-    public static String change2(String str){
-        switch(str){
-            case "查询权限" :
-                return "checkRight";
-            case "考核权限" :
-                return "queryRight";
-            case "销售统计分析" :
-                return "saleRight";
-            case "权限管理" :
-                return "managerRight";
-            case "后台权限" :
-                return "backRight";
-        }
-        return null;
-    }
-
-    public static void writeRight(PositionBean pos, String right){
-        switch(right){
-            case "checkRight":
-                pos.setCheckRight(true);
-
-                break;
-            case "queryRight":
-                pos.setCheckRight(true);
-
-                break;
-            case "saleRight":
-
-                pos.setSaleRight(true);
-
-                break;
-            case "managerRight":
-
-                pos.setManagerRight(true);
-
-                break;
-            case "backRight":
-
-                pos.setBackRight(true);
-        }
-    }
 }
