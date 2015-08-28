@@ -76,6 +76,7 @@ public class WorkUpdateDialog extends JDialog{
 	 */
 	private void initData(int workId) {
 		PositionBean thePos = new PositionServiceImp().getPosByID(workId);
+
 		if (thePos != null) {
 			nameLabel.setText(thePos.getName());
 			descriptionTxt.setText(thePos.getDescribe());

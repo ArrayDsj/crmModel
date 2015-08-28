@@ -51,6 +51,7 @@ public class EmployeeAddDialog extends JDialog{
 	private LovoFileChooser faceTxt = new LovoFileChooser(this,"face");
 	/**员工主面板*/
 	private EmployeePanel emPanel;
+
 	
 	public EmployeeAddDialog(JFrame jf,EmployeePanel emPanel){
 		super(jf,true);
@@ -160,16 +161,18 @@ public class EmployeeAddDialog extends JDialog{
 			}else
 				newEmp.setHeadFile("face/"+faceTxt.getFilePath());
 
-			//状态status  1位true 在职
+			//状态status  1为true 在职
 			newEmp.setStatus(true);
 			//以当前时间作为入职时间
 			newEmp.setHireDay(new Date());
 		}
 		//完成添加操作
-		new EmployeeServiceImp().addStaff(0,newEmp);
-		
+		boolean result = new EmployeeServiceImp().addStaff(0,newEmp);
 //		更新数据,显示添加结果
-		this.emPanel.initData();
-		return true;
+		if(result){
+			this.emPanel.initData();
+			return true;
+		}
+		return false;
 	}
 }

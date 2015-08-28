@@ -34,17 +34,19 @@ public class EmployeePanel extends JPanel{
 	//当前页
 	private static int pageNow = 1;
 	//分页大小
-	private final int pageSize = 17;
+	private final int pageSize = 10;
 	//总记录数
-	private static int counts;
+	private  static int counts;
 	//总页数
 	private static int pageNum;
+
 	public EmployeePanel(JFrame jf){
+		ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
+		//总记录数
+		this.counts = allEmps.size();
+		this.pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
 		this.jf = jf;
 		this.setLayout(null);
-		ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
-		counts = allEmps.size();
-		pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
 		this.init();
 	}
 	/**
@@ -79,6 +81,9 @@ public class EmployeePanel extends JPanel{
 		prevButton.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
+				if(pageNow > 1){
+					pageNOTxt.setText(--pageNow + "");
+				}
 				prevClick();
 			}});
 		
@@ -88,6 +93,9 @@ public class EmployeePanel extends JPanel{
 		nextButton.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
+				if(pageNow < pageNum){
+					pageNOTxt.setText(++pageNow + "");
+				}
 				nextClick();
 			}});
 		
@@ -172,11 +180,10 @@ public class EmployeePanel extends JPanel{
 		jp.add(valueTxt);
 		LovoButton lb = new LovoButton("查找",180,100,jp);
 		lb.setSize(60, 20);
-		
+
+		//点击查询事件
 		lb.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-
 				findEmployee(pageNow);
 			}
 		});
@@ -184,10 +191,10 @@ public class EmployeePanel extends JPanel{
 	}
 	/**
 	 * 设置总页数
-	 * @param countPage 总页数
+	 *
 	 */
-	private void setTotalPage(int countPage) {
-		this.jltTotalPage.setText("/" + countPage + "  页");
+	private void setTotalPage(int pageNum) {
+		this.jltTotalPage.setText("/" + pageNum + "  页");
 	}
 	
 	
@@ -211,24 +218,26 @@ public class EmployeePanel extends JPanel{
 	 * 更新表格数据
 	 */
 	private void updateEmployeeTable(int pageNow){
-		ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
-		employeeTable.updateLovoTable(limitEmps);
+
+		//默认查找全部员工
+		ArrayList<Object> limitAllEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, "所有员工", "");
+		employeeTable.updateLovoTable(limitAllEmps);
 		//设置总页数
-		this.setTotalPage((int) Math.ceil(counts / (pageSize * 1.0)));
-
-
-
+		this.setTotalPage(pageNum);
 	}
 	
 	/**
 	 * 上一页点击事件
 	 */
 	private void prevClick(){
-		if(pageNow == 1){
-			//JOptionPane.showMessageDialog(null,"已经是第一页了" + pageNow);
-		}else {
-			pageNow -= 1;
-			ArrayList<Object> limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize);
+		ArrayList<Object> limitEmps = null;
+		//得到选项(条件)
+		String item = itemCombox.getItem();
+		//得到选项值(模糊查询条件)
+		String value = valueTxt.getText();
+
+		limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, item, value);
+		if(limitEmps != null){//如果为空,就不更新表格
 			employeeTable.updateLovoTable(limitEmps);
 		}
 	}
@@ -236,11 +245,15 @@ public class EmployeePanel extends JPanel{
 	 * 下一页点击事件
 	 */
 	private void nextClick(){
+		ArrayList<Object> limitEmps = null;
+		//得到选项(条件)
+		String item = itemCombox.getItem();
+		//得到选项值(模糊查询条件)
+		String value = valueTxt.getText();
 		//得到总页数
-		if(pageNow == pageNum) {
-		}else{
-			pageNow += 1;
-			ArrayList<Object> limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize);
+
+		limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, item, value);
+		if(limitEmps != null){
 			employeeTable.updateLovoTable(limitEmps);
 		}
 	}
@@ -248,16 +261,22 @@ public class EmployeePanel extends JPanel{
 	 * 转向指定页码
 	 */
 	private void goClick(String pageNO){
+		ArrayList<Object> limitEmps = null;
+		//得到选项(条件)
+		String item = itemCombox.getItem();
+		//得到选项值(模糊查询条件)
+		String value = valueTxt.getText();
 		int page = -1;
 		try{
 			page = Integer.parseInt(pageNO);
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null,"输入错误");
 		}
-		if(page <= pageNum){
-			pageNow = Integer.parseInt(pageNO);
-			ArrayList<Object> limitEmps =new EmployeeServiceImp().getAllStaffs(pageNow,pageSize);
-			pageNow = page;
+		if(page <= pageNum){//如果输入的页数小于等于总页数
+			pageNow = Integer.parseInt(pageNO);//跳转到用户输入的页数
+			limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, item, value);
+		}
+		if(limitEmps != null){
 			employeeTable.updateLovoTable(limitEmps);
 		}
 	}
@@ -267,16 +286,18 @@ public class EmployeePanel extends JPanel{
 	 * @param employeeId 员工ID
 	 */
 	private void delEmployee(int employeeId){
-		
 		//更新表格,显示删除结果
 		//调用数据库操作,删除选中的用户(只是更改status状态,原来为0,改为1)
 		if((JOptionPane.showConfirmDialog(null,"是否删除选中员工信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
 			boolean dele = new EmployeeServiceImp().deleteStaff(employeeId);
-			this.updateEmployeeTable(pageNow);
+			if(dele){
+				this.updateEmployeeTable(pageNow);//如果删除成功,更新表格
+				counts--;
+			}
 		}
 	}
 	/**
-	 * 查找员工
+	 * 	查找员工
 	 *  item 条件选项
 	 *  value 条件值
 	 */
@@ -285,13 +306,13 @@ public class EmployeePanel extends JPanel{
 		String item = itemCombox.getItem();
 		//得到选项值(模糊查询条件)
 		String value = valueTxt.getText();
-		ArrayList<Object> checkEmps = new EmployeeServiceImp().getStaffByCon(item,value);
+		JOptionPane.showMessageDialog(null,item   + "   " + value);
+		ArrayList<Object> checkEmps = new EmployeeServiceImp().getAllStaffs(1, pageSize, item, value);
 		//更新表格,显示查询结果
-		employeeTable.updateLovoTable(checkEmps);
-		//设置总页数
-		//每页17个用户信息
 		if(checkEmps != null){
-			this.setTotalPage((int)Math.ceil(checkEmps.size() / (pageSize*1.0)));
+			JOptionPane.showMessageDialog(null,checkEmps.size());
+			employeeTable.updateLovoTable(checkEmps);
+			this.setTotalPage(pageNum);
 		}
 	}
 }

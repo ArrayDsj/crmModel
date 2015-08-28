@@ -5,6 +5,7 @@ import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoCheckBox;
 import com.lovo.netCRM.component.LovoTxt;
 import com.lovo.netCRM.component.LovoTxtArea;
+import com.lovo.netCRM.service.imp.PositionServiceImp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -97,17 +98,35 @@ public class WorkAddDialog extends JDialog {
 			newPos.setName(nameTxt.getText());
 			newPos.setDescribe(descriptionTxt.getText());
 			//得到选中项数组
-//			String[] items = gradeTxt.getItem();
-//			if (items.length != 0) {
-//				for (int i = 0; i < items.length; i++) {
-//					System.out.println(items[i]);
-//					String right = Switch.change2(items[i]);
-//					System.out.println(right);
-//					Switch.writeRight(newPos, right);
-//				}
-//			}
+			String[] items = gradeTxt.getItem();
+			if (items.length != 0) {
+				for (int i = 0; i < items.length; i++) {
+					if(items[i].equals("查询权限")){
+						newPos.setCheckRight(true);
+					}else
+						newPos.setCheckRight(false);
+					if(items[i].equals("考核权限")){
+						newPos.setCheckRight(true);
+					}else
+						newPos.setCheckRight(false);
+					if(items[i].equals("销售统计分析")){
+						newPos.setCheckRight(true);
+					}else
+						newPos.setCheckRight(false);
+					if(items[i].equals("权限管理")){
+						newPos.setCheckRight(true);
+					}else
+						newPos.setCheckRight(false);
+					if(items[i].equals("后台管理")){
+						newPos.setCheckRight(true);
+					}else
+						newPos.setCheckRight(false);
+				}
+			}
 		}
-		//new PositionServiceImp().addPosition(newPos);
+
+		JOptionPane.showMessageDialog(null,gradeTxt.getItem());
+		new PositionServiceImp().addPosition(newPos);
 		//更新表格，显示添加职位结果
 		workPanel.initData();
 		return true;

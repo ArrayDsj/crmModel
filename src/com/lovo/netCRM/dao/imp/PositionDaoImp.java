@@ -4,7 +4,6 @@ import com.lovo.netCRM.bean.PositionBean;
 import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.util.ConnectionSQL;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -167,14 +166,13 @@ public class PositionDaoImp implements CrmDao {
         String describe = newPos.getDescribe();
 
         boolean check = newPos.isCheckRight();
-        JOptionPane.showMessageDialog(null,check);
         boolean query = newPos.isQueryRight();
         boolean sale = newPos.isSaleRight();
         boolean manager = newPos.isManagerRight();
         boolean back = newPos.isManagerRight();
         Connection con = ConnectionSQL.createConnectionSQL();
         int result = -1;
-//        String addSQL = "insert into position(\n" +
+//        String addSQL = "insert into 'position'(\n" +
 //                "position_name,\n" +
 //                "position_describe,\n" +
 //                "checkRight,\n" +
@@ -190,18 +188,22 @@ public class PositionDaoImp implements CrmDao {
 //                "?,\n" +
 //                "?,\n" +
 //                "?);";
-        String addSQL =
-                "insert into position(position_name,position_describe) values(?,?)";
+
+
+
+        String addSQL= "INSERT INTO position(position_id) VALUES (8);";
         try {
-            PreparedStatement ps = con.prepareStatement(addSQL);
-            ps.setString(1,name);
-            ps.setString(2,describe);
-//            ps.setBoolean(3,check);
-//            ps.setBoolean(4,query);
-//            ps.setBoolean(5,sale);
-//            ps.setBoolean(6,manager);
-//            ps.setBoolean(7,back);
-            result = ps.executeUpdate();
+//            PreparedStatement ps = con.prepareStatement(addSQL);
+//            ps.setString(1,name);
+//            ps.setString(2,describe);
+//            ps.setBoolean(3, true);
+//            ps.setBoolean(4, true);
+//            ps.setBoolean(5, true);
+//            ps.setBoolean(6, true);
+//            ps.setBoolean(7,true);
+            Statement st = con.createStatement();
+            result = st.executeUpdate(addSQL);
+            //result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally{

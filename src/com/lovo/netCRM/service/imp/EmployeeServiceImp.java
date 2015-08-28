@@ -23,9 +23,9 @@ public class EmployeeServiceImp implements EmployeeService{
         return emp.getAllObjects();
     }
 
-    public ArrayList<Object> getAllStaffs(int pageNow,int pageSize) {
+    public ArrayList<Object> getAllStaffs(int pageNow,int pageSize,String item, String value) {
         EmployeeDaoImp emp = new EmployeeDaoImp();
-        return emp.getAllObjects(pageNow, pageSize);
+        return emp.getObjectByCon(pageNow, pageSize,item,value);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class EmployeeServiceImp implements EmployeeService{
     //添加员工信息
     public boolean addStaff(int empID,EmployeeBean newEmp) {
         CrmDao emp = new EmployeeDaoImp();
-        return emp.addObject(empID,newEmp);
+        return emp.addObject(empID, newEmp);
     }
 
     @Override

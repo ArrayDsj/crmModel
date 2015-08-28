@@ -61,6 +61,5 @@ public class LoginFrame extends JFrame{
 			//传入用户实体对象
 			new MainFrame(loginEmp);
 		}
-		new MainFrame(loginEmp);
 	}
 }

@@ -144,13 +144,12 @@ public class SchoolCheckDialog extends JDialog{
 	private void passSchool(int schoolId){
 		//验证数据,验证失败返回false
 		String error = "";
-		if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+		if(mindTxt.getText() == null || mindTxt.getText().equals("")){
 			error += "没说明,滚犊子\n";
 		}if(error.length() != 0) {
-			JOptionPane.showMessageDialog(null, error);
 			return ;
 		} else{
-			new SchoolDaoImp().alterSchoolByDescripOn(schoolId, descriptionTxt.getText());
+			new SchoolDaoImp().alterSchoolByDescripOn(schoolId, mindTxt.getText());
 		}
 		//更新表格，显示修改结果
 		this.schoolPanel.initData();
@@ -163,13 +162,12 @@ public class SchoolCheckDialog extends JDialog{
 	 */
 	private void backSchool(int schoolId){
 		String error = "";
-		if(descriptionTxt.getText() == null || descriptionTxt.getText().equals("")){
+		if(mindTxt.getText() == null || mindTxt.getText().equals("")){
 			error += "没说明,滚犊子\n";
 		}if(error.length() != 0) {
-			JOptionPane.showMessageDialog(null, error);
 			return ;
 		} else{
-			new SchoolDaoImp().alterSchoolByDescripOff(schoolId,descriptionTxt.getText());
+			new SchoolDaoImp().alterSchoolByDescripOff(schoolId,mindTxt.getText());
 		}
 		
 		//更新表格，显示修改结果

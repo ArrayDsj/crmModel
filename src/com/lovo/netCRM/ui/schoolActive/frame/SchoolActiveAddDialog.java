@@ -66,6 +66,9 @@ public class SchoolActiveAddDialog extends JDialog{
 	 */
 	private void init() {
 		this.initComboBox();
+
+		deptTxt.setSelectedIndex(1);
+		employeeTxt.setSelectedIndex(0);
 		
 		LovoButton lbadd = new LovoButton("Ìí¼Ó",50,350,this);
 		lbadd.addActionListener(new ActionListener(){

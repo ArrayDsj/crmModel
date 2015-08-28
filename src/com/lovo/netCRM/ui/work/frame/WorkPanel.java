@@ -1,9 +1,11 @@
 package com.lovo.netCRM.ui.work.frame;
 
+import com.lovo.netCRM.bean.PositionBean;
 import com.lovo.netCRM.component.LovoButton;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
 import com.lovo.netCRM.service.imp.PositionServiceImp;
+import com.lovo.netCRM.util.Switch;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -83,7 +85,7 @@ public class WorkPanel  extends JPanel{
 				new String[]{"职位名称","职位描述","查询权限","考核权限","销售统计分析","权限管理","后台管理"},
 				//职位实体属性名数组 new String[]{"workName","description"}
 				new String[]{"name","describe","checkRight","queryRight","saleRight","managerRight","backRight"},
-				"positionID");//主键属性名 workId
+				"id");//主键属性名 workId
 		workTable.setSizeAndLocation(20, 90, 700, 300);
 		
 	}
@@ -91,10 +93,24 @@ public class WorkPanel  extends JPanel{
 	 * 更新表格数据
 	 */
 	private void updateWorkTable(){
+		
 		ArrayList<Object> allPos = new PositionServiceImp().getAllPositions();
-
-		if(allPos != null){
-			workTable.updateLovoTable(allPos);
+		ArrayList<Object> switchs = new ArrayList<Object>();
+		int id = 0;
+		for(Object pos : allPos) {
+			PositionBean p = (PositionBean)pos;
+			Switch s = new Switch();
+			s.setName(p.getName());
+			s.setDescribe(p.getDescribe());
+			s.setCheckRight(Switch.boolean2String(p.isCheckRight()));
+			s.setQueryRight(Switch.boolean2String(p.isQueryRight()));
+			s.setSaleRight(Switch.boolean2String(p.isSaleRight()));
+			s.setManagerRight(Switch.boolean2String(p.isManagerRight()));
+			s.setBackRight(Switch.boolean2String(p.isBackRight()));
+			switchs.add(s);
+		}
+		if(switchs != null){
+			//workTable.updateLovoTable(switchs);
 		}
 
 	}

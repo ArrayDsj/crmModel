@@ -374,16 +374,16 @@ public class SchoolDaoImp implements CrmDao{
             return false;
     }
 
-    public boolean alterSchoolByDescripOn(int schoolId,String descrip) {
+    public boolean alterSchoolByDescripOn(int schoolId,String checkNot) {
         Connection con = ConnectionSQL.createConnectionSQL();
         String alterSQL =
-                "update school set school_describe = ? ,school_permitTime = ? ,school_status = ? " +
+                "update school set school_checkNotic = ? ,school_permitTime = ? ,school_status = ? " +
                         " where  school_id = ?";
 
         int result = -1;
         try {
             PreparedStatement ps = con.prepareStatement(alterSQL);
-            ps.setString(1,descrip);
+            ps.setString(1,checkNot);
             ps.setDate(2, new java.sql.Date(new Date().getTime()));
             ps.setString(3, "推广开展");
             ps.setInt(4,schoolId);
@@ -409,7 +409,7 @@ public class SchoolDaoImp implements CrmDao{
     public boolean alterSchoolByDescripOff(int schoolId,String descrip) {
         Connection con = ConnectionSQL.createConnectionSQL();
         String alterSQL =
-                "update school set school_describe = ? ,school_status = ? " +
+                "update school set school_checkNotic = ? ,school_status = ? " +
                         " where  school_id = ?";
 
         int result = -1;
