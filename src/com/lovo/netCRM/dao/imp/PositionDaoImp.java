@@ -165,7 +165,7 @@ public class PositionDaoImp implements CrmDao {
         boolean query = newPos.isQueryRight();
         boolean sale = newPos.isSaleRight();
         boolean manager = newPos.isManagerRight();
-        boolean back = newPos.isManagerRight();
+        boolean back = newPos.isBackRight();
         Connection con = ConnectionSQL.createConnectionSQL();
         int result = -1;
         String addSQL = "insert into t_position(\n" +

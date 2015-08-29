@@ -69,77 +69,7 @@ public class EmployeeDaoImp implements CrmDao {
     }
 
 
-    //新增员工
-    public boolean addObject(Object object) {
-        EmployeeBean newEmp = (EmployeeBean)object;
-        //根据新员工的信息向数据库中添加员工
-        Connection con = ConnectionSQL.createConnectionSQL();
-        //分解员工信息 12个属性,只有id,登录账号和密码没有记录
-        String staff_name = newEmp.getName();
-        String staff_sex = newEmp.getSex();
-        Date staff_birthday = newEmp.getBirthday();
-        String staff_speciality = newEmp.getSpeciality();
-        String staff_edu = newEmp.getEdu();
-        String staff_phone = newEmp.getPhone();
-        Date staff_hireday = newEmp.getHireDay();
-        String staff_polity = newEmp.getPolity();
-        String staff_address = newEmp.getAddress();
-        boolean staff_status = newEmp.isStatus();
-        String staff_headFile = newEmp.getHeadFile();
-        int deptID = String2Int.string2Int(newEmp, newEmp.getDept());
-        int posID = String2Int.string2Int(newEmp,newEmp.getPosition());
 
-        int result = -1;
-        String addSQL = "insert into staff(\n" +
-                "staff_name,\n" +//姓名
-                "staff_sex,\n" + //性别
-                "staff_birthday,\n" + //生日
-                "staff_edu,\n" + //学历
-                "staff_speciality,\n" + //专业
-                "staff_phone,\n" +  //电话
-                "staff_address,\n" + //地址
-                "staff_polity,\n" + //政治面貌
-                "staff_hireday,\n" + //入职时间
-                "staff_status,\n" + //状态
-                "staff_department_id,\n" + //部门
-                "staff_position_id,staff_headFile) values(\n" + //职位
-                "?,?,\n" +
-                "?,?,?,\n" +
-                "?,?,?,\n" +
-                "?,?,?,?,?);";
-        try {
-            PreparedStatement ps = con.prepareStatement(addSQL);
-            ps.setString(1, staff_name);
-            ps.setString(2, staff_sex);
-            ps.setDate(3, new java.sql.Date(staff_birthday.getTime()));
-            ps.setString(4, staff_edu);
-            ps.setString(5, staff_speciality);
-            ps.setString(6,staff_phone);
-            ps.setString(7,staff_address);
-            ps.setString(8, staff_polity);
-            ps.setDate(9, new java.sql.Date(staff_hireday.getTime()));
-            ps.setBoolean(10, staff_status);//状态
-            ps.setInt(11, deptID);
-            ps.setInt(12, posID);
-            ps.setString(13, staff_headFile);
-            result = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-            if(con != null){
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        if(result == 1){
-            return true;
-        }else
-            return false;
-    }
 
     @Override
     //查询全部员工
@@ -199,60 +129,6 @@ public class EmployeeDaoImp implements CrmDao {
     }
 
 
-    //查询所有的员工信息,使用分页查询,每页17个信息
-//    public ArrayList<Object> getAllObjects(int pageNow,int pageSize,String item, String value) {
-//        ArrayList<Object> empList = new ArrayList<Object>();
-//        Connection con = ConnectionSQL.createConnectionSQL();
-//        //查找当前用户信息
-//        String allEmp = "select * from staff s\n" +
-//                "join depart d \n" +
-//                "on s.staff_department_id = d.depart_id\n" +
-//                "join position p\n" +
-//                "on s.staff_position_id = p.position_id\n" +
-//                "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
-//
-//        try {
-//            Statement st = con.createStatement();
-//            ResultSet rs = st.executeQuery(allEmp);
-//            while(rs.next()){
-//                if(!rs.getBoolean(13)){
-//                    continue;
-//                }
-//                //组合员工信息
-//                EmployeeBean emp = new EmployeeBean();
-//                emp.setID(rs.getInt(1));
-//                emp.setName(rs.getString(4));
-//                emp.setSex(rs.getString(5));
-//                emp.setBirthday(rs.getDate(6));
-//                emp.setEdu(rs.getString(7));
-//                emp.setSpeciality(rs.getString(8));
-//                emp.setPhone(rs.getString(9));
-//                emp.setAddress(rs.getString(10));
-//                emp.setPolity(rs.getString(11));
-//                emp.setHireDay(rs.getDate(12));
-//                emp.setStatus(rs.getBoolean(13));
-//                emp.setHeadFile(rs.getString(16));
-//                emp.setDept(rs.getString(18));
-//                emp.setPosition(rs.getString(22));
-//                empList.add(emp);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }finally{
-//            if(con != null){
-//                try {
-//                    con.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        if(empList.size() != 0){
-//            return empList;
-//        }else {
-//            return null;
-//        }
-//    }
 
     @Override
     //按条件查询用户信息
@@ -463,6 +339,9 @@ public class EmployeeDaoImp implements CrmDao {
             ResultSet rs = st.executeQuery(allEmp);
             while(rs.next()){
                 //组合员工信息
+                if(!rs.getBoolean(13)){
+                    continue;
+                }
                 emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
                 emp.setName(rs.getString(4));
@@ -598,13 +477,15 @@ public class EmployeeDaoImp implements CrmDao {
             return false;
     }
 
-    @Override
-    public boolean addObject(int objectID, Object object) {
+
+    //新增员工
+    public boolean addObject(Object object) {
         EmployeeBean newEmp = (EmployeeBean)object;
         //根据新员工的信息向数据库中添加员工
         Connection con = ConnectionSQL.createConnectionSQL();
-        //分解员工信息 12个属性,只有id,登录账号和密码没有记录
         String staff_name = newEmp.getName();
+        String staff_loginName = newEmp.getLoginName();
+        String staff_passWord = newEmp.getPassWord();
         String staff_sex = newEmp.getSex();
         Date staff_birthday = newEmp.getBirthday();
         String staff_speciality = newEmp.getSpeciality();
@@ -631,11 +512,15 @@ public class EmployeeDaoImp implements CrmDao {
                 "staff_hireday,\n" + //入职时间
                 "staff_status,\n" + //状态
                 "staff_department_id,\n" + //部门
-                "staff_position_id,staff_headFile) values(\n" + //职位
+                "staff_position_id,staff_headFile," +
+                "staff_loginName,\n"+
+                "staff_passWord\n"+
+                ") values(\n" + //职位
                 "?,?,\n" +
                 "?,?,?,\n" +
                 "?,?,?,\n" +
-                "?,?,?,?,?);";
+                "?,?,?,?,?,\n" +
+                "?,?);";
         try {
             PreparedStatement ps = con.prepareStatement(addSQL);
             ps.setString(1, staff_name);
@@ -651,6 +536,87 @@ public class EmployeeDaoImp implements CrmDao {
             ps.setInt(11, deptID);
             ps.setInt(12, posID);
             ps.setString(13, staff_headFile);
+            ps.setString(14, staff_loginName);
+            ps.setString(15, staff_passWord);
+            result = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(result == 1){
+            return true;
+        }else
+            return false;
+    }
+
+    @Override
+    public boolean addObject(int objectID, Object object) {
+        EmployeeBean newEmp = (EmployeeBean)object;
+        //根据新员工的信息向数据库中添加员工
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String staff_name = newEmp.getName();
+        String staff_loginName = newEmp.getLoginName();
+        String staff_passWord = newEmp.getPassWord();
+        String staff_sex = newEmp.getSex();
+        Date staff_birthday = newEmp.getBirthday();
+        String staff_speciality = newEmp.getSpeciality();
+        String staff_edu = newEmp.getEdu();
+        String staff_phone = newEmp.getPhone();
+        Date staff_hireday = newEmp.getHireDay();
+        String staff_polity = newEmp.getPolity();
+        String staff_address = newEmp.getAddress();
+        boolean staff_status = newEmp.isStatus();
+        String staff_headFile = newEmp.getHeadFile();
+        int deptID = String2Int.string2Int(newEmp, newEmp.getDept());
+        int posID = String2Int.string2Int(newEmp,newEmp.getPosition());
+
+        int result = -1;
+        String addSQL = "insert into staff(\n" +
+                "staff_name,\n" +//姓名
+                "staff_sex,\n" + //性别
+                "staff_birthday,\n" + //生日
+                "staff_edu,\n" + //学历
+                "staff_speciality,\n" + //专业
+                "staff_phone,\n" +  //电话
+                "staff_address,\n" + //地址
+                "staff_polity,\n" + //政治面貌
+                "staff_hireday,\n" + //入职时间
+                "staff_status,\n" + //状态
+                "staff_department_id,\n" + //部门
+                "staff_position_id,staff_headFile," +
+                "staff_loginName,\n"+
+                "staff_passWord\n"+
+                ") values(\n" + //职位
+                "?,?,\n" +
+                "?,?,?,\n" +
+                "?,?,?,\n" +
+                "?,?,?,?,?,\n" +
+                "?,?);";
+        try {
+            PreparedStatement ps = con.prepareStatement(addSQL);
+            ps.setString(1, staff_name);
+            ps.setString(2, staff_sex);
+            ps.setDate(3, new java.sql.Date(staff_birthday.getTime()));
+            ps.setString(4, staff_edu);
+            ps.setString(5, staff_speciality);
+            ps.setString(6,staff_phone);
+            ps.setString(7,staff_address);
+            ps.setString(8, staff_polity);
+            ps.setDate(9, new java.sql.Date(staff_hireday.getTime()));
+            ps.setBoolean(10, staff_status);//状态
+            ps.setInt(11, deptID);
+            ps.setInt(12, posID);
+            ps.setString(13, staff_headFile);
+            ps.setString(14, staff_loginName);
+            ps.setString(15, staff_passWord);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -676,7 +642,9 @@ public class EmployeeDaoImp implements CrmDao {
         //不是物理删除,只是把stauts设置为1
         Connection con = ConnectionSQL.createConnectionSQL();
         //修改用户状态信息
-        String deletEmpSQL = "update staff set staff_status = 0  where staff_id = " + ObjectID;
+        String deletEmpSQL = "update staff set staff_status = 0," +
+                            "staff_loginName = NULL," +
+                            "staff_passWord = NULL where staff_id = " + ObjectID;
         int result = 0;
         try {
             Statement st = con.createStatement();

@@ -173,13 +173,10 @@ public class EmployeePanel extends JPanel{
 	 *
 	 */
 	private void initFindPanel(){
-
 		LovoTitlePanel jp = new LovoTitlePanel("查询员工",400, 480, 320, 150,this);
-
 		this.itemCombox = new LovoComboBox<String>(
 				new String[]{"所有员工","员工姓名","所属部门",
 						"文化程度","工作职位"},30,50,jp);
-
 		valueTxt.setBounds(160, 50, 120, 20);
 		jp.add(valueTxt);
 		LovoButton lb = new LovoButton("查找",180,100,jp);
@@ -223,8 +220,9 @@ public class EmployeePanel extends JPanel{
 	 */
 	private void updateEmployeeTable(int pageNow){//只有初始化和添加员工成功后才会调用
 		//默认查找全部员工
-		ArrayList<Object> limitAllEmps = new EmployeeServiceImp().getAllStaffs(1, pageSize, "所有员工", "");
+		ArrayList<Object> limitAllEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, "所有员工", "");
 		ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
+		JOptionPane.showMessageDialog(null,allEmps.size());
 		//无条件下总记录数
 		counts = allEmps.size();
 		pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
@@ -292,6 +290,7 @@ public class EmployeePanel extends JPanel{
 		if((JOptionPane.showConfirmDialog(null,"是否删除选中员工信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
 			boolean dele = new EmployeeServiceImp().deleteStaff(employeeId);
 			if(dele){
+				pageNOTxt.setText(pageNow + "");
 				this.updateEmployeeTable(pageNow);//如果删除成功,更新表格
 			}
 		}
@@ -307,16 +306,16 @@ public class EmployeePanel extends JPanel{
 		//得到选项值(模糊查询条件)
 		value = valueTxt.getText();
 		JOptionPane.showMessageDialog(null, item + "   " + value);
-		EmployeeBean empCounts = (EmployeeBean) new EmployeeServiceImp().getAllStaffs().get(0);
-		int counts = empCounts.getID();
-		if(counts != 0){
+		EmployeeBean empCounts = (EmployeeBean) new EmployeeServiceImp().getAllStaffs(item, value).get(0);
+		int allCounts = empCounts.getID();
+		if(allCounts != 0){
 			ArrayList<Object> checkEmps = new EmployeeServiceImp().getAllStaffs(1, pageSize, item, value);
 			//满足条件的所有记录的总和
 			//更新表格,显示查询结果
 			if(checkEmps != null){
 				//JOptionPane.showMessageDialog(null,checkEmps.size());
 				employeeTable.updateLovoTable(checkEmps);
-				pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+				pageNum = (int) Math.ceil(allCounts / (pageSize * 1.0));
 				this.setTotalPage(pageNum);
 				pageNow = 1;
 				pageNOTxt.setText("1");

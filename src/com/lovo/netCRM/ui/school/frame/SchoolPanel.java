@@ -31,8 +31,9 @@ public class SchoolPanel extends JPanel{
 	private JFrame jf;
 	/**城市id*/
 	private  int cityId;
-	/**城市列表框*/
-	private LovoList cityList = new LovoList(20,90,150,300,this){
+
+	//初始化城市列表
+	private LovoList cityList  = new LovoList(20,90,150,300,this) {
 		public void onchange(Object t){
 			cityId = getCityId(t);
 			showSchool(cityId);
@@ -155,10 +156,12 @@ public class SchoolPanel extends JPanel{
 		if(mainFrame.getUserObj().getPos().isQueryRight()){
 			lbcheck.setVisible(true);
 		}
-
 	}
 	
 	//--------------------------
+
+
+
 	/**
 	 * 根据城市对象，得到城市id
 	 * @param cityObj 城市对象
@@ -175,11 +178,14 @@ public class SchoolPanel extends JPanel{
 	 * 初始化表格
 	 */
 	private void initTable() {
+
+
 		schoolTable = new LovoTable(this,
 				new String[]{"学校名称","校长","录入时间","状态"},
 				new String[]{"name","master","foundTime","status"},//学校实体属性名数组 new String[]{"schoolName","schoolMaster"}
 				"id");//主键属性名 schoolId
 		schoolTable.setSizeAndLocation(180, 90, 550, 300);
+
 	}
 	/**
 	 * 初始化列表框
@@ -190,6 +196,8 @@ public class SchoolPanel extends JPanel{
 		ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
 		cityList.setList(allAreas);
 	}
+
+
 	/**
 	 * 显示城市对应的学校
 	 * @param cityObj 城市对象

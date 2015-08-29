@@ -36,7 +36,7 @@ public class MainFrame extends JFrame{
 	/**登陆用户实体*/
 	private EmployeeBean userObj;
 	/**员工主面板*/
-	private EmployeePanel emPanel = new EmployeePanel(this);
+	private EmployeePanel emPanel ;
 	/**部门主面板*/
 	private DeptPanel deptPanel = new DeptPanel(this);
 	/**职位主面板*/
@@ -46,7 +46,7 @@ public class MainFrame extends JFrame{
 	/**学校管理主面板*/
 	private SchoolPanel schoolPanel ;
 	/**班级管理主面板*/
-	private ClassManagerPanel classManagerPanel = new ClassManagerPanel(this);
+	private ClassManagerPanel classManagerPanel;
 	/**学生主面板*/
 	 StudentPanel studentPanel = new StudentPanel(this);
 	
@@ -83,11 +83,13 @@ public class MainFrame extends JFrame{
 	 */
 	private void initPanel() {
 		//设置容器的布局管理器为卡片布局
-		System.out.println(userObj.getName()+"登录了");
+		System.out.println(userObj.getName() + "登录了");
 		mainPanel.setLayout(this.card);
 		this.add(mainPanel);
 
 		schoolPanel = new SchoolPanel(this);
+		emPanel = new EmployeePanel(this);
+		classManagerPanel = new ClassManagerPanel(this);
 		//给卡布局的容器添加面板，每加上一个面板，由第二个参数给面板取名
 		mainPanel.add(new InitPanel(),"init");//给主面板添加一张图片
 		mainPanel.add(emPanel,"employee");
@@ -132,7 +134,7 @@ public class MainFrame extends JFrame{
 		LovoTreeNode deptNode = new LovoTreeNode("部门管理"){
 			
 			public void addListener(){
-				//deptPanel.initData();
+				deptPanel.initData();
 				card.show(mainPanel, "dept");
 			}
 		};
@@ -141,7 +143,7 @@ public class MainFrame extends JFrame{
 		LovoTreeNode workNode = new LovoTreeNode("职位管理"){
 			
 			public void addListener(){
-				//workPanel.initData();
+				workPanel.initData();
 				card.show(mainPanel, "work");
 			}
 		};
@@ -149,29 +151,29 @@ public class MainFrame extends JFrame{
 
 		LovoTreeNode activeNode = new LovoTreeNode("学校活动"){
 			public void addListener(){
-				//schoolActivePanel.initData();
+				schoolActivePanel.initData();
 				card.show(mainPanel, "active");
 			}
 		};
 		LovoTreeNode smNode = new LovoTreeNode("学校管理"){
 			public void addListener(){
-				//schoolPanel.initData();
+				schoolPanel.initData();
 				card.show(mainPanel, "school");
 			}
 		};
 		
 		LovoTreeNode studentNode = new LovoTreeNode("学生管理"){
 			public void addListener(){
-				//studentPanel.setSchoolId(0);
-				//studentPanel.initData();
+				studentPanel.setSchoolId(0);
+				studentPanel.initData();
 				card.show(mainPanel, "student");
 			}
 		};
 		
 		LovoTreeNode classNode = new LovoTreeNode("班级管理"){
 			public void addListener(){
-				//studentPanel.setSchoolId(0);
-				//classManagerPanel.initData();
+				studentPanel.setSchoolId(0);
+				classManagerPanel.initData();
 				card.show(mainPanel, "class");
 			}
 		};
@@ -179,18 +181,20 @@ public class MainFrame extends JFrame{
 		
 		LovoTreeNode areaNode = new LovoTreeNode("地区统计"){
 			public void addListener(){
-				//addressCountPanel.initData();
+				addressCountPanel.initData();
 				card.show(mainPanel, "addressCount");
 			}
 		};
 		
 		LovoTreeNode scNode = new LovoTreeNode("学校统计"){
 			public void addListener(){
-				//schoolCountPanel.initData();
+				schoolCountPanel.initData();
 				card.show(mainPanel, "schoolCount");
 			}
 		};
-		
+
+
+
 		//将枝节点加入根节点。其中添加的节点要根据登陆用户的等级决定
 		/**
 		 * 根据权限显示节点

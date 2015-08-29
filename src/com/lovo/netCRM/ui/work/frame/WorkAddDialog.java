@@ -109,17 +109,17 @@ public class WorkAddDialog extends JDialog {
 				if (items[i].toString().equals("查询权限")) {
 					newPos.setCheckRight(true);
 				}
-				if (items[i].toString().equals("考核权限")) {
+				else if (items[i].toString().equals("考核权限")) {
 					newPos.setQueryRight(true);
 				}
-				if (items[i].toString().equals("销售统计分析")) {
+				else if (items[i].toString().equals("销售统计分析")) {
 					newPos.setSaleRight(true);
 				}
 
-				if (items[i].toString().equals("权限管理")) {
+				else if (items[i].toString().equals("权限管理")) {
 					newPos.setManagerRight(true);
 				}
-				if (items[i].toString().equals("后台管理")) {
+				else if (items[i].toString().equals("后台管理")) {
 					newPos.setBackRight(true);
 				}
 			}

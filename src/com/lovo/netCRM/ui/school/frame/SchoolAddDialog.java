@@ -151,8 +151,8 @@ public class SchoolAddDialog extends JDialog{
 		if(teacherNumberTxt.getText() == null || teacherNumberTxt.getText().equals("")){
 			error += "没老师,滚犊子\n";
 		}
-		if(ipTxt.getText() == null || ipTxt.getText().equals("")){
-			error += "没IP,滚犊子\n";
+		if(ipTxt.getText() == null || ipTxt.getText().equals("") || !ipTxt.getText().matches("^(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])$")){
+			error += "IP地址格式错误,滚犊子\n";
 		}
 		if(netFluxTxt.getText() == null || netFluxTxt.getText().equals("")){
 			error += "没流量,滚犊子\n";
@@ -182,7 +182,7 @@ public class SchoolAddDialog extends JDialog{
 		//写入数据库
 		new SchoolServiceImp().addSchool(0,sch);
 		//更新表格，显示添加结果
-		//this.schoolPanel.initData();
+		this.schoolPanel.initData();
 		return true;
 	}
 }

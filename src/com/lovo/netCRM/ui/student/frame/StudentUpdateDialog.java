@@ -121,7 +121,6 @@ public class StudentUpdateDialog extends JDialog{
 		}else
 			stateTxt.setSelectedIndex(1);
 
-
         nameLabel.setText(stu.getName());
         sexLabel.setText(stu.getSex());
         birthdayLabel.setText(stu.getBirthday().toString());

@@ -7,6 +7,7 @@ import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.service.imp.DepartServiceImp;
 import com.lovo.netCRM.service.imp.EmployeeServiceImp;
 import com.lovo.netCRM.service.imp.PositionServiceImp;
+import com.lovo.netCRM.ui.frame.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,18 @@ public class EmployeeAddDialog extends JDialog{
 	private LovoComboBox<String> eduTxt = new LovoComboBox<String>("文化程度",new String[]{"高中","大专","本科","硕士"},320,100,this);
 	/**所属专业文本框*/
 	private LovoTxt specialityTxt = new LovoTxt("所属专业",40,150,this);
+
+	/*新建员工用户名标签*/
+	private JLabel nameJLabel = new JLabel();
+	/*新建员工用户名文本框*/
+	private JTextField loginName;
+	/*新建员工密码标签*/
+	private JLabel passJlabel = new JLabel();
+	/*新建员工密码文本框*/
+	private JTextField loginPassWord ;
+
+
+
 	/**联系方式文本框*/
 	private LovoTxt phoneTxt = new LovoTxt("联系方式",320,150,this);
 	/**家庭住址文本框*/
@@ -52,9 +65,13 @@ public class EmployeeAddDialog extends JDialog{
 	/**员工主面板*/
 	private EmployeePanel emPanel;
 
-	
+	/*主窗体*/
+	private JFrame jf;
+
+
 	public EmployeeAddDialog(JFrame jf,EmployeePanel emPanel){
 		super(jf,true);
+		this.jf = jf;
 		this.emPanel = emPanel;
 		this.setLayout(null);
 		this.setTitle("添加新员工");
@@ -74,21 +91,55 @@ public class EmployeeAddDialog extends JDialog{
 		faceTxt.setBounds(580, 70, 100, 150);
 
 		LovoButton lbadd = new LovoButton("添加",150,310,this);
-		lbadd.addActionListener(new ActionListener(){
+		lbadd.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				boolean isOk = addEmployee();
-				if(isOk){
+				if (isOk) {
 					EmployeeAddDialog.this.dispose();
 				}
-			}});
+			}
+		});
 		
 		LovoButton lbcancel = new LovoButton("取消",400,310,this);
-		lbcancel.addActionListener(new ActionListener(){
+		lbcancel.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				EmployeeAddDialog.this.dispose();
-			}});
+			}
+		});
+
+		MainFrame mainFrame = (MainFrame)jf;
+
+		//设置标签属性
+		nameJLabel.setText("用户名");
+		nameJLabel.setBounds(40, 275, 80, 20);
+		this.add(nameJLabel);
+		nameJLabel.setVisible(false);
+		passJlabel.setText("密码");
+		passJlabel.setBounds(320, 275, 80, 20);
+		this.add(passJlabel);
+		passJlabel.setVisible(false);
+
+		//设置文本框属性
+		loginName = new JTextField();
+		loginName.setBounds(140, 275, 120, 20);
+		this.add(loginName);
+		loginName.setVisible(false);
+
+		loginPassWord = new JTextField();
+		loginPassWord.setBounds(420, 275, 120, 20);
+		this.add(loginPassWord);
+		loginPassWord.setVisible(false);
+
+		if(mainFrame.getUserObj().getPos().isBackRight()){
+			passJlabel.setVisible(true);
+			nameJLabel.setVisible(true);
+			loginName.setVisible(true);
+			loginPassWord.setVisible(true);
+		}
+
+
 	}
 	
 	//--------------------------------------------
@@ -140,6 +191,9 @@ public class EmployeeAddDialog extends JDialog{
 		if(birthdayTxt.getText() == null){
 			str += "出生日期不能为空\n";
 		}
+		if(birthdayTxt.getText() == null){
+			str += "出生日期不能为空\n";
+		}
 		if(str.length() != 0){
 			JOptionPane.showMessageDialog(null, str);
 			return false;
@@ -154,13 +208,13 @@ public class EmployeeAddDialog extends JDialog{
 			newEmp.setPolity(polityFaceTxt.getItem().toString());
 			newEmp.setDept(deptTxt.getItem().toString());
 			newEmp.setPosition(jobTxt.getItem().toString());
-
+			newEmp.setLoginName(loginName.getText());
+			newEmp.setPassWord(loginPassWord.getText());
 			//设置图片
 			if(faceTxt.getFilePath() == null){
 				newEmp.setHeadFile("face/4.jpg");
 			}else
 				newEmp.setHeadFile("face/"+faceTxt.getFilePath());
-
 			//状态status  1为true 在职
 			newEmp.setStatus(true);
 			//以当前时间作为入职时间
@@ -170,6 +224,7 @@ public class EmployeeAddDialog extends JDialog{
 		boolean result = new EmployeeServiceImp().addStaff(0,newEmp);
 //		更新数据,显示添加结果
 		if(result){
+
 			this.emPanel.initData();
 			return true;
 		}

@@ -9,6 +9,7 @@ import java.util.Date;
 public class ActiveBean {
     private int id;
     private String name;
+    //活动时间
     private Date time;
     private String title;
     private String address;
@@ -16,6 +17,7 @@ public class ActiveBean {
 
     public ActiveBean() {
     }
+
 
     public int getId() {
         return id;

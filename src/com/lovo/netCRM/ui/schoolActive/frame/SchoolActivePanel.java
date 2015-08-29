@@ -35,7 +35,6 @@ public class SchoolActivePanel extends JPanel{
 			cityId = getCityId(t);
 
 			showSchool(cityId);
-			System.out.println("&&&");
 		}
 	};
 	public SchoolActivePanel(JFrame jf){

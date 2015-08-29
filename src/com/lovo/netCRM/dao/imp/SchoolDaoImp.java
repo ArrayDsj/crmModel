@@ -274,13 +274,13 @@ public class SchoolDaoImp implements CrmDao{
     public boolean alterSchoolByID(int schID){
         java.sql.Date inTime = new java.sql.Date(new Date().getTime());
         Connection con = ConnectionSQL.createConnectionSQL();
-        String alterSQL = "update school set school_inTime = ? where school_id = ?";
+        String alterSQL = "update school set school_inTime = NOW() where school_id = ?";
         int result = -1;
 
         try {
             PreparedStatement ps = con.prepareStatement(alterSQL);
-            ps.setDate(1,inTime);
-            ps.setInt(2,schID);
+            ps.setInt(1, schID);
+            //ps.setInt(2,schID);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

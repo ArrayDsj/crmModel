@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface StudentService {
     public boolean addRecall(RecallRecordBean re);
 
-    public boolean addStudent(StudentBean stu);
+    public boolean addStudent(int school,StudentBean stu);
 
     public boolean alterStudentByID(int stuID);
 

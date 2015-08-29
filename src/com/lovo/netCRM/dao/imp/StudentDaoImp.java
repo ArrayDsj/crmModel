@@ -15,15 +15,22 @@ import java.util.ArrayList;
 public class StudentDaoImp implements CrmDao{
 
 
-    @Override
-    public boolean deleteObject(int ObjectID) {
+    public boolean deleteObject(int ObjectID,StudentBean stu) {
         Connection con = ConnectionSQL.createConnectionSQL();
+        int classID = stu.getClasses().getId();
         //修改用户状态信息
-        String deletSQL = "update student set stu_status = 0  where stu_id = " + ObjectID;
+        String deletSQL = "update student set stu_status = 0 ,stu_vip = 0  where stu_id = " + ObjectID;
+        String deletNum = "update classes set class_stuNum = class_stuNum - 1" +
+                " where class_id = " + classID + ";";
         int result = 0;
         try {
+            con.setAutoCommit(false);
             Statement st = con.createStatement();
-            result = st.executeUpdate(deletSQL);
+            st.executeUpdate(deletSQL);
+            result++;
+            st.executeUpdate(deletNum);
+            result++;
+            con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally{
@@ -35,7 +42,7 @@ public class StudentDaoImp implements CrmDao{
                 }
             }
         }
-        if(result == 1){
+        if(result == 2){
             return true;
         }else
             return false;
@@ -91,6 +98,7 @@ public class StudentDaoImp implements CrmDao{
     public boolean addObject(int schoolID,Object object) {
         StudentBean newStudent = (StudentBean)object;
         Connection con = ConnectionSQL.createConnectionSQL();
+
         int result = -1;
         String addSQL = "insert into student(\n" +
                 "stu_name,\n" +
@@ -111,7 +119,12 @@ public class StudentDaoImp implements CrmDao{
                 "?,?,?,?,?,\n" +
                 "?,?,?,?,?,\n" +
                 "?,?,?,?);";
+
+        String alterSQL = "update classes set class_stuNum = class_stuNum + 1" +
+                " where class_id = ?";
         try {
+            //关闭自动提交,开启事务
+            con.setAutoCommit(false);
             PreparedStatement ps = con.prepareStatement(addSQL);
             ps.setString(1, newStudent.getName());
             ps.setString(2, newStudent.getSex());
@@ -122,13 +135,18 @@ public class StudentDaoImp implements CrmDao{
             ps.setBoolean(7, newStudent.isVip());
             ps.setString(8, newStudent.getPhone());
             ps.setString(9, newStudent.getFather());
-            ps.setString(10,newStudent.getFatherPhone());
+            ps.setString(10, newStudent.getFatherPhone());
             ps.setString(11,newStudent.getMother());
             ps.setString(12, newStudent.getMotherPhone());
             ps.setInt(13, newStudent.getClasses().getId());
             ps.setInt(14,schoolID);
 
             result = ps.executeUpdate();
+
+            ps = con.prepareStatement(alterSQL);
+            ps.setInt(1,newStudent.getClasses().getId());
+            ps.executeUpdate();
+            con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally{
@@ -140,6 +158,7 @@ public class StudentDaoImp implements CrmDao{
                 }
             }
         }
+
         if(result == 1){
             return true;
         }else
@@ -400,6 +419,11 @@ public class StudentDaoImp implements CrmDao{
     @Override
     public ArrayList<Object> getAllObjects() {
         return null;
+    }
+
+    @Override
+    public boolean deleteObject(int objectID) {
+        return false;
     }
 
 }

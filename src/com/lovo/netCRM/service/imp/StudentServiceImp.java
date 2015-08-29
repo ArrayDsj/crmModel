@@ -2,6 +2,7 @@ package com.lovo.netCRM.service.imp;
 
 import com.lovo.netCRM.bean.RecallRecordBean;
 import com.lovo.netCRM.bean.StudentBean;
+import com.lovo.netCRM.dao.CrmDao;
 import com.lovo.netCRM.dao.imp.StudentDaoImp;
 import com.lovo.netCRM.service.StudentService;
 
@@ -17,8 +18,9 @@ public class StudentServiceImp implements StudentService{
     }
 
     @Override
-    public boolean addStudent(StudentBean stu) {
-        return false;
+    public boolean addStudent(int schoolID,StudentBean stu) {
+        CrmDao crm = new StudentDaoImp();
+        return crm.addObject(schoolID,stu);
     }
 
     @Override
@@ -28,7 +30,8 @@ public class StudentServiceImp implements StudentService{
 
     @Override
     public boolean deletStudent(int stuID) {
-        return false;
+        StudentBean stu  = (StudentBean)new StudentDaoImp().getObjectByID(stuID);
+        return new StudentDaoImp().deleteObject(stuID,stu);
     }
 
     @Override

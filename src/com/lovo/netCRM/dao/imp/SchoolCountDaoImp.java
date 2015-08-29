@@ -40,6 +40,7 @@ public class SchoolCountDaoImp {
 
                 ResultSet rs = st.executeQuery(SQL);
                 while(rs.next()){
+
                     count = new SchoolCountBean();
                     count.setSchoolName(rs.getString(1));
                     count.setClassesNum(rs.getInt(2));

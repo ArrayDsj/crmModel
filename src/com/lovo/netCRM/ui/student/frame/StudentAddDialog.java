@@ -4,7 +4,7 @@ import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.ClassesDaoImp;
-import com.lovo.netCRM.dao.imp.StudentDaoImp;
+import com.lovo.netCRM.service.imp.StudentServiceImp;
 import com.lovo.netCRM.ui.frame.MainFrame;
 
 import javax.swing.*;
@@ -143,6 +143,10 @@ public class StudentAddDialog extends JDialog{
         }if(mumPhoneTxt.getText() == null || mumPhoneTxt.getText().equals("")){
             error += "没老娘电话,滚犊子\n";
         }
+		if(birthdayTxt.getText() == null || birthdayTxt.getText().equals("")){
+			error += "没出生日期,滚犊子\n";
+		}
+
         if(error.length() != 0) {
             JOptionPane.showMessageDialog(null, error);
             return false;
@@ -164,12 +168,8 @@ public class StudentAddDialog extends JDialog{
         stu.setVip(false);
 
         //写入数据库
-		new StudentDaoImp().addObject(schoolId, stu);
-        //这个班级的人数加一
 
-        cla.setStuNum(cla.getStuNum()+1);
-		JOptionPane.showMessageDialog(null,cla.getStuNum());
-        new ClassesDaoImp().alterObject(cla.getId(), cla);
+		new StudentServiceImp().addStudent(schoolId,stu);
 		//更新表格，显示添加结果
 		this.studentPanel.initData();
 		

@@ -8,6 +8,8 @@ import com.lovo.netCRM.component.*;
 import com.lovo.netCRM.dao.imp.ClassesDaoImp;
 import com.lovo.netCRM.dao.imp.StudentDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
+import com.lovo.netCRM.service.imp.StudentServiceImp;
+import com.lovo.netCRM.ui.frame.MainFrame;
 import com.lovo.netCRM.util.Switch;
 
 import javax.swing.*;
@@ -262,9 +264,7 @@ public class StudentPanel extends JPanel{
 		//在学生表中,根据学校ID查找学生
 		//更新表格,插入List集合
 		ArrayList<StudentBean> stus = new StudentDaoImp().getStudentsBySchoolID(schoolId);
-		JOptionPane.showMessageDialog(null,stus.size());
 		if(stus != null){
-			JOptionPane.showMessageDialog(null,stus.size());
 			Switch change = null;
 			ArrayList<Object> changes = new ArrayList<Object>();
 			for(StudentBean stu : stus){
@@ -273,17 +273,19 @@ public class StudentPanel extends JPanel{
 				change.setPhone(stu.getPhone());
 				change.setClasses(stu.getClasses());
 				change.setSex(stu.getSex());
+				change.setStuName(stu.getName());
 				if(stu.isVip()){
 					change.setVip("会员");
-				}else
+				}else {
 					change.setVip("非会员");
-				change.setStuName(stu.getName());
+				}
 				changes.add(change);
 			}
 			studentTable.updateLovoTable(changes);
 			//设置总页数
 			this.setTotalPage(0);
-		}
+		}else
+			studentTable.updateLovoTable(new ArrayList());
 	}
 	
 	/**
@@ -292,10 +294,9 @@ public class StudentPanel extends JPanel{
 	private void initTable() {
 		studentTable = new LovoTable(this,
 				new String[]{"学生姓名","性别","班级","状态","联系电话"},
-				new String[]{"stuName","sex","classes.className","vip","phone"},//学生实体属性名数组 new String[]{"studentName","sex"}
+				new String[]{"stuName","sex","classes.name","vip","phone"},//学生实体属性名数组 new String[]{"studentName","sex"}
 				"stuId");//主键属性名 studentId
 		studentTable.setSizeAndLocation(180, 90, 550, 300);
-		
 	}
 	
 	/**
@@ -354,15 +355,11 @@ public class StudentPanel extends JPanel{
 	private void delEmployee(int studentId){
         //将学生的status设置为false
         if((JOptionPane.showConfirmDialog(null,"是否删除选中学生信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
-            new StudentDaoImp().deleteObject(studentId);
-            //对应的班级人数减1;
-            StudentBean stu = (StudentBean)new StudentDaoImp().getObjectByID(studentId);
-            ClassesBean cla = stu.getClasses();
-            cla.setStuNum(cla.getStuNum() -1);
-            new ClassesDaoImp().alterObject(cla.getId(),cla);
-            updateStudentTable(schoolId, 1);
+			if(new StudentServiceImp().deletStudent(studentId)){
+				//更新表格
+				updateStudentTable(schoolId, 1);
+			}
         }
-//		显示删除结果
 
 	}
 	/**
