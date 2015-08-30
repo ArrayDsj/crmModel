@@ -164,7 +164,6 @@ public class MainFrame extends JFrame{
 		
 		LovoTreeNode studentNode = new LovoTreeNode("学生管理"){
 			public void addListener(){
-				studentPanel.setSchoolId(0);
 				studentPanel.initData();
 				card.show(mainPanel, "student");
 			}
@@ -172,7 +171,6 @@ public class MainFrame extends JFrame{
 		
 		LovoTreeNode classNode = new LovoTreeNode("班级管理"){
 			public void addListener(){
-				studentPanel.setSchoolId(0);
 				classManagerPanel.initData();
 				card.show(mainPanel, "class");
 			}

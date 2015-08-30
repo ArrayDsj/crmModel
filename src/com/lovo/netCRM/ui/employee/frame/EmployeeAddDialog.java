@@ -224,8 +224,6 @@ public class EmployeeAddDialog extends JDialog{
 		boolean result = new EmployeeServiceImp().addStaff(0,newEmp);
 //		更新数据,显示添加结果
 		if(result){
-
-			this.emPanel.initData();
 			return true;
 		}
 		return false;

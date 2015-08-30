@@ -168,11 +168,9 @@ public class StudentAddDialog extends JDialog{
         stu.setVip(false);
 
         //写入数据库
-
 		new StudentServiceImp().addStudent(schoolId,stu);
 		//更新表格，显示添加结果
-		this.studentPanel.initData();
-		
+		//this.studentPanel.initData();
 		return true;
 	}
 }

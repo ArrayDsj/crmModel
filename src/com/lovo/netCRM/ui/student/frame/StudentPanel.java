@@ -1,7 +1,6 @@
 package com.lovo.netCRM.ui.student.frame;
 
 import com.lovo.netCRM.bean.AreaBean;
-import com.lovo.netCRM.bean.ClassesBean;
 import com.lovo.netCRM.bean.SchoolBean;
 import com.lovo.netCRM.bean.StudentBean;
 import com.lovo.netCRM.component.*;
@@ -9,7 +8,6 @@ import com.lovo.netCRM.dao.imp.ClassesDaoImp;
 import com.lovo.netCRM.dao.imp.StudentDaoImp;
 import com.lovo.netCRM.service.imp.AreaServiceImp;
 import com.lovo.netCRM.service.imp.StudentServiceImp;
-import com.lovo.netCRM.ui.frame.MainFrame;
 import com.lovo.netCRM.util.Switch;
 
 import javax.swing.*;
@@ -43,7 +41,26 @@ public class StudentPanel extends JPanel{
 	private  LovoComboBox<String> itemCombox;
 	/**值文本框*/
 	private  JTextField valueTxt = new JTextField();
-	
+
+	/**
+	 *
+	 * 分页属性
+	 */
+	//总记录数
+	private static int counts ;
+	private static int pageNum;
+	private final static int pageSize = 3;
+	private static int pageNow = 1;
+
+	private boolean onceFind = false;
+
+	//得到选项
+	String item = "更新";
+	//得到选项值
+	String value = "";
+
+
+
 	public StudentPanel(JFrame jf){
 		this.jf = jf;
 		this.setLayout(null);
@@ -55,6 +72,7 @@ public class StudentPanel extends JPanel{
 	 */
 	private void init() {
 		new LovoTitleLabel("学 生 管 理",this);
+
 		this.initTable();
 		this.initButton();
 		this.initData();
@@ -68,11 +86,14 @@ public class StudentPanel extends JPanel{
 	public void initData(){
 		if(schoolId==0){
 			if(cityAccordion == null){
-				this.initAccordion();
+				this.initAccordion();//初始化手风琴组件
 			}
-			this.updateAccordion();
+			this.updateAccordion();//更新手风琴组件
+
 		}
 		else{
+			onceFind = false;
+			pageNow = 1;
 			this.updateStudentTable(schoolId,1);
 		}
 		
@@ -91,7 +112,10 @@ public class StudentPanel extends JPanel{
 		prevButton.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-				prevClick();
+				if(pageNow > 1){
+					pageNOTxt.setText(--pageNow + "");
+					prevClick();
+				}
 			}});
 		
 		LovoButton nextButton = new LovoButton("下一页",0,0,this);
@@ -100,7 +124,10 @@ public class StudentPanel extends JPanel{
 		nextButton.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-				nextClick();
+				if(pageNow < pageNum){
+					pageNOTxt.setText(++pageNow + "");
+					nextClick();
+				}
 			}});
 		
 		JLabel jld = new JLabel("第");
@@ -140,8 +167,34 @@ public class StudentPanel extends JPanel{
 						return;
 					}
 				}
-				
 				new StudentAddDialog(jf,schoolId,StudentPanel.this);
+				/**
+				 * 判断是否翻页
+				 */
+				//读取总数
+				ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, 1, "更新", "");
+				ArrayList<StudentBean> students = new ArrayList<StudentBean>();
+				for(Object stu : objs){
+					StudentBean obj2Stu = (StudentBean)stu;
+					students.add(obj2Stu);
+				}
+				//总的记录条数
+				counts = Integer.parseInt(students.get(0).getDescribe());
+				//得到未添加学生的学生总页数
+				int oldPageNum = pageNum;
+				int newPageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+
+				if(oldPageNum < newPageNum){//增加了总页数
+					pageNum = newPageNum;
+				}
+				//更新新页数
+				ArrayList<Object> limitPage = new StudentDaoImp().getObjectByCon(schoolId, pageNum, "更新", "");
+				//设置总页数
+				setTotalPage(pageNum);
+				//设置当前页为最后一页
+				pageNow = pageNum;
+				pageNOTxt.setText(pageNow+"");
+				studentTable.updateLovoTable(update(limitPage));
 			}});
 		
 		LovoButton lbshow = new LovoButton("查看学生信息",170,500,this);
@@ -216,15 +269,17 @@ public class StudentPanel extends JPanel{
 		
 		lb.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
-				if(schoolId == 0){
-				JOptionPane.showMessageDialog(null,"请选择学校");
+			public void actionPerformed(ActionEvent e) {
+				if (schoolId == 0) {
+					JOptionPane.showMessageDialog(null, "请选择学校");
 					return;
 				}
-                findStudent(schoolId, 1);
-
-            }
-        });
+				if (itemCombox.getItem().equals("会员") || itemCombox.getItem().equals("非会员")) {
+					valueTxt.setText("");
+				}
+				findStudent(schoolId, 1);
+			}
+		});
 		
 	}
 	/**
@@ -252,42 +307,10 @@ public class StudentPanel extends JPanel{
 	 * 更新手风琴
 	 */
 	private void updateAccordion(){
+		ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
+		this.cityAccordion.updateAccordion(allAreas);
+	}
 
-//		this.cityAccordion.updateAccordion(new ArrayList());
-	}
-	/**
-	 * 更新表格
-	 * @param schoolId 学校ID
-	 * @param int pageNO 页码
-	 */
-	private void updateStudentTable(int schoolId,int pageNO){
-		//在学生表中,根据学校ID查找学生
-		//更新表格,插入List集合
-		ArrayList<StudentBean> stus = new StudentDaoImp().getStudentsBySchoolID(schoolId);
-		if(stus != null){
-			Switch change = null;
-			ArrayList<Object> changes = new ArrayList<Object>();
-			for(StudentBean stu : stus){
-				change = new Switch();
-				change.setStuId(stu.getId());
-				change.setPhone(stu.getPhone());
-				change.setClasses(stu.getClasses());
-				change.setSex(stu.getSex());
-				change.setStuName(stu.getName());
-				if(stu.isVip()){
-					change.setVip("会员");
-				}else {
-					change.setVip("非会员");
-				}
-				changes.add(change);
-			}
-			studentTable.updateLovoTable(changes);
-			//设置总页数
-			this.setTotalPage(0);
-		}else
-			studentTable.updateLovoTable(new ArrayList());
-	}
-	
 	/**
 	 * 初始化表格
 	 */
@@ -298,25 +321,115 @@ public class StudentPanel extends JPanel{
 				"stuId");//主键属性名 studentId
 		studentTable.setSizeAndLocation(180, 90, 550, 300);
 	}
-	
+
+	/**
+	 * 初始化更新表格
+	 * @param schoolId 学校ID
+	 * @param pageNOW 页码
+	 * 点击手风琴的时候被调用,传入学校id
+	 */
+	private void updateStudentTable(int schoolId,int pageNOW){
+		//在学生表中,根据学校ID查找学生
+		//更新表格,插入List集合
+		ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, pageNOW, "更新", "");
+		if(objs != null){
+			studentTable.updateLovoTable(this.update(objs));//已近设置了总记录数
+			//设置总页数
+			pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+			this.setTotalPage(pageNum);
+			pageNOTxt.setText(pageNow+"");
+		}else{
+			//设置总页数
+			this.setTotalPage(1);
+			pageNOTxt.setText("1");
+			studentTable.updateLovoTable(new ArrayList());
+		}
+	}
+
 	/**
 	 * 上一页点击事件
 	 */
 	private void prevClick(){
-		
+		if(onceFind){
+			ArrayList<Object> checkSuts = new StudentDaoImp().getObjectByCon(schoolId, pageNow, item, value);
+			if(checkSuts != null){
+				//更新表格,显示查询结果
+				studentTable.updateLovoTable(this.update(checkSuts));
+				//设置总页数
+				pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+				this.setTotalPage(pageNum);
+			}else {
+				//如果没有结果则不更新表格
+				JOptionPane.showMessageDialog(null,"已近是第一页了");
+			}
+		}else {
+			ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, pageNow, "更新", "");
+			if(objs != null){
+				studentTable.updateLovoTable(this.update(objs));//已近设置了总记录数
+				//设置总页数
+				pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+				this.setTotalPage(pageNum);
+				pageNOTxt.setText(pageNow+"");
+			}else{
+				//设置总页数
+				this.setTotalPage(1);
+				studentTable.updateLovoTable(new ArrayList());
+			}
+		}
+
 	}
 	/**
 	 * 下一页点击事件
 	 */
 	private void nextClick(){
-		
+		if(onceFind){
+			ArrayList<Object> checkSuts = new StudentDaoImp().getObjectByCon(schoolId, pageNow, item, value);
+			if(checkSuts != null){
+				//更新表格,显示查询结果
+				studentTable.updateLovoTable(this.update(checkSuts));
+				//设置总页数
+				pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+				this.setTotalPage(pageNum);
+			}else {
+				//如果没有结果则不更新表格
+				JOptionPane.showMessageDialog(null,"已近是最后一页了");
+			}
+		}
+		else {
+			ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, pageNow, "更新", "");
+			if(objs != null){
+				studentTable.updateLovoTable(this.update(objs));//已近设置了总记录数
+				//设置总页数
+				pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+				this.setTotalPage(pageNum);
+				pageNOTxt.setText(pageNow+"");
+			}else{
+				//设置总页数
+				this.setTotalPage(1);
+				studentTable.updateLovoTable(new ArrayList());
+			}
+		}
 	}
 	/**
 	 * 转向指定页码
 	 * @param pageNO 页码
 	 */
 	private void goClick(String pageNO){
-		
+		int page = -1;
+		try{
+			page = Integer.parseInt(pageNO);
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null,"输入错误");
+		}
+		if(page <= pageNum) {//如果输入的页数小于等于总页数
+			pageNow = Integer.parseInt(pageNO);//跳转到用户输入的页数
+			//得到选项
+			item = itemCombox.getItem();
+			//得到选项值
+			value = valueTxt.getText();
+			ArrayList<Object> checkSuts = new StudentDaoImp().getObjectByCon(schoolId, pageNow, item, value);
+			studentTable.updateLovoTable(this.update(checkSuts));
+		}
 	}
 	
 	/**
@@ -353,11 +466,60 @@ public class StudentPanel extends JPanel{
 	 * @param studentId 学生ID
 	 */
 	private void delEmployee(int studentId){
-        //将学生的status设置为false
+        //将学生的status设置为false 班级人数减一
         if((JOptionPane.showConfirmDialog(null,"是否删除选中学生信息","删除",JOptionPane.YES_NO_OPTION)) == 0){
 			if(new StudentServiceImp().deletStudent(studentId)){
-				//更新表格
-				updateStudentTable(schoolId, 1);
+				if(!onceFind){//无条件查询
+					ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, 1, "更新", "");
+
+					ArrayList<StudentBean> students = new ArrayList<StudentBean>();
+					for(Object stu : objs){
+						StudentBean obj2Stu = (StudentBean)stu;
+						students.add(obj2Stu);
+					}
+					//总的记录条数
+					counts = Integer.parseInt(students.get(0).getDescribe());
+					pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+
+					if(pageNow > pageNum){
+					//加载上一页信息
+						ArrayList<Object> limitPage = new StudentDaoImp().getObjectByCon(schoolId, pageNum, "更新", "");
+						pageNow = pageNum;
+						this.setTotalPage(pageNum);
+						pageNOTxt.setText(pageNow+"");
+						studentTable.updateLovoTable(this.update(limitPage));
+					}
+					else{
+						ArrayList<Object> limitPage = new StudentDaoImp().getObjectByCon(schoolId, pageNow, "更新", "");
+						this.setTotalPage(pageNum);
+						studentTable.updateLovoTable(this.update(limitPage));
+					}
+				}else{
+					ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, 1, item,value);
+
+					ArrayList<StudentBean> students = new ArrayList<StudentBean>();
+					for(Object stu : objs){
+						StudentBean obj2Stu = (StudentBean)stu;
+						students.add(obj2Stu);
+					}
+					//总的记录条数
+					counts = Integer.parseInt(students.get(0).getDescribe());
+					pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+
+					if(pageNow > pageNum){
+						//加载上一页信息
+						ArrayList<Object> limitPage = new StudentDaoImp().getObjectByCon(schoolId, pageNum, item,value);
+						pageNow = pageNum;
+						this.setTotalPage(pageNum);
+						pageNOTxt.setText(pageNow+"");
+						studentTable.updateLovoTable(this.update(limitPage));
+					}
+					else{
+						ArrayList<Object> limitPage = new StudentDaoImp().getObjectByCon(schoolId, pageNow, item,value);
+						this.setTotalPage(pageNum);
+						studentTable.updateLovoTable(this.update(limitPage));
+					}
+				}
 			}
         }
 
@@ -365,18 +527,55 @@ public class StudentPanel extends JPanel{
 	/**
 	 * 查找学生
 	 * @param schoolId 学校id
-	 * @param pageNO 页码
+	 * @param pageNOW 页码
 	 */
-	private void findStudent(int schoolId,int pageNO){
+	private void findStudent(int schoolId,int pageNOW){
+		onceFind = true;
 		//得到选项
-		String item = itemCombox.getItem();
+		item = itemCombox.getItem();
 		//得到选项值
-		String value = valueTxt.getText();
-        ArrayList<Object> checkSuts = new StudentDaoImp().getObjectByCon(item, value);
-//		更新表格,显示查询结果
-		studentTable.updateLovoTable(checkSuts);
-		//设置总页数
-		this.setTotalPage(pageNO);
+		value = valueTxt.getText();
+        ArrayList<Object> checkSuts = new StudentDaoImp().getObjectByCon(schoolId, pageNOW, item, value);
+		if(checkSuts != null){
+			//更新表格,显示查询结果
+			studentTable.updateLovoTable(this.update(checkSuts));
+			//设置总页数
+			pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+			pageNow = 1;
+			pageNOTxt.setText(pageNow+"");
+			this.setTotalPage(pageNum);
+
+		}else {
+			//如果没有结果则不更新表格
+			JOptionPane.showMessageDialog(null,"无查询结果");
+		}
+	}
+
+	private ArrayList<Switch> update (ArrayList<Object> objects) {
+		ArrayList<StudentBean> students = new ArrayList<StudentBean>();
+		for(Object stu : objects){
+			StudentBean obj2Stu = (StudentBean)stu;
+			students.add(obj2Stu);
+		}
+		//总的记录条数
+		counts = Integer.parseInt(students.get(0).getDescribe());
+		Switch change = null;
+		ArrayList<Switch> changes = new ArrayList<Switch>();
+		for(StudentBean stu : students){
+			change = new Switch();
+			change.setStuId(stu.getId());
+			change.setPhone(stu.getPhone());
+			change.setClasses(stu.getClasses());
+			change.setSex(stu.getSex());
+			change.setStuName(stu.getName());
+			if(stu.isVip()){
+				change.setVip("会员");
+			}else {
+				change.setVip("非会员");
+			}
+			changes.add(change);
+		}
+		return changes;
 	}
 
 }

@@ -154,7 +154,8 @@ public class ClassManagerPanel extends JPanel{
 	 * 更新手风琴
 	 */
 	private void updateAccordion(){
-		//this.cityAccordion.updateAccordion(new ArrayList());
+		ArrayList<Object> allAreas = new AreaServiceImp().getAllAreas();
+		this.cityAccordion.updateAccordion(allAreas);
 	}
 	/**
 	 * 更新表格

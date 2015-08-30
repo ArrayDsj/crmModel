@@ -255,6 +255,190 @@ public class StudentDaoImp implements CrmDao{
         }
     }
 
+
+    /**
+     * 查找学生
+     * @param schoolID 学校id
+     * @param pageNow 页码
+     */
+    public ArrayList<Object> getObjectByCon(int schoolID,int pageNow,String item, String value) {
+        ArrayList<Object> stuListByCon = new ArrayList<Object>();
+        StudentBean stu = null;
+        int pageSize = 3;
+        Connection con = ConnectionSQL.createConnectionSQL();
+        String conSQL = null;
+        String countsSQL = null;
+        ResultSet rs = null;
+        //根据item来确认SQL语句
+        switch(item){
+            case "更新"://不带条件查询全部的信息然后分页
+                conSQL ="SELECT stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "and s.stu_status = 1\n"+
+                        "order by stu_id DESC \n"+
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";\n" ;
+
+                countsSQL = "SELECT count(*)\n"+
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "and s.stu_status = 1\n"+
+                        "AND s.school_id = " + schoolID +"\n";
+                break;
+            case "学生姓名" :
+                conSQL ="SELECT  stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "where stu_name like '%" + value + "%'\n" +
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "and s.stu_status = 1\n"+
+                        "order by stu_id DESC \n"+
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";\n" ;
+
+                countsSQL = "SELECT count(*)\n"+
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "and s.stu_status = 1\n"+
+                        "where stu_name like '%" + value + "%'\n" ;
+                break;
+
+            case "班级" :
+                conSQL ="SELECT  stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "where class_name   like '%" + value + "%'\n" +
+                        "and s.stu_status = 1\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "order by stu_id DESC \n"+
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";\n";
+
+                countsSQL = "SELECT count(*)\n"+
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "and s.stu_status = 1\n"+
+                        "where class_name like '%" + value + "%'\n" ;
+
+                break;
+
+            case "会员" :
+                conSQL = "SELECT  stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "and s.stu_status = 1\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "where  stu_vip = 1 \n"+
+                        "order by stu_id DESC \n"+
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";\n";
+
+                countsSQL = "SELECT count(*)\n"+
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "and s.stu_status = 1\n"+
+                        "where  stu_vip = 1 \n";
+
+                break;
+
+            case "非会员" :
+                conSQL = "SELECT  stu_id,stu_name, \n" +
+                        "stu_sex,stu_status, \n" +
+                        "stu_vip,stu_phone,class_name\n" +
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "and s.stu_status = 1\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "where  stu_vip = 0 \n"+
+                        "order by stu_id DESC \n"+
+                        "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";\n";
+
+                countsSQL = "SELECT count(*)\n"+
+                        "from student s\n" +
+                        "join classes c\n" +
+                        "on s.classes_id = c.class_id\n"+
+                        "AND s.school_id = " + schoolID +"\n"+
+                        "and s.stu_status = 1\n"+
+                        "where  stu_vip = 0 \n";
+
+                break;
+        }
+        try {
+            Statement st  = con.createStatement();
+
+            //第一个结果集
+            rs = st.executeQuery(countsSQL);
+            //结果指针指向的是第一行之前,所以使用方法让指针指向第一行
+            // rs.next()
+            rs.first();
+            int counts = -1;
+            //如果总条数不为零 则开始第二次查询
+            if(rs.getInt(1) != 0){
+                counts = rs.getInt(1);
+                //取得第二条sql语句的结果
+                rs = st.executeQuery(conSQL);
+                while(rs != null && rs.next()){
+                    if (!rs.getBoolean(4)){
+                        continue;
+                    }
+                    stu = new StudentBean();
+                    stu.setId(rs.getInt(1));
+                    stu.setName(rs.getString(2));
+                    stu.setSex(rs.getString(3));
+                    stu.setVip(rs.getBoolean(5));
+                    stu.setPhone(rs.getString(6));
+                    //使用班级ID查找班级,只有一个
+                    stu.setClasses(new ClassesDaoImp().getClassesByName(rs.getString(7)));
+                    stuListByCon.add(stu);
+                }
+                if(stuListByCon != null){
+                    StudentBean count = (StudentBean)stuListByCon.get(0);
+                    count.setDescribe(counts + "");
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if(stuListByCon.size() != 0){
+            return stuListByCon;
+        }else {
+           // JOptionPane.showMessageDialog(null, "无查询结果");
+            return null;
+        }
+    }
+
+
+
+
+
     @Override
     public Object getObjectByName(String name) {
         return null;
