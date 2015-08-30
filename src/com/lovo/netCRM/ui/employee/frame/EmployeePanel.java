@@ -132,6 +132,8 @@ public class EmployeePanel extends JPanel{
 
 			public void actionPerformed(ActionEvent e) {
 				new EmployeeAddDialog(jf,EmployeePanel.this);
+				//设置初始化
+				onceFind = false;
 				/**
 				 * 判断是否翻页
 				 */
@@ -166,6 +168,7 @@ public class EmployeePanel extends JPanel{
 					return;
 				}
 				delEmployee(key);
+				onceFind = false;
 			}});
 		
 		
@@ -179,6 +182,7 @@ public class EmployeePanel extends JPanel{
 					return;
 				}
 				new EmployeeUpdateDialog(jf,key,EmployeePanel.this);
+				onceFind = false;
 			}});
 		
 		
@@ -192,6 +196,7 @@ public class EmployeePanel extends JPanel{
 					return;
 				}
 				new EmployeeShowDialog(jf,key);
+				onceFind = false;
 			}});
 	}
 	/**
@@ -251,10 +256,10 @@ public class EmployeePanel extends JPanel{
 		//无条件下总记录数
 		counts = allEmps.size();
 		pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
-		employeeTable.updateLovoTable(limitAllEmps);
 		//设置总页数
-		pageNOTxt.setText(pageNow+"");
+		pageNOTxt.setText(pageNow + "");
 		this.setTotalPage(pageNum);//总页数就是无条件下的全部记录总数除以分页大小
+		employeeTable.updateLovoTable(limitAllEmps);
 	}
 	
 	/**

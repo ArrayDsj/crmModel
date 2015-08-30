@@ -81,16 +81,14 @@ public class EmployeeDaoImp implements CrmDao {
                 "join depart d \n" +
                 "on s.staff_department_id = d.depart_id\n" +
                 "join t_position p\n" +
-                "on s.staff_position_id = p.position_id\n";
+                "on s.staff_position_id = p.position_id\n"+
+                "and s.staff_status = 1\n";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(allEmp);
             while(rs.next()){
                 //先判断这个员工的状态
                 //如果员工属于离职状态则不显示
-                if(!rs.getBoolean(13)){
-                    continue;
-                }
                 //组合员工信息
                 EmployeeBean emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
@@ -147,6 +145,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         "order by staff_id\n" ;
                 break;
 
@@ -156,6 +155,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         "where s.staff_name like '%" + value + "% '\n" +
                         "order by staff_id\n" ;
                 break;
@@ -166,6 +166,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         " where d.depart_name like '%" + value + "%'\n" +
                         "order by staff_id\n" ;
                 break;
@@ -176,6 +177,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         "where s.staff_edu like '%" + value + "%'\n" +
                         "order by staff_id\n" ;
 
@@ -187,6 +189,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         " where p.position_name like '%" + value + "%'\n" +
                         "order by staff_id\n" ;
                 break;
@@ -196,9 +199,6 @@ public class EmployeeDaoImp implements CrmDao {
             ResultSet rs = st.executeQuery(conSQL);
 
             while(rs.next()){
-                if(!rs.getBoolean(13)){
-                    continue;
-                }
                 counts++;
             }
             emocounts.setID(counts);
@@ -229,6 +229,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
                 break;
@@ -240,6 +241,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
                         "where s.staff_name like '%" + value + "% '\n" +
+                        "and s.staff_status = 1\n"+
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize +";";
                 break;
@@ -251,6 +253,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
                         " where d.depart_name like '%" + value + "%'\n" +
+                        "and s.staff_status = 1\n"+
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
                 break;
@@ -261,6 +264,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         "where s.staff_edu like '%" + value + "%'\n" +
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
@@ -273,6 +277,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
+                        "and s.staff_status = 1\n"+
                         " where p.position_name like '%" + value + "%'\n" +
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
@@ -282,9 +287,6 @@ public class EmployeeDaoImp implements CrmDao {
             Statement st  = con.createStatement();
             ResultSet rs = st.executeQuery(conSQL);
             while(rs.next()){
-                if(!rs.getBoolean(13)){
-                    continue;
-                }
                 //组合员工信息
                 EmployeeBean emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
@@ -332,6 +334,7 @@ public class EmployeeDaoImp implements CrmDao {
                 "on s.staff_department_id = d.depart_id\n" +
                 "join t_position p\n" +
                 "on s.staff_position_id = p.position_id\n" +
+                "and s.staff_status = 1\n"+
                 "and staff_name = '" + name + "'";
         EmployeeBean emp = null;
         try {
@@ -339,9 +342,6 @@ public class EmployeeDaoImp implements CrmDao {
             ResultSet rs = st.executeQuery(allEmp);
             while(rs.next()){
                 //组合员工信息
-                if(!rs.getBoolean(13)){
-                    continue;
-                }
                 emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
                 emp.setName(rs.getString(4));
@@ -386,15 +386,13 @@ public class EmployeeDaoImp implements CrmDao {
                 "on s.staff_department_id = d.depart_id\n" +
                 "join t_position p\n" +
                 "on s.staff_position_id = p.position_id\n" +
+                "and s.staff_status = 1\n"+
                 "where staff_id =" + ObjectID;
         EmployeeBean emp = null;
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(getObjectByIDSQL);
             while(rs.next()){
-                if(!rs.getBoolean(13)){
-                    continue;
-                }
                 //组合员工信息
                 emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
@@ -674,14 +672,11 @@ public class EmployeeDaoImp implements CrmDao {
     public ArrayList<EmployeeBean> getAllEmpByDeptID(int deptID){
         Connection con = ConnectionSQL.createConnectionSQL();
         ArrayList<EmployeeBean> emps = new ArrayList<EmployeeBean>();
-        String sql = "select staff_id ,staff_name ,staff_status from staff where staff_department_id= " + deptID;
+        String sql = "select staff_id ,staff_name ,staff_status from staff where staff_department_id= " + deptID+"\n"+"and staff_status = 1\n";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                if(!rs.getBoolean(3)){
-                    continue;
-                }
                 EmployeeBean emp = new EmployeeBean();
                 emp.setID(rs.getInt(1));
                 emp.setName(rs.getString(2));

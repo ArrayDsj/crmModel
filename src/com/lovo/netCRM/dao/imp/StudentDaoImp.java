@@ -125,6 +125,7 @@ public class StudentDaoImp implements CrmDao{
         try {
             //关闭自动提交,开启事务
             con.setAutoCommit(false);
+
             PreparedStatement ps = con.prepareStatement(addSQL);
             ps.setString(1, newStudent.getName());
             ps.setString(2, newStudent.getSex());
@@ -141,8 +142,8 @@ public class StudentDaoImp implements CrmDao{
             ps.setInt(13, newStudent.getClasses().getId());
             ps.setInt(14,schoolID);
 
-            result = ps.executeUpdate();
 
+            result = ps.executeUpdate();
             ps = con.prepareStatement(alterSQL);
             ps.setInt(1,newStudent.getClasses().getId());
             ps.executeUpdate();

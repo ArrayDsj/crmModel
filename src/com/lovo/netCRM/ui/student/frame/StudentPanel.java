@@ -168,6 +168,7 @@ public class StudentPanel extends JPanel{
 					}
 				}
 				new StudentAddDialog(jf,schoolId,StudentPanel.this);
+				onceFind = false;
 				/**
 				 * 判断是否翻页
 				 */
@@ -208,6 +209,7 @@ public class StudentPanel extends JPanel{
 				}
 				
 				new StudentShowDialog(jf,key);
+				onceFind = false;
 			}});
 		
 		
@@ -221,6 +223,7 @@ public class StudentPanel extends JPanel{
 					return;
 				}
 				delEmployee(key);
+				onceFind = false;
 			}});
 		
 		
@@ -235,6 +238,7 @@ public class StudentPanel extends JPanel{
 				}
 				
 				new StudentUpdateDialog(jf,schoolId,key,StudentPanel.this);
+				onceFind = false;
 			}});
 		
 		LovoButton lbAddBack = new LovoButton("添加回防记录",170,570,this);
@@ -246,7 +250,7 @@ public class StudentPanel extends JPanel{
 					JOptionPane.showMessageDialog(null,"请选择行");
 					return;
 				}
-				
+				onceFind = false;
 				new StudentVisitAddialog(jf,key,schoolId);
 			}});
 	}
@@ -471,7 +475,6 @@ public class StudentPanel extends JPanel{
 			if(new StudentServiceImp().deletStudent(studentId)){
 				if(!onceFind){//无条件查询
 					ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, 1, "更新", "");
-
 					ArrayList<StudentBean> students = new ArrayList<StudentBean>();
 					for(Object stu : objs){
 						StudentBean obj2Stu = (StudentBean)stu;
@@ -496,7 +499,6 @@ public class StudentPanel extends JPanel{
 					}
 				}else{
 					ArrayList<Object> objs = new StudentDaoImp().getObjectByCon(schoolId, 1, item,value);
-
 					ArrayList<StudentBean> students = new ArrayList<StudentBean>();
 					for(Object stu : objs){
 						StudentBean obj2Stu = (StudentBean)stu;
@@ -506,7 +508,7 @@ public class StudentPanel extends JPanel{
 					counts = Integer.parseInt(students.get(0).getDescribe());
 					pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
 
-					if(pageNow > pageNum){
+					if(pageNow > pageNum){//如果删除的是最后一页的唯一一个
 						//加载上一页信息
 						ArrayList<Object> limitPage = new StudentDaoImp().getObjectByCon(schoolId, pageNum, item,value);
 						pageNow = pageNum;

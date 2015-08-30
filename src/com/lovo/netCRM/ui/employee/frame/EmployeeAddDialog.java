@@ -182,7 +182,7 @@ public class EmployeeAddDialog extends JDialog{
 		if(!this.phoneTxt.getText().matches("^[1][0-9]{10}$")){
 			str += "电话号码格式不正确\n";
 		}
-		if(!specialityTxt.getText().matches("[\\u4e00-\\u9fa5]{2,20}")){
+		if(!specialityTxt.getText().matches("[a-zA-Z0-9\\u4e00-\\u9fa5]{2,20}")){
 			str += "专业格式正确\n";
 		}
 		if(!addressTxt.getText().matches("[a-zA-Z0-9\\u4e00-\\u9fa5]{2,20}")){
@@ -191,9 +191,7 @@ public class EmployeeAddDialog extends JDialog{
 		if(birthdayTxt.getText() == null){
 			str += "出生日期不能为空\n";
 		}
-		if(birthdayTxt.getText() == null){
-			str += "出生日期不能为空\n";
-		}
+
 		if(str.length() != 0){
 			JOptionPane.showMessageDialog(null, str);
 			return false;
