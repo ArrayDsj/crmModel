@@ -21,6 +21,7 @@ public class ActiveDaoImp implements CrmDao{
         }
         ActiveBean active = (ActiveBean)object;
         Connection con = ConnectionSQL.createConnectionSQL();
+
         String sql =
                 "insert into active(active_name,active_address,\n" +
                 "active_title,active_time,staff_id,school_id) \n" +

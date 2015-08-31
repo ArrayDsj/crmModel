@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="crmModel:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/crmModel_jar</output-path>
+    <root id="root">
+      <element id="archive" name="crmModel.jar">
+        <element id="module-output" name="crmModel" />
+      </element>
+      <element id="library" level="module" name="swingx-core-1.6.2.jar" module-name="crmModel" />
+      <element id="library" level="project" name="lib" />
+      <element id="library" level="module" name="lovoComponent.jar" module-name="crmModel" />
+    </root>
+  </artifact>
+</component>

@@ -101,6 +101,13 @@ public class StudentUpdateDialog extends JDialog{
 //		添加班级集合
         ArrayList<Object> allClassBySchool = new ClassesDaoImp().getObjectByschID(schoolId);
 		this.classTxt = new LovoComboBox("所属班级",allClassBySchool,320,100,this);
+//		ClassesBean classes =(ClassesBean)new ClassesDaoImp().getObjectByStudentID(studentId);
+//		String name = classes.getName();
+//		for(int i = 0 ; i < allClassBySchool.size() ; i++){
+//			if(classTxt.getItemAt(i).equals(name)){
+//				classTxt.setSelectedIndex(i);
+//			}
+//		}
 	}
 	
 	/**
@@ -110,11 +117,7 @@ public class StudentUpdateDialog extends JDialog{
 	private void initData(int studentId) {
         StudentBean stu = (StudentBean) new StudentDaoImp().getObjectByID(studentId);
 		ArrayList<Object> allClassBySchool = new ClassesDaoImp().getObjectByschID(schoolId);
-//		for(int i = 0 ; i < allClassBySchool.size() ; i++){
-//			if(classTxt.getItemAt(i).equals(stu.getClasses().getName())){
-//				classTxt.setSelectedIndex(i);
-//			}
-//		}
+
 		boolean vip = stu.isVip();
 		if(vip){
 			stateTxt.setSelectedIndex(0);

@@ -4,8 +4,11 @@ package com.lovo.netCRM.ui.count.frame;
 import com.lovo.netCRM.component.LovoTable;
 import com.lovo.netCRM.component.LovoTitleLabel;
 import com.lovo.netCRM.service.imp.AddressCountServiceImp;
+import com.lovo.test.JFreeChartTest;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +36,16 @@ public class AddressCountPanel extends JPanel{
 		new LovoTitleLabel("地 区 统 计",this);
 		this.initTable();
 		this.initData();
+		JButton button = new JButton();
+		button.setBounds(20,400,80,20);
+		button.setText("报表");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new JFreeChartTest("测试").get();
+			}
+		});
+		this.add(button);
 	}
 	/**
 	 * 更新数据

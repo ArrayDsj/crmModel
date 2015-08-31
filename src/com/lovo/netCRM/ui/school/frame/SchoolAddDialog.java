@@ -78,18 +78,16 @@ public class SchoolAddDialog extends JDialog{
 	private void init() {
 		this.initComboBox();
         //初始化默认选中第几项
-        cityTxt.setSelectedIndex(0);
-        deptTxt.setSelectedIndex(1);
-
 		LovoButton lbadd = new LovoButton("添加",200,400,this);
-		lbadd.addActionListener(new ActionListener(){
+		lbadd.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				boolean isOk = addSchool();
-				if(isOk){
+				if (isOk) {
 					SchoolAddDialog.this.dispose();
 				}
-			}});
+			}
+		});
 		
 		LovoButton lbcancel = new LovoButton("取消",400,400,this);
 		lbcancel.addActionListener(new ActionListener(){
@@ -110,6 +108,18 @@ public class SchoolAddDialog extends JDialog{
 		ArrayList<Object> areas = new AreaServiceImp().getAllAreas();
 		this.cityTxt = new LovoComboBox("所属城市",areas,320,50,this);
 
+		//默认选择点中选中地区的地区学校
+		int cityID = schoolPanel.getCityId();
+
+		AreaBean area = (AreaBean)new AreaServiceImp().getArea(cityID);
+		String cityName = area.getName();
+		for(int i = 0 ; i < cityTxt.getItemCount();i++){
+			if(cityTxt.getItemAt(i).toString().equals(cityName)){
+				cityTxt.setSelectedIndex(i);
+			}
+		}
+
+
 		//添加部门List集合
 		ArrayList<Object> departs = new DepartServiceImp().getAllDepts();
 		this.deptTxt = new LovoComboBox("负责部门",departs,50,300,this){
@@ -123,6 +133,7 @@ public class SchoolAddDialog extends JDialog{
 				employeeTxt.setList(new EmployeeDaoImp().getAllEmpByDeptID(dept.getDepartID()));
 			}
 		};
+		deptTxt.setSelectedIndex(1);
 	}
 	
 	/**

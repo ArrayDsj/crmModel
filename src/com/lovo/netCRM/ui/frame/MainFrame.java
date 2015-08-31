@@ -220,21 +220,27 @@ public class MainFrame extends JFrame{
 		countNode.add(areaNode);
 		countNode.add(scNode);
 
+		//管理权限
 		if(managerRight){
 			sorceNode.add(employeeNode);
 			sorceNode.add(deptNode);
-			if(backRight){
+			if(backRight){//后台权限
 				sorceNode.add(workNode);
 			}
 			rootNode.add(sorceNode);
 		}
-		if(checkRight){
+//		if(queryRight){
+//			rootNode.add(schoolNode);
+//		}
+		if(checkRight){//查询权限
 			rootNode.add(schoolNode);
 			rootNode.add(userNode);
 		}
-		if(saleRight){
+
+		if(saleRight){//销售统计权限
 			rootNode.add(countNode);
 		}
+
 
 		//创建树形菜单
 		this.tree = new LovoTree(rootNode);

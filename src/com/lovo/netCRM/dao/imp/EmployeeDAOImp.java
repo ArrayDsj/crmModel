@@ -18,7 +18,8 @@ import java.util.Date;
 public class EmployeeDaoImp implements CrmDao {
     //员工的登录操作
     public EmployeeBean login(String loginName, String passWord) {
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         //查找当前用户信息
         String loginSQL = "select * from staff where staff_loginName = ? and staff_passWord = ?";
         EmployeeBean loginEmp = null;
@@ -75,7 +76,8 @@ public class EmployeeDaoImp implements CrmDao {
     //查询全部员工
     public ArrayList<Object> getAllObjects() {
         ArrayList<Object> empList = new ArrayList<Object>();
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         //查找当前用户信息
         String allEmp = "select * from staff s\n" +
                 "join depart d \n" +
@@ -132,7 +134,8 @@ public class EmployeeDaoImp implements CrmDao {
     //按条件查询用户信息
     public ArrayList<Object> getObjectByCon(String item, String value) {
         ArrayList<Object> result = new  ArrayList<Object>();
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         EmployeeBean emocounts = new  EmployeeBean();
         String conSQL = null;
         //记录满足条件的记录的条数;
@@ -156,7 +159,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
                         "and s.staff_status = 1\n"+
-                        "where s.staff_name like '%" + value + "% '\n" +
+                        "where s.staff_name like '%" + value + "%'\n" +
                         "order by staff_id\n" ;
                 break;
 
@@ -219,7 +222,8 @@ public class EmployeeDaoImp implements CrmDao {
 
     public ArrayList<Object> getObjectByCon(int pageNow,int pageSize,String item, String value) {
         ArrayList<Object> empListByCon = new ArrayList<Object>();
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         String conSQL = null;
         //根据item来确认SQL语句
         switch(item){
@@ -240,8 +244,8 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
-                        "where s.staff_name like '%" + value + "% '\n" +
                         "and s.staff_status = 1\n"+
+                        "and s.staff_name like '%" + value + "%'\n" +
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize +";";
                 break;
@@ -252,7 +256,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "on s.staff_department_id = d.depart_id\n" +
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
-                        " where d.depart_name like '%" + value + "%'\n" +
+                        "where d.depart_name like '%" + value + "%'\n" +
                         "and s.staff_status = 1\n"+
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
@@ -278,7 +282,7 @@ public class EmployeeDaoImp implements CrmDao {
                         "join t_position p\n" +
                         "on s.staff_position_id = p.position_id\n" +
                         "and s.staff_status = 1\n"+
-                        " where p.position_name like '%" + value + "%'\n" +
+                        "where p.position_name like '%" + value + "%'\n" +
                         "order by staff_id\n" +
                         "limit " + (pageNow - 1) * pageSize + "," + pageSize + ";";
                 break;
@@ -327,7 +331,8 @@ public class EmployeeDaoImp implements CrmDao {
 
     @Override
     public Object getObjectByName(String name) {
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         //查找当前用户信息
         String allEmp = "select * from staff s\n" +
                 "join depart d \n" +
@@ -379,7 +384,8 @@ public class EmployeeDaoImp implements CrmDao {
 
     @Override
     public Object getObjectByID(int ObjectID) {
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         //按ID查找指定用户
         String getObjectByIDSQL = "select * from staff s\n" +
                 "join depart d \n" +
@@ -431,7 +437,8 @@ public class EmployeeDaoImp implements CrmDao {
     //修改员工信息
     public boolean alterObject(int objID,Object alterObj) {
         EmployeeBean alterEmp = (EmployeeBean)alterObj;
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         int id = alterEmp.getID();
         //传进来的员工是已经修改过后的员工信息
         //根据员工Bean中的信息,找出部门和职位所代表的数字
@@ -480,7 +487,9 @@ public class EmployeeDaoImp implements CrmDao {
     public boolean addObject(Object object) {
         EmployeeBean newEmp = (EmployeeBean)object;
         //根据新员工的信息向数据库中添加员工
-        Connection con = ConnectionSQL.createConnectionSQL();
+       // Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
+
         String staff_name = newEmp.getName();
         String staff_loginName = newEmp.getLoginName();
         String staff_passWord = newEmp.getPassWord();
@@ -559,7 +568,8 @@ public class EmployeeDaoImp implements CrmDao {
     public boolean addObject(int objectID, Object object) {
         EmployeeBean newEmp = (EmployeeBean)object;
         //根据新员工的信息向数据库中添加员工
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         String staff_name = newEmp.getName();
         String staff_loginName = newEmp.getLoginName();
         String staff_passWord = newEmp.getPassWord();
@@ -638,7 +648,8 @@ public class EmployeeDaoImp implements CrmDao {
     public boolean deleteObject(int ObjectID) {
         //根据员工ID删除员工
         //不是物理删除,只是把stauts设置为1
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         //修改用户状态信息
         String deletEmpSQL = "update staff set staff_status = 0," +
                             "staff_loginName = NULL," +
@@ -670,7 +681,8 @@ public class EmployeeDaoImp implements CrmDao {
      */
 
     public ArrayList<EmployeeBean> getAllEmpByDeptID(int deptID){
-        Connection con = ConnectionSQL.createConnectionSQL();
+        //Connection con = ConnectionSQL.createConnectionSQL();
+        Connection con = ConnectionSQL.getInstance().createConnectionSQL();
         ArrayList<EmployeeBean> emps = new ArrayList<EmployeeBean>();
         String sql = "select staff_id ,staff_name ,staff_status from staff where staff_department_id= " + deptID+"\n"+"and staff_status = 1\n";
         try {

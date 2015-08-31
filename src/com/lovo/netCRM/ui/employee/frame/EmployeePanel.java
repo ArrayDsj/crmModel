@@ -266,14 +266,13 @@ public class EmployeePanel extends JPanel{
 	 * 上一页点击事件
 	 */
 	private void prevClick(){
+		ArrayList<Object> limitEmps = null;
 		if(!onceFind){//如果没有点击查询 则是按全部的来显示
-			ArrayList<Object> limitEmps = null;
 			limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, "所有员工", "");
 			if(limitEmps != null){//如果为空,就不更新表格
 				employeeTable.updateLovoTable(limitEmps);
 			}
 		}else{
-			ArrayList<Object> limitEmps = null;
 			limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, item, value);
 			if(limitEmps != null){//如果为空,就不更新表格
 				employeeTable.updateLovoTable(limitEmps);
@@ -285,15 +284,13 @@ public class EmployeePanel extends JPanel{
 	 * 下一页点击事件
 	 */
 	private void nextClick(){
+		ArrayList<Object> limitEmps = null;
 		if(!onceFind){
-
-			ArrayList<Object> limitEmps = null;
 			limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, "所有员工", "");
 			if(limitEmps != null){//如果为空,就不更新表格
 				employeeTable.updateLovoTable(limitEmps);
 			}
 		}else{
-			ArrayList<Object> limitEmps = null;
 			limitEmps = new EmployeeServiceImp().getAllStaffs(pageNow, pageSize, item, value);
 			if(limitEmps != null){//如果为空,就不更新表格
 				employeeTable.updateLovoTable(limitEmps);
@@ -379,10 +376,9 @@ public class EmployeePanel extends JPanel{
 	private void findEmployee(){
 		onceFind = true;
 		//得到选项(条件)
-		item = itemCombox.getItem().toString();
+		item = itemCombox.getItem();
 		//得到选项值(模糊查询条件)
 		value = valueTxt.getText();
-		JOptionPane.showMessageDialog(null, item + "   " + value);
 		EmployeeBean empCounts = (EmployeeBean) new EmployeeServiceImp().getAllStaffs(item, value).get(0);
 		//得到满足条件的总记录数
 		int allCounts = empCounts.getID();
@@ -399,6 +395,19 @@ public class EmployeePanel extends JPanel{
 				pageNow = 1;
 				pageNOTxt.setText("1");
 			}
+		}else {
+			JOptionPane.showMessageDialog(null, "无查询结果");
+			onceFind = false;
+			valueTxt.setText("");
+			//总记录数
+			ArrayList<Object> allEmps =new EmployeeServiceImp().getAllStaffs();
+			counts = allEmps.size();
+			pageNum = (int) Math.ceil(counts / (pageSize * 1.0));
+			ArrayList<Object> limitAllEmps = new EmployeeServiceImp().getAllStaffs(1, pageSize, "所有员工", "");
+			pageNow = 1;
+			this.setTotalPage(pageNum);
+			pageNOTxt.setText(pageNow+"");
+			employeeTable.updateLovoTable(limitAllEmps);
 		}
 	}
 }

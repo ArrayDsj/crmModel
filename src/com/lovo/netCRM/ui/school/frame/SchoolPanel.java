@@ -32,6 +32,14 @@ public class SchoolPanel extends JPanel{
 	/**城市id*/
 	private  int cityId;
 
+	public int getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
+	}
+
 	//初始化城市列表
 	private LovoList cityList  = new LovoList(20,90,150,300,this) {
 		public void onchange(Object t){

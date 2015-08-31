@@ -120,7 +120,7 @@ public class PositionDaoImp implements CrmDao {
         boolean query = alterPos.isQueryRight();
         boolean sale = alterPos.isSaleRight();
         boolean manager = alterPos.isManagerRight();
-        boolean back = alterPos.isManagerRight();
+        boolean back = alterPos.isBackRight();
         String alterSQL = "update t_position set \n" +
                 "checkRight = ? ,\n"+
                 "queryRight = ? ,\n"+
