@@ -45,12 +45,14 @@ Temporary Items
 
 
 # in atmGUI file
-/out
 /bin
 /doc
 /lib
-*.classpath
-*.project
 *.iml
-/.idea/woekspace.xml
+/.idea
 /face
+/classes
+/image
+/crmModel.eml
+/crmModel.userlibraries
+/api

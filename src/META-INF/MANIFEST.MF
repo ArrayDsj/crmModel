@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: swingx-core-1.6.2.jar quaqua.jar Mysql_Driver.jar swing-la
+ yout.jar lovoComponent.jar jcommon-1.0.23.jar jfreechart-1.0.19.jar s
+ wingx-core-1.6.2.jar lovoComponent.jar
+Main-Class: com.lovo.test.Test
+
